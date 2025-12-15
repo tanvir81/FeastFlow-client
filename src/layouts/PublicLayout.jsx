@@ -1,5 +1,6 @@
 import { Outlet } from "react-router";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 export default function PublicLayout() {
   return (
@@ -13,9 +14,7 @@ export default function PublicLayout() {
       </main>
 
       {/* Global Footer*/}
-      <footer className="bg-gray-100 py-6 text-center text-sm text-gray-600">
-        © {new Date().getFullYear()} FeastFlow — Order. Enjoy. Repeat.
-      </footer>
+      <Footer />
     </div>
   );
 }

@@ -33,19 +33,13 @@ export default function Navbar() {
           </label>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+            className="menu menu-sm dropdown-content mt-3 z-[1] p-2  rounded-box w-52"
           >
             <li>
               <NavLink to="/">Home</NavLink>
             </li>
             <li>
               <NavLink to="/meals">Meals</NavLink>
-            </li>
-            <li>
-              <NavLink to="/reviews">Reviews</NavLink>
-            </li>
-            <li>
-              <NavLink to="/favorites">Favorites</NavLink>
             </li>
             {user && (
               <li>
@@ -56,8 +50,13 @@ export default function Navbar() {
         </div>
 
         {/* Logo */}
-        <NavLink to="/" className="text-2xl font-bold text-red-600">
-          FeastFlow
+        <NavLink to="/" className="flex flex-col items-center gap-0">
+          <img
+            src="/feast-flow-logo.png"
+            alt="FeastFlow Logo"
+            className="w-14 h-14 object-contain"
+          />
+          <span className="text-xl font-bold text-[#F79A19]">FeastFlow</span>
         </NavLink>
       </div>
 
@@ -68,7 +67,11 @@ export default function Navbar() {
             <NavLink
               to="/"
               className={({ isActive }) =>
-                isActive ? "text-red-600 font-semibold" : "hover:text-red-500"
+                `border border-[#FFE52A] px-3 py-1 rounded ${
+                  isActive
+                    ? "text-[#FFE52A] font-bold"
+                    : "text-gray-600 hover:text-[#F79A19]"
+                }`
               }
             >
               Home
@@ -78,30 +81,14 @@ export default function Navbar() {
             <NavLink
               to="/meals"
               className={({ isActive }) =>
-                isActive ? "text-red-600 font-semibold" : "hover:text-red-500"
+                `border border-[#FFE52A] px-3 py-1 rounded ${
+                  isActive
+                    ? "text-[#FFE52A] font-bold"
+                    : "text-gray-600 hover:text-[#F79A19]"
+                }`
               }
             >
               Meals
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/reviews"
-              className={({ isActive }) =>
-                isActive ? "text-red-600 font-semibold" : "hover:text-red-500"
-              }
-            >
-              Reviews
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/favorites"
-              className={({ isActive }) =>
-                isActive ? "text-red-600 font-semibold" : "hover:text-red-500"
-              }
-            >
-              Favorites
             </NavLink>
           </li>
           {user && (
@@ -109,7 +96,11 @@ export default function Navbar() {
               <NavLink
                 to="/dashboard"
                 className={({ isActive }) =>
-                  isActive ? "text-red-600 font-semibold" : "hover:text-red-500"
+                  `border border-[#FFE52A] px-3 py-1 rounded ${
+                    isActive
+                      ? "text-[#FFE52A] font-bold"
+                      : "text-gray-600 hover:text-[#F79A19]"
+                  }`
                 }
               >
                 Dashboard
@@ -123,16 +114,25 @@ export default function Navbar() {
       <div className="navbar-end">
         {!user ? (
           <>
-            <NavLink to="/login" className="btn btn-sm btn-outline mr-2">
+            <NavLink
+              to="/login"
+              className="btn btn-sm bg-transparent border border-[#FFE52A] text-[#FFE52A] hover:bg-[#FFE52A] hover:text-white mr-2"
+            >
               Login
             </NavLink>
-            <NavLink to="/register" className="btn btn-sm btn-primary">
+            <NavLink
+              to="/register"
+              className="btn btn-sm bg-[#F79A19] border-none text-white hover:bg-[#e08912]"
+            >
               Sign Up
             </NavLink>
           </>
         ) : (
           <>
-            <button onClick={logout} className="btn btn-sm btn-outline mr-2">
+            <button
+              onClick={logout}
+              className="btn btn-sm bg-transparent border border-[#FFE52A] text-[#FFE52A] hover:bg-[#FFE52A] hover:text-white mr-2"
+            >
               Logout
             </button>
             <img
