@@ -8,14 +8,31 @@ const container = {
   show: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
+      staggerChildren: 0.3,
+      delayChildren: 0.3,
     },
   },
 };
 
+// Modern Blur-Scale Entrance - SLOWED DOWN
+const sectionVariant = {
+  hidden: { opacity: 0, scale: 0.95, filter: "blur(10px)" },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    filter: "blur(0px)",
+    transition: { duration: 1.8, ease: "easeOut" },
+  },
+};
+
 const item = {
-  hidden: { opacity: 0, y: 30 },
-  show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 50 } },
+  hidden: { opacity: 0, y: 40, filter: "blur(5px)" },
+  show: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 1.2, ease: "easeOut" },
+  },
 };
 
 export default function DailyMeals() {
@@ -47,22 +64,28 @@ export default function DailyMeals() {
   }
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-24 bg-white overflow-hidden">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-12">
+        <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
             Daily <span className="text-[#F79A19]">Delights</span>
           </h2>
-          <p className="text-gray-600 max-w-xl mx-auto">
-            Explore our top-rated meals cooked fresh daily by passionate chefs in your neighborhood.
-          </p>
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.8 }}
+            className="text-gray-600 max-w-xl mx-auto"
+          >
+            Explore our top-rated meals cooked fresh daily by passionate chefs
+            in your neighborhood.
+          </motion.p>
         </div>
 
         <motion.div
           variants={container}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.1 }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {meals.map((meal) => (
@@ -79,51 +102,70 @@ export default function DailyMeals() {
                   className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
                 />
                 {meal.estimatedDeliveryTime && (
-                   <div className="absolute bottom-4 right-4 bg-black/60 backdrop-blur-sm px-3 py-1 rounded-full text-xs text-white flex items-center gap-1">
-                      <span>⏱</span> {meal.estimatedDeliveryTime}
-                   </div>
+                  <div className="absolute bottom-4 right-4 bg-black/60 backdrop-blur-sm px-3 py-1 rounded-full text-xs text-white flex items-center gap-1">
+                    <span>⏱</span> {meal.estimatedDeliveryTime}
+                  </div>
                 )}
                 <div className="absolute bottom-4 left-4 bg-black/60 backdrop-blur-sm px-3 py-1 rounded-full text-xs text-white">
-                    {meal.category || "Homemade"}
+                  {meal.category || "Homemade"}
                 </div>
               </div>
               <div className="p-6">
                 <div className="flex justify-between items-start mb-2">
-                   <div>
-                       <h3 className="text-xl font-bold text-gray-800 line-clamp-1">{meal.foodName || meal.title}</h3>
-                       <p className="text-2xl font-bold text-[#F79A19] mt-1">${meal.price}</p>
-                   </div>
-                   <div className="flex items-center gap-1 text-lg font-bold text-gray-700">
-                       <span className="text-yellow-400 text-xl">★</span> {meal.rating || "4.5"}
-                   </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-800 line-clamp-1">
+                      {meal.foodName || meal.title}
+                    </h3>
+                    <p className="text-2xl font-bold text-[#F79A19] mt-1">
+                      ${meal.price}
+                    </p>
+                  </div>
+                  <div className="flex flex-col items-end">
+                    <div className="flex items-center gap-1 text-lg font-bold text-gray-700">
+                      <span className="text-yellow-400 text-xl">★</span>{" "}
+                      {meal.rating || "4.5"}
+                    </div>
+                    <div className="flex items-center text-gray-500 text-xs mt-1">
+                      <span className="mr-1">📍</span>
+                      <span className="truncate">
+                        {meal.deliveryArea || "Citywide"}
+                      </span>
+                    </div>
+                  </div>
                 </div>
-                
+
                 <p className="text-gray-600 text-sm mb-3 line-clamp-2">
                   {meal.description}
                 </p>
-                
+
                 {meal.ingredients && meal.ingredients.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mb-4">
-                        {meal.ingredients.slice(0, 3).map((ing, i) => (
-                            <span key={i} className="text-[10px] uppercase tracking-wide bg-orange-50 text-orange-600 px-2 py-1 rounded-md font-semibold">
-                                {ing}
-                            </span>
-                        ))}
-                    </div>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {meal.ingredients.slice(0, 3).map((ing, i) => (
+                      <span
+                        key={i}
+                        className="text-[10px] uppercase tracking-wide bg-orange-50 text-orange-600 px-2 py-1 rounded-md font-semibold"
+                      >
+                        {ing}
+                      </span>
+                    ))}
+                  </div>
                 )}
-                
+
                 <div className="flex items-center justify-between mt-4 border-t pt-4 border-gray-100">
-                    <div className="rounded-full border border-[#FFE52A] px-3 py-1 bg-yellow-50/50">
-                        <span className="text-xs font-bold text-gray-700">
-                            Chef <span className="text-[#F79A19]">{meal.chefName || "Unknown"}</span>
-                        </span>
-                    </div>
-                    <Link
+                  <div className="rounded-full border border-[#FFE52A] px-3 py-1 bg-yellow-50/50">
+                    <span className="text-xs font-bold text-gray-700">
+                      Chef{" "}
+                      <span className="text-[#F79A19]">
+                        {meal.chefName || "Unknown"}
+                      </span>
+                    </span>
+                  </div>
+                  <Link
                     to={`/meals/${meal._id}`}
                     className="text-[#F79A19] font-bold text-sm hover:underline"
-                    >
+                  >
                     View Details →
-                    </Link>
+                  </Link>
                 </div>
               </div>
             </motion.div>
