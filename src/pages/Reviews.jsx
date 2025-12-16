@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axiosInstance from "../hooks/useAxios";
+import Loading from "../components/Loading";
 
 function Reviews() {
   const {
@@ -17,7 +18,7 @@ function Reviews() {
   });
 
   if (isLoading) {
-    return <div className="text-center py-10">Loading reviews...</div>;
+    return <Loading message="Loading reviews..." />;
   }
 
   if (isError) {

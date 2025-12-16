@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { BarChart, Bar, XAxis, YAxis, Tooltip } from "recharts";
 import { auth } from "../firebase.init";
+import Loading from "../components/Loading";
 
 export default function Statistics() {
   const [stats, setStats] = useState(null);
@@ -27,7 +28,7 @@ export default function Statistics() {
     fetchStats();
   }, []);
 
-  if (!stats) return <p>Loading statistics...</p>;
+  if (!stats) return <Loading message="Loading statistics..." />;
 
   // Simple data for chart
   const data = [

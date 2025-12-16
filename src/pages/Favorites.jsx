@@ -3,15 +3,18 @@ import axiosInstance from "../hooks/useAxios";
 import { toast } from "react-toastify";
 import { Trash2, UtensilsCrossed } from "lucide-react";
 import Swal from "sweetalert2";
+import Loading from "../components/Loading";
 
 const Favorites = () => {
   const [favorites, setFavorites] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axiosInstance
       .get("/favorites")
       .then((res) => setFavorites(res.data))
-      .catch(() => toast.error("Failed to load favorites"));
+      .catch(() => toast.error("Failed to load favorites"))
+      .finally(() => setLoading(false));
   }, []);
 
   const handleDelete = async (id, mealName) => {
@@ -43,7 +46,9 @@ const Favorites = () => {
           My Favorite Meals
         </h2>
 
-        {favorites.length === 0 ? (
+        {loading ? (
+          <Loading message="Loading your favorites..." />
+        ) : favorites.length === 0 ? (
           <div className="text-center py-20">
             <UtensilsCrossed size={64} className="mx-auto text-gray-300 mb-4" />
             <p className="text-gray-500 text-lg">No favorites yet.</p>

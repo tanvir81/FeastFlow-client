@@ -4,9 +4,11 @@ import { toast } from "react-toastify";
 import axiosInstance from "../hooks/useAxios";
 import Swal from "sweetalert2";
 import { Star, Trash2, Edit, Calendar, User, Utensils } from "lucide-react";
+import Loading from "../components/Loading";
 
 function MyReview() {
   const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [editingReview, setEditingReview] = useState(null);
   const { register, handleSubmit, reset } = useForm();
 
@@ -15,10 +17,12 @@ function MyReview() {
   }, []);
 
   const fetchReviews = () => {
+    setLoading(true);
     axiosInstance
       .get("/my-reviews")
       .then((res) => setReviews(res.data))
-      .catch((err) => console.error("Failed to fetch reviews", err));
+      .catch((err) => console.error("Failed to fetch reviews", err))
+      .finally(() => setLoading(false));
   };
 
   const handleDelete = async (id) => {
@@ -82,7 +86,9 @@ function MyReview() {
           My Reviews
         </h2>
 
-        {reviews.length === 0 ? (
+        {loading ? (
+          <Loading message="Loading your reviews..." />
+        ) : reviews.length === 0 ? (
             <div className="text-center text-gray-500 py-10">
                 <p>You haven't written any reviews yet.</p>
             </div>

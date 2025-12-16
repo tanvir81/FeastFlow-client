@@ -4,6 +4,7 @@ import axiosInstance from "../hooks/useAxios";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { useAuth } from "../context/AuthContext";
+import Loading from "../components/Loading";
 
 function MealDetails() {
   const { id } = useParams();
@@ -72,7 +73,7 @@ function MealDetails() {
   });
 
   if (mealLoading || reviewsLoading) {
-    return <div className="text-center py-10">Loading meal details...</div>;
+    return <Loading message="Loading meal details..." />;
   }
 
   if (mealError || !meal) {

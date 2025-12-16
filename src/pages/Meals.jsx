@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import axiosInstance from "../hooks/useAxios";
+import Loading from "../components/Loading";
 
 const container = {
   hidden: { opacity: 0 },
@@ -45,11 +46,7 @@ export default function Meals() {
   });
 
   if (isLoading) {
-    return (
-      <div className="min-h-screen py-20 flex justify-center items-center">
-        <span className="loading loading-spinner loading-lg text-primary"></span>
-      </div>
-    );
+    return <Loading message="Loading delicious meals..." />;
   }
 
   if (isError) {

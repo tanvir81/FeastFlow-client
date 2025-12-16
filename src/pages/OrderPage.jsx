@@ -5,6 +5,7 @@ import axios from "axios";
 import { getAuth } from "firebase/auth";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
+import Loading from "../components/Loading";
 
 export default function OrderPage() {
   const { id } = useParams(); // mealId
@@ -84,7 +85,7 @@ export default function OrderPage() {
     }
   };
 
-  if (!meal) return <div>Loading meal info...</div>;
+  if (!meal) return <Loading message="Loading meal info..." />;
 
   return (
     <section className="p-6 max-w-lg mx-auto">

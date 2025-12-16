@@ -2,6 +2,7 @@ import { useAuth } from "../context/AuthContext";
 import axiosInstance from "../hooks/useAxios";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
+import Loading from "../components/Loading";
 
 const OrderRequests = () => {
   const { user } = useAuth();
@@ -36,7 +37,7 @@ const OrderRequests = () => {
   });
 
   if (isLoading)
-    return <div className="text-center py-10">Loading orders...</div>;
+    return <Loading message="Loading orders..." />;
   if (isError)
     return (
       <div className="text-center py-10 text-red-500">

@@ -5,11 +5,10 @@ export default function Footer() {
   return (
     <footer className="bg-gray-900 text-white pt-10 pb-6">
       <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
-        {/* Brand Section */}
         <div className="flex flex-col items-start">
           <div className="flex items-center gap-2 mb-4">
             <img
-              src="/feast-flow-logo.png"
+              src="/feast-flow.png?v=2"
               alt="FeastFlow Logo"
               className="w-10 h-10 object-contain"
             />

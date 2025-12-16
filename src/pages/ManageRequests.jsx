@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { auth } from "../firebase.init";
+import Loading from "../components/Loading";
 
 export default function ManageRequests() {
   const [requests, setRequests] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   // fetch all requests on mount
   useEffect(() => {
@@ -23,6 +25,8 @@ export default function ManageRequests() {
       } catch (err) {
         console.log(err);
         toast.error("Failed to load requests");
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -57,7 +61,9 @@ export default function ManageRequests() {
   return (
     <section className="max-w-2xl mx-auto p-6 bg-white shadow rounded">
       <h2 className="text-xl font-bold mb-4">Manage Role Requests</h2>
-      {requests.length === 0 ? (
+      {loading ? (
+        <Loading message="Loading role requests..." />
+      ) : requests.length === 0 ? (
         <p>No requests found.</p>
       ) : (
         <ul className="space-y-4">

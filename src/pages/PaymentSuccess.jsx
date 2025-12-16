@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Loading from "../components/Loading";
 
 const PaymentSuccess = () => {
   const location = useLocation();
@@ -41,11 +42,7 @@ const PaymentSuccess = () => {
   }, [sessionId]);
 
   if (loading) {
-    return (
-      <section className="flex items-center justify-center min-h-screen">
-        <p className="text-gray-600">Confirming your payment...</p>
-      </section>
-    );
+    return <Loading message="Confirming your payment..." />;
   }
 
   return (

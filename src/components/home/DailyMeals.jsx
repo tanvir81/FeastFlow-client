@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { motion } from "framer-motion";
-import useAxios from "../../hooks/useAxios";
+import axiosInstance from "../../hooks/useAxios";
+import Loading from "../Loading";
 
 const container = {
   hidden: { opacity: 0 },
@@ -38,7 +39,6 @@ const item = {
 export default function DailyMeals() {
   const [meals, setMeals] = useState([]);
   const [loading, setLoading] = useState(true);
-  const axiosInstance = useAxios;
 
   useEffect(() => {
     const fetchMeals = async () => {
@@ -53,14 +53,10 @@ export default function DailyMeals() {
       }
     };
     fetchMeals();
-  }, [axiosInstance]);
+  }, []);
 
   if (loading) {
-    return (
-      <section className="py-20 bg-gray-50 flex justify-center">
-        <span className="loading loading-spinner loading-lg text-primary"></span>
-      </section>
-    );
+    return <Loading message="Loading daily meals..." size="medium" />;
   }
 
   return (

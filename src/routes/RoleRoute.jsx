@@ -1,11 +1,12 @@
 import { Navigate } from "react-router";
 import { useAuth } from "../context/AuthContext";
+import Loading from "../components/Loading";
 
 export default function RoleRoute({ role, children }) {
   const { userRole, authLoading } = useAuth();
 
   if (authLoading) {
-    return <div className="p-8">Loading...</div>;
+    return <Loading message="Loading..." />;
   }
 
   if (userRole !== role) {

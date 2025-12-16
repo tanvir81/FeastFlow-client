@@ -52,7 +52,7 @@ export default function Navbar() {
         {/* Logo */}
         <NavLink to="/" className="flex flex-col items-center gap-0">
           <img
-            src="/feast-flow-logo.png"
+            src="/feast-flow.png?v=2"
             alt="FeastFlow Logo"
             className="w-14 h-14 object-contain"
           />
