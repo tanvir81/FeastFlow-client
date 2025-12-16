@@ -80,7 +80,11 @@ export function AuthProvider({ children }) {
       // 5. Ensure basic user record exists
       await registerUserInDB(updatedFirebaseUser, role);
 
-      const finalUser = { ...updatedFirebaseUser, ...data.user };
+      const finalUser = {
+        ...updatedFirebaseUser,
+        ...data.user,
+        uid: updatedFirebaseUser.uid,
+      };
 
       setUser(finalUser);
       setUserRole(role);
@@ -129,7 +133,11 @@ export function AuthProvider({ children }) {
       if (meRes.ok) {
         const meData = await meRes.json();
         // Merge to ensure completeness
-        finalUser = { ...userCredential.user, ...meData.user };
+        finalUser = {
+          ...userCredential.user,
+          ...meData.user,
+          uid: userCredential.user.uid,
+        };
       }
 
       setUser(finalUser);
@@ -187,7 +195,11 @@ export function AuthProvider({ children }) {
 
           if (res.ok) {
             const data = await res.json();
-            setUser({ ...current, ...data.user });
+            setUser({
+              ...current,
+              ...data.user,
+              uid: current.uid,
+            });
           } else {
             console.warn("Backend sync failed, using Firebase state");
             setUser(current);

@@ -160,6 +160,8 @@ function MealDetails() {
           e.preventDefault();
           addReview.mutate({
             foodId: id,
+            mealName: meal.foodName || meal.name, // Added missing mealName
+            foodImage: meal.foodImage || meal.image, // Good to have even if not shown
             reviewerName: user.displayName || user.email, // from AuthContext
             reviewerImage: user.photoURL, // auto from login
             rating,
