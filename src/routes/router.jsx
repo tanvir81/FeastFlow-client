@@ -12,6 +12,7 @@ import Reviews from "../pages/Reviews";
 import Favorites from "../pages/Favorites";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import ErrorPage from "../pages/ErrorPage";
 
 // dashboard pages role switcher
 import Dashboard from "../pages/Dashboard";
@@ -30,6 +31,7 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <PublicLayout />,
+    errorElement: <ErrorPage />,
     children: [
       { index: true, element: <Home /> },
       { path: "meals", element: <Meals /> },
@@ -55,6 +57,7 @@ export const router = createBrowserRouter([
         <DashboardLayout />
       </ProtectedRoute>
     ),
+    errorElement: <ErrorPage />,
     children: [
       { index: true, element: <Dashboard /> },
       { path: "profile", element: <Profile /> },
@@ -117,5 +120,10 @@ export const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  // Catch-all route for 404
+  {
+    path: "*",
+    element: <ErrorPage />,
   },
 ]);
