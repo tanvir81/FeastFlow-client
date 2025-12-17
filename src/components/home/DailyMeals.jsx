@@ -40,6 +40,13 @@ export default function DailyMeals() {
   const [meals, setMeals] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Helper for Chef ID Badge
+  const getChefBadge = (name, id) => {
+    const n = (name || "Unknown").slice(0, 3).toUpperCase();
+    const i = (id || "0000").slice(0, 4).toUpperCase();
+    return `${n}-${i}`;
+  };
+
   useEffect(() => {
     const fetchMeals = async () => {
       try {
@@ -148,13 +155,23 @@ export default function DailyMeals() {
                 )}
 
                 <div className="flex items-center justify-between mt-4 border-t pt-4 border-gray-100">
-                  <div className="rounded-full border border-[#FFE52A] px-3 py-1 bg-yellow-50/50">
-                    <span className="text-xs font-bold text-gray-700">
-                      Chef{" "}
-                      <span className="text-[#F79A19]">
-                        {meal.chefName || "Unknown"}
+                  {/* Chef Info */}
+                  <div className="flex flex-col items-start gap-1">
+                    <div className="rounded-full border border-[#FFE52A] px-3 py-1 bg-yellow-50/50">
+                      <span className="text-xs font-bold text-gray-700">
+                        Chef{" "}
+                        <span className="text-[#F79A19]">
+                          {meal.chefName || "Unknown"}
+                        </span>
                       </span>
-                    </span>
+                    </div>
+                    {/* Custom Chef ID Badge */}
+                    <div className="pl-1 flex items-center gap-1">
+                      <span className="text-xs font-bold text-white bg-[#FFA239] px-2 py-0.5 rounded-full shadow-sm">
+                        ID:{" "}
+                        {getChefBadge(meal.chefName, meal.chefId || meal._id)}
+                      </span>
+                    </div>
                   </div>
                   <Link
                     to={`/meals/${meal._id}`}

@@ -3,17 +3,39 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import axiosInstance from "../hooks/useAxios";
 import Swal from "sweetalert2";
+import { Edit2, Trash2, Clock, Star, Package } from "lucide-react";
+
+// Helper for consistent inputs
+const InputField = ({ label, error, ...rest }) => (
+  <div>
+    <label className="block text-sm font-bold text-gray-700 mb-1">
+      {label}
+    </label>
+    <input
+      {...rest}
+      className={`w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#FFE52A] focus:border-transparent transition-all ${
+        rest.className || ""
+      }`}
+    />
+    {error && <p className="text-red-500 text-sm mt-1">{error.message}</p>}
+  </div>
+);
 
 function MyMeals() {
   const [meals, setMeals] = useState([]);
   const [editingMeal, setEditingMeal] = useState(null);
 
+  // Fetch meals on mount
   useEffect(() => {
+    fetchMeals();
+  }, []);
+
+  const fetchMeals = () => {
     axiosInstance
       .get("/my-meals")
       .then((res) => setMeals(res.data))
       .catch((err) => console.error("Failed to fetch meals", err));
-  }, []);
+  };
 
   const {
     register,
@@ -22,13 +44,30 @@ function MyMeals() {
     reset,
   } = useForm();
 
+  // Populate form when editing
+  useEffect(() => {
+    if (editingMeal) {
+      reset({
+        foodName: editingMeal.foodName || "",
+        chefName: editingMeal.chefName || "",
+        price: editingMeal.price ?? "",
+        rating: editingMeal.rating ?? 1,
+        ingredients: Array.isArray(editingMeal.ingredients)
+          ? editingMeal.ingredients.join(", ")
+          : editingMeal.ingredients || "",
+        estimatedDeliveryTime: editingMeal.estimatedDeliveryTime || "",
+        chefExperience: editingMeal.chefExperience || "",
+      });
+    }
+  }, [editingMeal, reset]);
+
   const onEditSubmit = async (data) => {
     try {
       const payload = {
         foodName: data.foodName,
         chefName: data.chefName,
         price: parseFloat(data.price),
-        rating: Number(data.rating) || 0,
+        rating: Number(data.rating),
         ingredients: data.ingredients
           .split(",")
           .map((i) => i.trim())
@@ -41,9 +80,7 @@ function MyMeals() {
 
       toast.success("Meal updated successfully!");
       setEditingMeal(null);
-      reset();
-      const res = await axiosInstance.get("/my-meals");
-      setMeals(res.data);
+      fetchMeals(); // Refresh list
     } catch (err) {
       toast.error(err?.response?.data?.error || "Failed to update meal.");
     }
@@ -71,174 +108,191 @@ function MyMeals() {
     }
   };
 
+  // Custom Chef ID Generator: Name(3) + ID(4)
+  const getCustomChefId = (name, id) => {
+    const namePart = (name || "UNK").slice(0, 3).toUpperCase();
+    const idPart = (id || "0000").slice(0, 4).toUpperCase();
+    return `${namePart}-${idPart}`;
+  };
+
   return (
-    <section className="p-6">
-      <h2 className="text-xl font-bold mb-4">My Meals</h2>
+    <section className="min-h-screen bg-gray-50 py-10 px-4">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-3xl font-bold text-gray-800">My Meals</h2>
+          <span className="bg-white px-4 py-1 rounded-full text-sm font-medium text-gray-500 shadow-sm border">
+            Total Items: {meals.length}
+          </span>
+        </div>
 
-      {/* Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {meals.map((meal) => (
-          <div key={meal._id} className="border rounded shadow p-4 bg-white">
-            {/* Food Image */}
-            {meal.foodImage && (
-              <img
-                src={meal.foodImage}
-                alt={meal.foodName}
-                className="w-full h-40 object-cover rounded mb-3"
-              />
-            )}
+        {/* Edit Modal / Form Overlay */}
+        {editingMeal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm transition-all">
+            <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
+              <div className="bg-[#FFE52A] px-6 py-4 flex justify-between items-center">
+                <h3 className="text-xl font-bold text-gray-900">Update Meal</h3>
+                <button
+                  onClick={() => setEditingMeal(null)}
+                  className="text-gray-800 hover:text-black font-bold text-xl"
+                >
+                  &times;
+                </button>
+              </div>
+              
+              <form onSubmit={handleSubmit(onEditSubmit)} className="p-6 space-y-4 max-h-[80vh] overflow-y-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <InputField
+                    label="Food Name"
+                    placeholder="e.g. Spicy Ramen"
+                    {...register("foodName", { required: "Required" })}
+                    error={errors.foodName}
+                  />
+                  <InputField
+                    label="Chef Name"
+                    placeholder="Your Name"
+                    {...register("chefName", { required: "Required" })}
+                    error={errors.chefName}
+                  />
+                </div>
 
-            {/* Required fields */}
-            <h3 className="text-lg font-bold">{meal.foodName}</h3>
-            <p className="text-gray-700">Price: ${meal.price}</p>
-            <p className="text-gray-700">Rating: {meal.rating}</p>
-            <p className="text-gray-700">
-              Ingredients:{" "}
-              {Array.isArray(meal.ingredients)
-                ? meal.ingredients.join(", ")
-                : meal.ingredients}
-            </p>
-            <p className="text-gray-700">
-              Delivery: {meal.estimatedDeliveryTime}
-            </p>
-            <p className="text-gray-700">Chef Name: {meal.chefName}</p>
-            <p className="text-gray-700">Chef ID: {meal.chefId}</p>
+                <div className="grid grid-cols-2 gap-4">
+                  <InputField
+                    type="number"
+                    label="Price ($)"
+                    step="0.01"
+                    {...register("price", { required: "Required", min: 0 })}
+                    error={errors.price}
+                  />
+                  <InputField
+                    type="number"
+                    label="Rating (1-5)"
+                    step="0.1"
+                    min="1"
+                    max="5"
+                    {...register("rating", { min: 1, max: 5 })}
+                  />
+                </div>
 
-            {/* Actions */}
-            <div className="mt-3 space-x-2">
-              <button
-                onClick={() => {
-                  setEditingMeal(meal);
-                  reset({
-                    foodName: meal.foodName || "",
-                    chefName: meal.chefName || "",
-                    price: meal.price ?? "",
-                    rating: meal.rating ?? 0,
-                    ingredients: Array.isArray(meal.ingredients)
-                      ? meal.ingredients.join(", ")
-                      : meal.ingredients || "",
-                    estimatedDeliveryTime: meal.estimatedDeliveryTime || "",
-                    chefExperience: meal.chefExperience || "",
-                  });
-                }}
-                className="bg-blue-600 text-white px-3 py-1 rounded"
-              >
-                Update
-              </button>
-              <button
-                onClick={() => handleDelete(meal._id)}
-                className="bg-red-600 text-white px-3 py-1 rounded"
-              >
-                Delete
-              </button>
+                <div>
+                   <label className="block text-sm font-bold text-gray-700 mb-1">
+                      Ingredients
+                    </label>
+                    <textarea
+                      rows="2"
+                      placeholder="Comma separated"
+                      {...register("ingredients", { required: "Required" })}
+                      className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#FFE52A] focus:outline-none"
+                    />
+                     {errors.ingredients && <p className="text-red-500 text-sm">{errors.ingredients.message}</p>}
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <InputField
+                    label="Delivery Time"
+                    {...register("estimatedDeliveryTime", { required: "Required" })}
+                    error={errors.estimatedDeliveryTime}
+                  />
+                  <InputField
+                    label="Chef Experience"
+                    {...register("chefExperience", { required: "Required" })}
+                    error={errors.chefExperience}
+                  />
+                </div>
+
+                <div className="flex gap-3 pt-2">
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="flex-1 bg-[#FFE52A] hover:bg-[#FFA239] text-gray-900 font-bold py-3 rounded-lg transition-colors"
+                  >
+                    {isSubmitting ? "Saving..." : "Save Changes"}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setEditingMeal(null)}
+                    className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-3 rounded-lg transition-colors"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
-        ))}
-      </div>
+        )}
 
-      {/* Update modal (inline panel) */}
-      {editingMeal && (
-        <div className="mt-6 p-4 border rounded bg-gray-50">
-          <h3 className="text-lg font-bold mb-2">Update Meal</h3>
-          <form onSubmit={handleSubmit(onEditSubmit)} className="space-y-4">
-            <input
-              type="text"
-              placeholder="Food Name"
-              {...register("foodName", { required: "Food name is required" })}
-              className="w-full border rounded px-3 py-2"
-            />
-            {errors.foodName && (
-              <p className="text-red-500">{errors.foodName.message}</p>
-            )}
+        {/* Meal Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {meals.map((meal) => (
+            <div
+              key={meal._id}
+              className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 group flex flex-col"
+            >
+              {/* Image Container */}
+              <div className="relative h-48 overflow-hidden">
+                <img
+                  src={meal.foodImage || "https://via.placeholder.com/400x300?text=No+Image"}
+                  alt={meal.foodName}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold shadow-sm text-gray-800 border border-gray-100">
+                  {getCustomChefId(meal.chefName, meal.chefId || meal._id)}
+                </div>
+                <div className="absolute bottom-3 left-3 bg-[#FFE52A] text-gray-900 text-xs font-bold px-2 py-1 rounded shadow-sm">
+                   ${meal.price}
+                </div>
+              </div>
 
-            <input
-              type="text"
-              placeholder="Chef Name"
-              {...register("chefName", { required: "Chef name is required" })}
-              className="w-full border rounded px-3 py-2"
-            />
-            {errors.chefName && (
-              <p className="text-red-500">{errors.chefName.message}</p>
-            )}
+              {/* Content */}
+              <div className="p-5 flex-1 flex flex-col">
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className="text-lg font-bold text-gray-800 line-clamp-1" title={meal.foodName}>
+                    {meal.foodName}
+                  </h3>
+                  <div className="flex items-center text-[#FFA239] font-bold text-sm">
+                    <Star className="w-4 h-4 mr-1 fill-current" />
+                    {meal.rating}
+                  </div>
+                </div>
 
-            <input
-              type="number"
-              step="0.01"
-              placeholder="Price"
-              {...register("price", {
-                required: "Price is required",
-                min: { value: 0, message: "Price cannot be negative" },
-              })}
-              className="w-full border rounded px-3 py-2"
-            />
-            {errors.price && (
-              <p className="text-red-500">{errors.price.message}</p>
-            )}
+                <div className="space-y-2 text-sm text-gray-600 mb-4 flex-1">
+                  <div className="flex items-center gap-2">
+                    <Clock className="w-4 h-4 text-gray-400" />
+                    <span>{meal.estimatedDeliveryTime}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                     <Package className="w-4 h-4 text-gray-400" />
+                     <span className="line-clamp-1">
+                        {Array.isArray(meal.ingredients) ? meal.ingredients.join(", ") : meal.ingredients}
+                     </span>
+                  </div>
+                </div>
 
-            <input
-              type="number"
-              step="1"
-              min="0"
-              placeholder="Rating"
-              {...register("rating")}
-              className="w-full border rounded px-3 py-2"
-            />
-
-            <textarea
-              placeholder="Ingredients (comma separated)"
-              {...register("ingredients", {
-                required: "Ingredients are required",
-              })}
-              className="w-full border rounded px-3 py-2"
-            />
-            {errors.ingredients && (
-              <p className="text-red-500">{errors.ingredients.message}</p>
-            )}
-
-            <input
-              type="text"
-              placeholder="Estimated Delivery Time"
-              {...register("estimatedDeliveryTime", {
-                required: "Delivery time is required",
-              })}
-              className="w-full border rounded px-3 py-2"
-            />
-            {errors.estimatedDeliveryTime && (
-              <p className="text-red-500">
-                {errors.estimatedDeliveryTime.message}
-              </p>
-            )}
-
-            <textarea
-              placeholder="Chef’s Experience"
-              {...register("chefExperience", {
-                required: "Experience is required",
-              })}
-              className="w-full border rounded px-3 py-2"
-            />
-            {errors.chefExperience && (
-              <p className="text-red-500">{errors.chefExperience.message}</p>
-            )}
-
-            <div className="flex gap-2">
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-              >
-                {isSubmitting ? "Saving..." : "Save Changes"}
-              </button>
-              <button
-                type="button"
-                onClick={() => setEditingMeal(null)}
-                className="bg-gray-500 text-white px-4 py-2 rounded"
-              >
-                Cancel
-              </button>
+                {/* Actions */}
+                <div className="flex gap-2 pt-4 border-t border-gray-100 mt-auto">
+                  <button
+                    onClick={() => setEditingMeal(meal)}
+                    className="flex-1 bg-[#FFE52A]/10 hover:bg-[#FFE52A]/20 text-yellow-700 flex items-center justify-center gap-2 py-2 rounded-lg font-semibold transition-colors text-sm"
+                  >
+                    <Edit2 className="w-4 h-4" /> Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(meal._id)}
+                    className="flex-1 bg-red-50 hover:bg-red-100 text-red-600 flex items-center justify-center gap-2 py-2 rounded-lg font-semibold transition-colors text-sm"
+                  >
+                    <Trash2 className="w-4 h-4" /> Delete
+                  </button>
+                </div>
+              </div>
             </div>
-          </form>
+          ))}
+
+          {!meals.length && (
+            <div className="col-span-full text-center py-20 bg-white rounded-xl border-2 border-dashed border-gray-200">
+              <p className="text-gray-400 text-lg">No meals found. Start creating!</p>
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </section>
   );
 }

@@ -138,14 +138,19 @@ export function AuthProvider({ children }) {
           ...meData.user,
           uid: userCredential.user.uid,
         };
+        // Use role from DB, fallback to token
+        // This fixes the issue where token is stale immediately after promotion
+        setUserRole(meData.user.role || role); 
+      } else {
+         setUserRole(role);
       }
 
       setUser(finalUser);
-      setUserRole(role);
+      // setUserRole(role); // Removed duplicate assignment
 
       await registerUserInDB(userCredential.user, role);
 
-      return { ...finalUser, role };
+      return { ...finalUser, role: finalUser.role || role };
     } finally {
       setTimeout(() => {
         skipAuthCheck.current = false;
@@ -186,7 +191,7 @@ export function AuthProvider({ children }) {
         try {
           await current.getIdToken(true);
           const tokenResult = await current.getIdTokenResult();
-          const role = tokenResult.claims.role || "user";
+          const tokenRole = tokenResult.claims.role || "user";
 
           const res = await fetch("http://localhost:3000/me", {
             method: "GET",
@@ -200,11 +205,14 @@ export function AuthProvider({ children }) {
               ...data.user,
               uid: current.uid,
             });
+            // Prioritize DB role
+            setUserRole(data.user.role || tokenRole);
           } else {
             console.warn("Backend sync failed, using Firebase state");
             setUser(current);
+            setUserRole(tokenRole);
           }
-          setUserRole(role);
+          
         } catch (err) {
           console.error("Auth hydration error:", err);
           setUser(current);

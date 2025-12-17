@@ -51,7 +51,7 @@ export default function Footer() {
           <h3 className="text-[#FFE52A] font-bold mb-4">Follow Us</h3>
           <div className="flex gap-4">
             <a
-              href="#"
+              href="https://www.facebook.com/"
               className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-[#F79A19] hover:bg-[#F79A19] hover:text-white transition-colors"
             >
               <svg fill="currentColor" viewBox="0 0 24 24" className="w-5 h-5">

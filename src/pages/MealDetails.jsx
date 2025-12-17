@@ -78,128 +78,262 @@ function MealDetails() {
 
   if (mealError || !meal) {
     return (
-      <div className="text-center py-10 text-red-500">
+      <div className="min-h-screen flex justify-center items-center text-red-500 font-bold text-xl">
         Failed to load meal details.
       </div>
     );
   }
 
   return (
-    <section className="max-w-4xl mx-auto px-6 py-10">
-      <h2 className="text-3xl font-bold mb-4">{meal.name}</h2>
-      <img
-        src={meal.foodImage || meal.image}
-        alt={meal.foodName || meal.name}
-        className="w-full h-64 object-cover rounded"
-      />
-      <p className="mt-4">{meal.description}</p>
-      <p className="mt-2 font-semibold text-red-600">${meal.price}</p>
-      <p className="mt-2">Chef: {meal.chefName}</p>
-      <p className="mt-2">Delivery Area: {meal.deliveryArea}</p>
-      <p className="mt-2">Estimated Delivery: {meal.deliveryTime}</p>
-      <p className="mt-2">Chef Experience: {meal.chefExperience}</p>
+    <div className="min-h-screen bg-gray-50 py-12">
+      <div className="max-w-7xl mx-auto px-6">
+        {/* Breadcrumb / Back */}
+        <div className="mb-8">
+          <Link
+            to="/meals"
+            className="text-gray-500 hover:text-[#F79A19] transition-colors font-medium flex items-center gap-2"
+          >
+            ← Back to Meals
+          </Link>
+        </div>
 
-      {/* Action buttons */}
-      <div className="mt-6 flex gap-4">
-        <Link
-          to={`/dashboard/order/${meal._id}`}
-          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-        >
-          Order Now
-        </Link>
-        <button
-          onClick={() =>
-            addFavorite.mutate({
-              userEmail: user.email,
-              mealId: meal._id,
-              mealName: meal.foodName,
-              chefId: meal.chefId,
-              chefName: meal.chefName,
-              price: meal.price,
-              addedTime: new Date().toISOString(),
-            })
-          }
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-        >
-          Add to Favorites
-        </button>
-      </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          {/* Left Column: Image */}
+          <div className="relative group">
+            <div className="aspect-[4/3] w-full overflow-hidden rounded-3xl shadow-2xl">
+              <img
+                src={meal.foodImage || meal.image}
+                alt={meal.foodName || meal.name}
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+            </div>
+            {/* Floating Price Badge */}
+            <div className="absolute top-6 right-6 bg-white/95 backdrop-blur-sm px-6 py-3 rounded-full shadow-lg border border-gray-100">
+              <span className="text-2xl font-extrabold text-[#F79A19]">
+                ${meal.price}
+              </span>
+            </div>
+          </div>
 
-      {/* Reviews */}
-      <h3 className="text-2xl font-bold mt-8 mb-4">Reviews</h3>
-      <div className="space-y-4">
-        {reviews.length === 0 ? (
-          <p className="text-gray-500">No reviews yet for this meal.</p>
-        ) : (
-          reviews.map((review) => (
-            <div
-              key={review._id}
-              className="border p-4 rounded shadow-sm bg-gray-100"
-            >
-              <div className="flex items-center gap-3">
-                <img
-                  src={review.reviewerImage}
-                  alt={review.reviewerName}
-                  className="w-10 h-10 rounded-full"
-                />
-                <div>
-                  <p className="font-semibold">{review.reviewerName}</p>
-                  <p className="text-sm text-gray-500">
-                    {new Date(review.date).toLocaleDateString()}
-                  </p>
+          {/* Right Column: Details */}
+          <div className="space-y-8">
+            <div>
+              <div className="flex items-center gap-3 mb-3">
+                <span className="bg-[#FFE52A] text-gray-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                  {meal.category || "Homemade"}
+                </span>
+                <div className="flex items-center gap-1 text-[#F79A19] font-bold">
+                  <span>★</span>
+                  <span>{meal.rating || "New"}</span>
                 </div>
               </div>
-              <p className="mt-2">{review.comment}</p>
-              <p className="mt-1 text-yellow-500">⭐ {review.rating}</p>
+              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
+                {meal.foodName || meal.name}
+              </h1>
             </div>
-          ))
-        )}
-      </div>
 
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          addReview.mutate({
-            foodId: id,
-            mealName: meal.foodName || meal.name, // Added missing mealName
-            foodImage: meal.foodImage || meal.image, // Good to have even if not shown
-            reviewerName: user.displayName || user.email, // from AuthContext
-            reviewerImage: user.photoURL, // auto from login
-            rating,
-            comment,
-            date: new Date().toISOString(),
-          });
-        }}
-        className="mt-8 space-y-4 border-t pt-6"
-      >
-        <h4 className="text-xl font-semibold">Add a Review</h4>
-        {/* No need for name/image inputs anymore */}
-        <textarea
-          placeholder="Your comment"
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-          className="w-full border rounded px-3 py-2"
-          required
-        />
-        <select
-          value={rating}
-          onChange={(e) => setRating(Number(e.target.value))}
-          className="border rounded px-3 py-2"
-        >
-          {[1, 2, 3, 4, 5].map((r) => (
-            <option key={r} value={r}>
-              {r} Star{r > 1 ? "s" : ""}
-            </option>
-          ))}
-        </select>
-        <button
-          type="submit"
-          className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
-        >
-          Submit Review
-        </button>
-      </form>
-    </section>
+            {/* Chef Section */}
+            <div className="flex items-center gap-4 p-4 bg-white rounded-2xl shadow-sm border border-gray-100">
+              <div className="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center text-xl">
+                👨‍🍳
+              </div>
+              <div>
+                <p className="text-xs text-gray-500 font-bold uppercase tracking-wide">
+                  Crafted by
+                </p>
+                <div className="flex items-center gap-2">
+                  <h3 className="text-lg font-bold text-gray-900">
+                    {meal.chefName}
+                  </h3>
+                  {/* Reuse simple text or badge if needed, sticking to text for now as per design */}
+                </div>
+              </div>
+            </div>
+
+            <p className="text-gray-600 text-lg leading-relaxed">
+              {meal.description ||
+                "A delicious homemade meal prepared with fresh ingredients and love. perfect for a healthy and satisfying lunch or dinner."}
+            </p>
+
+            {/* Info Grid */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="bg-white p-4 rounded-xl border border-gray-100">
+                <p className="text-gray-400 text-xs font-bold uppercase mb-1">
+                  Delivery Time
+                </p>
+                <p className="font-semibold text-gray-800">
+                  {meal.deliveryTime || meal.estimatedDeliveryTime}
+                </p>
+              </div>
+              <div className="bg-white p-4 rounded-xl border border-gray-100">
+                <p className="text-gray-400 text-xs font-bold uppercase mb-1">
+                  Delivery Area
+                </p>
+                <p className="font-semibold text-gray-800">
+                  {meal.deliveryArea || "Local Area"}
+                </p>
+              </div>
+              <div className="bg-white p-4 rounded-xl border border-gray-100 col-span-2">
+                <p className="text-gray-400 text-xs font-bold uppercase mb-1">
+                  Ingredients
+                </p>
+                 <div className="flex flex-wrap gap-2 mt-1">
+                  {Array.isArray(meal.ingredients) ? (
+                    meal.ingredients.map((ing, i) => (
+                      <span key={i} className="text-sm bg-orange-50 text-orange-700 px-3 py-1 rounded-lg font-medium">
+                        {ing}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="text-gray-800">{meal.ingredients}</span>
+                  )}
+                 </div>
+              </div>
+            </div>
+
+            {/* Actions */}
+            <div className="flex gap-4 pt-4">
+              <Link
+                to={`/dashboard/order/${meal._id}`}
+                className="flex-1 bg-green-600 hover:bg-green-700 text-white text-center font-bold text-lg py-4 rounded-xl shadow-lg shadow-green-200 transition-all hover:-translate-y-1"
+              >
+                Order Now
+              </Link>
+              <button
+                onClick={() =>
+                  addFavorite.mutate({
+                    userEmail: user.email,
+                    mealId: meal._id,
+                    mealName: meal.foodName,
+                    chefId: meal.chefId,
+                    chefName: meal.chefName,
+                    price: meal.price,
+                    addedTime: new Date().toISOString(),
+                  })
+                }
+                className="flex-1 bg-[#FFE52A] hover:bg-[#FFA239] text-gray-900 text-center font-bold text-lg py-4 rounded-xl shadow-lg shadow-yellow-200 transition-all hover:-translate-y-1"
+              >
+                Add to Favorites
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Reviews Section */}
+        <div className="mt-20 max-w-5xl mx-auto">
+          <div className="flex items-center justify-between mb-8">
+            <h3 className="text-3xl font-bold text-gray-900">
+              Customer Reviews
+            </h3>
+            <span className="text-gray-500 font-medium">
+              {reviews.length} Review{reviews.length !== 1 && "s"}
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+            {reviews.length === 0 ? (
+              <div className="col-span-full text-center py-12 bg-white rounded-2xl border border-gray-100">
+                <p className="text-gray-400 text-lg">
+                  No reviews yet. Be the first to try this meal!
+                </p>
+              </div>
+            ) : (
+              reviews.map((review) => (
+                <div
+                  key={review._id}
+                  className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
+                >
+                  <div className="flex items-center gap-4 mb-4">
+                    <img
+                      src={review.reviewerImage || "https://randomuser.me/api/portraits/lego/1.jpg"}
+                      alt={review.reviewerName}
+                      className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm"
+                    />
+                    <div>
+                      <p className="font-bold text-gray-900">
+                        {review.reviewerName}
+                      </p>
+                      <p className="text-xs text-gray-500">
+                        {new Date(review.date).toLocaleDateString()}
+                      </p>
+                    </div>
+                    <div className="ml-auto flex text-yellow-400">
+                      {[...Array(5)].map((_, i) => (
+                        <span key={i} className={i < review.rating ? "opacity-100" : "opacity-30"}>★</span>
+                      ))}
+                    </div>
+                  </div>
+                  <p className="text-gray-600 leading-relaxed">
+                    "{review.comment}"
+                  </p>
+                </div>
+              ))
+            )}
+          </div>
+
+          {/* Add Review Form */}
+          <div className="bg-white rounded-3xl shadow-xl p-8 md:p-10 border border-gray-100">
+            <h4 className="text-2xl font-bold text-gray-900 mb-6">
+              Leave a Review
+            </h4>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                addReview.mutate({
+                  foodId: id,
+                  mealName: meal.foodName || meal.name,
+                  foodImage: meal.foodImage || meal.image,
+                  reviewerName: user.displayName || user.email,
+                  reviewerImage: user.photoURL,
+                  rating,
+                  comment,
+                  date: new Date().toISOString(),
+                });
+              }}
+              className="space-y-6"
+            >
+              <div className="space-y-2">
+                <label className="text-sm font-bold text-gray-700">Rating</label>
+                <div className="flex gap-4">
+                  {[1, 2, 3, 4, 5].map((r) => (
+                    <button
+                      type="button"
+                      key={r}
+                      onClick={() => setRating(r)}
+                      className={`w-12 h-12 rounded-xl flex items-center justify-center text-xl font-bold transition-all ${
+                        rating === r
+                          ? "bg-[#FFE52A] text-gray-900 shadow-md scale-110"
+                          : "bg-gray-100 text-gray-400 hover:bg-gray-200"
+                      }`}
+                    >
+                      {r}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-sm font-bold text-gray-700">Your Feedback</label>
+                <textarea
+                  placeholder="Tell us what you liked about this meal..."
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                  className="w-full border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#FFE52A] focus:border-transparent min-h-[120px]"
+                  required
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="bg-gray-900 hover:bg-black text-white px-8 py-3 rounded-xl font-bold transition-all hover:scale-105"
+              >
+                Submit Review
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
