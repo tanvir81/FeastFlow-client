@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { motion } from "framer-motion";
+import { CheckCircle, XCircle } from "lucide-react";
 import Loading from "../components/Loading";
 
 const PaymentSuccess = () => {
@@ -46,41 +48,82 @@ const PaymentSuccess = () => {
   }
 
   return (
-    <section className="flex flex-col items-center justify-center min-h-screen bg-green-50">
-      <div className="bg-white shadow-lg rounded-lg p-8 text-center">
+    <section className="flex flex-col items-center justify-center min-h-screen bg-gray-50 py-12 px-4">
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
+        className="bg-white shadow-2xl rounded-2xl p-10 text-center max-w-md w-full border border-gray-100"
+      >
         {success ? (
           <>
-            <h2 className="text-2xl font-bold text-green-700 mb-4">
-              🎉 Payment Successful!
+            <motion.div 
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+              className="mx-auto flex items-center justify-center w-20 h-20 rounded-full bg-green-100 mb-6"
+            >
+              <CheckCircle size={48} className="text-green-600" />
+            </motion.div>
+            
+            <h2 className="text-3xl font-extrabold text-gray-900 mb-2">
+              Payment Successful!
             </h2>
-            <p className="text-gray-700 mb-2">
-              Your order has been paid successfully. The chef will now prepare
-              and deliver it.
+            <p className="text-gray-600 mb-6">
+              Your order has been confirmed and our chef is already preparing your delicious meal.
             </p>
+            
             {orderId && (
-              <p className="text-sm text-gray-500 mb-4">
-                Order ID: <span className="font-mono">{orderId}</span>
-              </p>
+              <div className="bg-gray-50 rounded-lg p-4 mb-8 border border-gray-200">
+                <p className="text-xs text-gray-500 uppercase tracking-wide font-semibold mb-1">Order ID</p>
+                <p className="font-mono text-lg text-gray-800 font-bold">{orderId}</p>
+              </div>
             )}
+            
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Link
+                to="/dashboard/orders"
+                className="inline-block w-full bg-[#F79A19] text-white font-bold py-3 px-6 rounded-xl hover:bg-[#e08914] transition-colors shadow-lg shadow-orange-200"
+              >
+                View My Orders
+              </Link>
+            </motion.div>
           </>
         ) : (
           <>
-            <h2 className="text-2xl font-bold text-red-600 mb-4">
-              ❌ Payment Failed
+             <motion.div 
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+              className="mx-auto flex items-center justify-center w-20 h-20 rounded-full bg-red-100 mb-6"
+            >
+              <XCircle size={48} className="text-red-600" />
+            </motion.div>
+
+            <h2 className="text-3xl font-extrabold text-gray-900 mb-2">
+              Payment Failed
             </h2>
-            <p className="text-gray-700 mb-4">
-              Your payment could not be confirmed. It may have been declined or
-              canceled.
+            <p className="text-gray-600 mb-8">
+              Unfortunately, your payment could not be processed. Please try again or contact support.
             </p>
+            
+             <div className="space-y-3">
+              <Link
+                to="/dashboard/orders"
+                 className="block w-full bg-gray-800 text-white font-bold py-3 px-6 rounded-xl hover:bg-gray-900 transition-colors"
+              >
+                Go to Orders
+              </Link>
+              <Link
+                to="/"
+                className="block w-full text-gray-500 hover:text-gray-700 font-medium text-sm transition-colors"
+              >
+                Back to Home
+              </Link>
+            </div>
           </>
         )}
-        <Link
-          to="/dashboard/orders"
-          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-        >
-          View My Orders
-        </Link>
-      </div>
+      </motion.div>
     </section>
   );
 };

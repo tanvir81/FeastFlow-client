@@ -18,9 +18,15 @@ import {
 export default function DashboardLayout() {
   const { user, userRole, logout } = useAuth();
 
-  // Shared classes for sidebar links
-  const linkClasses =
-    "flex items-center gap-3 px-3 py-2 rounded font-medium hover:bg-yellow-100 transition-colors";
+  // Dynamic classes for sidebar links
+  const getLinkClasses = ({ isActive }) =>
+    `flex items-center gap-3 px-3 py-2 rounded font-medium transition-colors ${
+      isActive
+        ? "bg-[#F79A19] text-white shadow-md"
+        : "text-gray-700 hover:bg-[#FFE52A] hover:text-gray-900"
+    }`;
+
+  const logoutClasses = "flex items-center gap-3 px-3 py-2 rounded font-medium transition-colors text-gray-700 hover:bg-[#FFE52A] hover:text-gray-900";
 
   return (
     <div className="min-h-screen grid grid-cols-1 md:grid-cols-[240px_1fr]">
@@ -56,7 +62,7 @@ export default function DashboardLayout() {
 
         <nav className="p-4 space-y-2">
           {/*  Home Button */}
-          <NavLink to="/" className={linkClasses}>
+          <NavLink to="/" className={getLinkClasses}>
             <LuHouse className="text-xl" />
             Home
           </NavLink>
@@ -64,22 +70,22 @@ export default function DashboardLayout() {
           <hr className="border-gray-200 my-2" />
 
           {/* Profile */}
-          <NavLink to="/dashboard/profile" className={linkClasses}>
+          <NavLink to="/dashboard/profile" className={getLinkClasses}>
             <LuUser className="text-xl" />
             Profile
           </NavLink>
 
           {userRole === "user" && (
             <>
-              <NavLink to="/dashboard/orders" className={linkClasses}>
+              <NavLink to="/dashboard/orders" className={getLinkClasses}>
                 <LuShoppingBag className="text-xl" />
                 My Orders
               </NavLink>
-              <Link to="/dashboard/my-review" className={linkClasses}>
+              <NavLink to="/dashboard/my-review" className={getLinkClasses}>
                 <LuStar className="text-xl" />
                 My Review
-              </Link>
-              <NavLink to="/dashboard/favorites" className={linkClasses}>
+              </NavLink>
+              <NavLink to="/dashboard/favorites" className={getLinkClasses}>
                 <LuHeart className="text-xl" />
                 Favorite Meals
               </NavLink>
@@ -88,15 +94,15 @@ export default function DashboardLayout() {
 
           {userRole === "chef" && (
             <>
-              <NavLink to="/dashboard/create-meal" className={linkClasses}>
+              <NavLink to="/dashboard/create-meal" className={getLinkClasses}>
                 <LuUtensils className="text-xl" />
                 Create Meal
               </NavLink>
-              <NavLink to="/dashboard/my-meals" className={linkClasses}>
+              <NavLink to="/dashboard/my-meals" className={getLinkClasses}>
                 <LuList className="text-xl" />
                 My Meals
               </NavLink>
-              <NavLink to="/dashboard/order-requests" className={linkClasses}>
+              <NavLink to="/dashboard/order-requests" className={getLinkClasses}>
                 <LuClipboardList className="text-xl" />
                 Order Requests
               </NavLink>
@@ -105,15 +111,15 @@ export default function DashboardLayout() {
 
           {userRole === "admin" && (
             <>
-              <NavLink to="/dashboard/manage-users" className={linkClasses}>
+              <NavLink to="/dashboard/manage-users" className={getLinkClasses}>
                 <LuUsers className="text-xl" />
                 Manage Users
               </NavLink>
-              <NavLink to="/dashboard/manage-requests" className={linkClasses}>
+              <NavLink to="/dashboard/manage-requests" className={getLinkClasses}>
                 <LuListTodo className="text-xl" />
                 Manage Requests
               </NavLink>
-              <NavLink to="/dashboard/statistics" className={linkClasses}>
+              <NavLink to="/dashboard/statistics" className={getLinkClasses}>
                 <LuChartPie className="text-xl" />
                 Statistics
               </NavLink>
@@ -123,7 +129,7 @@ export default function DashboardLayout() {
           <div className="pt-4 mt-auto">
             <button
               onClick={logout}
-              className={`w-full ${linkClasses} bg-gray-100 hover:bg-yellow-200 justify-start`}
+              className={`w-full ${logoutClasses} justify-start bg-gray-50`}
             >
               <LuLogOut className="text-xl" />
               Logout

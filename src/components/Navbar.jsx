@@ -1,8 +1,12 @@
+import { useState } from "react";
 import { NavLink } from "react-router";
 import { useAuth } from "../context/AuthContext";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
 
 export default function Navbar() {
   const { user, logout } = useAuth();
+  const [isOpen, setIsOpen] = useState(false);
 
   const displayImage =
     user?.profileImage ||
@@ -10,145 +14,174 @@ export default function Navbar() {
     "https://i.ibb.co/default-avatar.png";
   const displayName = user?.name || user?.displayName || "User";
 
-  return (
-    <nav className="navbar sticky top-0 z-50 bg-base-100 shadow-md">
-      <div className="navbar-start">
-        {/* Mobile Hamburger */}
-        <div className="dropdown">
-          <label tabIndex={0} className="btn btn-ghost lg:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          </label>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 z-[1] p-2  rounded-box w-52"
-          >
-            <li>
-              <NavLink to="/">Home</NavLink>
-            </li>
-            <li>
-              <NavLink to="/meals">Meals</NavLink>
-            </li>
-            {user && (
-              <li>
-                <NavLink to="/dashboard">Dashboard</NavLink>
-              </li>
-            )}
-          </ul>
-        </div>
+  const toggleMenu = () => setIsOpen(!isOpen);
 
-        {/* Logo */}
-        <NavLink to="/" className="flex flex-col items-center gap-0">
-          <div className="flex flex-col items-center">
-            <img
+  const navLinks = [
+    { name: "Home", path: "/" },
+    { name: "Meals", path: "/meals" },
+    ...(user ? [{ name: "Dashboard", path: "/dashboard" }] : []),
+  ];
+
+  return (
+    <nav className="sticky top-0 z-50 bg-white shadow-md font-sans">
+      <div className="container mx-auto px-6">
+        <div className="flex justify-between items-center h-20">
+          
+          {/* Brand / Logo - Compact & Closer */}
+          <NavLink to="/" className="flex items-center gap-2 group relative z-10">
+            <motion.img
+              whileHover={{ rotate: 10 }}
               src="/fest-flow.png"
               alt="FeastFlow Logo"
-              className="w-24 h-24 object-contain"
+              className="w-10 h-10 sm:w-12 sm:h-12 object-contain"
             />
-            <span className="text-xl font-bold text-[#F79A19]">FeastFlow</span>
-          </div>
-        </NavLink>
-      </div>
+            <span className="text-xl sm:text-2xl font-bold text-[#F79A19] tracking-tight group-hover:text-[#e08912] transition-colors">
+              FeastFlow
+            </span>
+          </NavLink>
 
-      {/* Desktop Links */}
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1 gap-4">
-          <li>
-            <NavLink
-              to="/"
-              className={({ isActive }) =>
-                `border border-[#FFE52A] px-3 py-1 rounded ${
-                  isActive
-                    ? "text-[#FFE52A] font-bold"
-                    : "text-gray-600 hover:text-[#F79A19]"
-                }`
-              }
-            >
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/meals"
-              className={({ isActive }) =>
-                `border border-[#FFE52A] px-3 py-1 rounded ${
-                  isActive
-                    ? "text-[#FFE52A] font-bold"
-                    : "text-gray-600 hover:text-[#F79A19]"
-                }`
-              }
-            >
-              Meals
-            </NavLink>
-          </li>
-          {user && (
-            <li>
+          {/* Desktop Menu - Centered */}
+          <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 items-center space-x-8">
+            {navLinks.map((link) => (
               <NavLink
-                to="/dashboard"
+                key={link.name}
+                to={link.path}
                 className={({ isActive }) =>
-                  `border border-[#FFE52A] px-3 py-1 rounded ${
+                  `text-sm font-medium transition-colors duration-200 ${
                     isActive
-                      ? "text-[#FFE52A] font-bold"
+                      ? "text-[#F79A19] font-bold border-b-2 border-[#F79A19]"
                       : "text-gray-600 hover:text-[#F79A19]"
                   }`
                 }
               >
-                Dashboard
+                {link.name}
               </NavLink>
-            </li>
-          )}
-        </ul>
+            ))}
+          </div>
+
+          {/* Desktop Auth - Right Aligned */}
+          <div className="hidden md:flex items-center gap-3 relative z-10">
+            {!user ? (
+              <>
+                <NavLink
+                  to="/login"
+                  className="text-sm font-semibold text-[#F79A19] hover:text-[#e08912] px-3 py-2 transition"
+                >
+                  Login
+                </NavLink>
+                <NavLink
+                  to="/register"
+                  className="bg-[#F79A19] text-white text-sm font-bold px-4 py-2 rounded-full hover:bg-[#e08912] transition shadow-md hover:shadow-lg"
+                >
+                  Sign Up
+                </NavLink>
+              </>
+            ) : (
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={logout}
+                  className="text-sm font-semibold text-gray-500 hover:text-red-500 transition"
+                >
+                  Logout
+                </button>
+                <div className="tooltip tooltip-bottom" data-tip={displayName}>
+                    <img
+                    src={displayImage}
+                    alt="Profile"
+                    className="w-10 h-10 rounded-full border-2 border-[#FFE52A] object-cover"
+                    onError={(e) => {
+                      e.target.src = "https://i.ibb.co/default-avatar.png";
+                    }}
+                  />
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Mobile Hamburger */}
+          <div className="md:hidden flex items-center">
+            <button
+              onClick={toggleMenu}
+              className="text-gray-600 hover:text-[#F79A19] focus:outline-none p-2"
+            >
+              {isOpen ? <X size={28} /> : <Menu size={28} />}
+            </button>
+          </div>
+        </div>
       </div>
 
-      {/* Auth Buttons */}
-      <div className="navbar-end">
-        {!user ? (
-          <>
-            <NavLink
-              to="/login"
-              className="btn btn-sm bg-transparent border border-[#FFE52A] text-[#FFE52A] hover:bg-[#FFE52A] hover:text-white mr-2"
-            >
-              Login
-            </NavLink>
-            <NavLink
-              to="/register"
-              className="btn btn-sm bg-[#F79A19] border-none text-white hover:bg-[#e08912]"
-            >
-              Sign Up
-            </NavLink>
-          </>
-        ) : (
-          <>
-            <button
-              onClick={logout}
-              className="btn btn-sm bg-transparent border border-[#FFE52A] text-[#FFE52A] hover:bg-[#FFE52A] hover:text-white mr-2"
-            >
-              Logout
-            </button>
-            <img
-              src={displayImage}
-              alt={displayName}
-              className="w-9 h-9 rounded-full object-cover"
-              title={user?.email}
-              onError={(e) => {
-                e.target.src = "https://i.ibb.co/default-avatar.png";
-              }}
-            />
-          </>
+      {/* Mobile Menu Dropdown - Animated */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="md:hidden bg-white border-t border-gray-100 overflow-hidden shadow-lg"
+          >
+            <div className="px-4 pt-2 pb-6 space-y-2 flex flex-col items-center">
+              {navLinks.map((link) => (
+                <NavLink
+                  key={link.name}
+                  to={link.path}
+                  onClick={() => setIsOpen(false)}
+                  className={({ isActive }) =>
+                    `block w-full text-center px-3 py-3 rounded-lg text-base font-medium ${
+                      isActive
+                        ? "bg-orange-50 text-[#F79A19]"
+                        : "text-gray-700 hover:bg-gray-50 hover:text-[#F79A19]"
+                    }`
+                  }
+                >
+                  {link.name}
+                </NavLink>
+              ))}
+
+              <div className="w-full h-px bg-gray-100 my-2"></div>
+
+              {!user ? (
+                <div className="flex flex-col w-full gap-3 px-2">
+                  <NavLink
+                    to="/login"
+                    onClick={() => setIsOpen(false)}
+                    className="w-full text-center border border-[#F79A19] text-[#F79A19] font-semibold py-2 rounded-lg hover:bg-orange-50 transition"
+                  >
+                    Login
+                  </NavLink>
+                  <NavLink
+                    to="/register"
+                    onClick={() => setIsOpen(false)}
+                    className="w-full text-center bg-[#F79A19] text-white font-bold py-2 rounded-lg hover:bg-[#e08912] transition shadow-sm"
+                  >
+                    Sign Up
+                  </NavLink>
+                </div>
+              ) : (
+                <div className="flex flex-col items-center w-full gap-4 mt-2">
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={displayImage}
+                      alt="Profile"
+                      className="w-10 h-10 rounded-full border border-gray-200"
+                    />
+                    <span className="font-semibold text-gray-800">{displayName}</span>
+                  </div>
+                  <button
+                    onClick={() => {
+                      logout();
+                      setIsOpen(false);
+                    }}
+                    className="text-red-500 font-medium hover:text-red-600 transition"
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
+          </motion.div>
         )}
-      </div>
+      </AnimatePresence>
     </nav>
   );
 }
