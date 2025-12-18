@@ -42,7 +42,7 @@ export default function Navbar() {
             </span>
           </NavLink>
 
-          {/* Desktop Menu - Centered */}
+          {/* Desktop Menu  */}
           <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 items-center space-x-8">
             {navLinks.map((link) => (
               <NavLink
