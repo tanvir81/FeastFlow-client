@@ -8,7 +8,7 @@ import MyReview from "../pages/MyReview";
 import Home from "../pages/Home";
 import Meals from "../pages/Meals";
 import MealDetails from "../pages/MealDetails";
-import Reviews from "../pages/Reviews";
+// import Reviews from "../pages/Reviews";
 import Favorites from "../pages/Favorites";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
@@ -43,7 +43,7 @@ export const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
-      { path: "reviews", element: <Reviews /> },
+      // { path: "reviews", element: <Reviews /> },
       { path: "favorites", element: <Favorites /> },
       { path: "login", element: <Login /> },
       { path: "register", element: <Register /> },

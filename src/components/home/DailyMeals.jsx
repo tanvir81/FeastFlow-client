@@ -109,9 +109,14 @@ export default function DailyMeals() {
                     <span>⏱</span> {meal.estimatedDeliveryTime}
                   </div>
                 )}
-                <div className="absolute bottom-4 left-4 bg-black/60 backdrop-blur-sm px-3 py-1 rounded-full text-xs text-white">
-                  {meal.category || "Homemade"}
+                <div className="pl-1 flex items-center gap-2">
+                  <span className="text-xs font-bold text-white bg-[#FFA239] px-2 py-0.5 rounded-full shadow-sm">
+                    ID: {getChefBadge(meal.chefName, meal.chefId || meal._id)}
+                  </span>
                 </div>
+                {/* <div className="absolute bottom-4 left-4 bg-black/60 backdrop-blur-sm px-3 py-1 rounded-full text-xs text-white">
+                  {meal.category || "Homemade"}
+                </div> */}
               </div>
               <div className="p-6">
                 <div className="flex justify-between items-start mb-2">
@@ -171,7 +176,6 @@ export default function DailyMeals() {
                         </span>
                       </span>
                     </div>
-                    {/* Custom Chef ID Badge */}
                   </div>
                   <Link
                     to={`/meals/${meal._id}`}
