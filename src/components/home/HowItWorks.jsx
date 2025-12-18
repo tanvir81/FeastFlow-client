@@ -66,7 +66,7 @@ export default function HowItWorks() {
                 <div className="absolute -left-12 -top-12 w-64 h-64 bg-[#F79A19]/20 rounded-full blur-3xl -z-10"></div>
                 <div className="absolute -right-8 top-20 w-72 h-72 bg-[#FFE52A]/20 rounded-full blur-3xl -z-10"></div>
 
-                {/* Number Background Shape - Animated Stagger */}
+                {/* Number Background Shape  */}
                 <motion.div
                   initial={{ opacity: 0, x: -50 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -77,7 +77,7 @@ export default function HowItWorks() {
                   01
                 </motion.div>
 
-                {/* Mock UI Card */}
+                {/*  Card */}
                 <div className="bg-white p-4 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] w-[280px] sm:w-[320px] relative z-10 border border-gray-50">
                   <div className="relative h-48 w-full rounded-xl overflow-hidden mb-4">
                     <img
@@ -159,10 +159,10 @@ export default function HowItWorks() {
               className="w-full md:w-1/2 relative flex justify-center md:justify-start"
             >
               <div className="relative">
-                {/* Background Blob */}
+                {/* Background */}
                 <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#FFE52A]/10 rounded-full -z-10 translate-x-1/4 -translate-y-1/4"></div>
 
-                {/* Number - Animated Stagger */}
+                {/* Number  */}
                 <motion.div
                   initial={{ opacity: 0, x: 50 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -173,7 +173,7 @@ export default function HowItWorks() {
                   02
                 </motion.div>
 
-                {/* Mock UI Card - Chef Profile */}
+                {/* Card  */}
                 <div className="bg-white p-4 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] w-[280px] sm:w-[320px] relative z-10 border border-gray-50">
                   <div className="relative h-48 w-full rounded-xl overflow-hidden mb-4">
                     <img
@@ -231,7 +231,7 @@ export default function HowItWorks() {
                 {/* Background Shape */}
                 <div className="absolute -bottom-10 -left-10 w-full h-full bg-[#F79A19]/10 rounded-t-full -z-10 scale-125"></div>
 
-                {/* Number - Animated Stagger */}
+                {/* Number */}
                 <motion.div
                   initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -242,7 +242,7 @@ export default function HowItWorks() {
                   03
                 </motion.div>
 
-                {/* Image/Graphic Placeholder */}
+                {/* Image */}
                 <div className="w-[300px] h-[180px] rounded-t-[150px] bg-[#FFE52A]/30 backdrop-blur-sm relative flex items-end justify-center pb-8 border border-white/50 z-10">
                   <div className="text-center">
                     <div className="w-16 h-16 bg-white rounded-full mx-auto mb-3 shadow-lg flex items-center justify-center text-[#F79A19]">

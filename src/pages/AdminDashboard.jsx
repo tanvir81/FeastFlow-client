@@ -34,7 +34,6 @@ export default function AdminDashboard() {
       <motion.p variants={itemVariants} className="text-white text-lg">
         Welcome, Admin! Here you can manage users, meals, and reviews.
       </motion.p>
-      {/* Add admin-specific controls here */}
     </motion.section>
   );
 }

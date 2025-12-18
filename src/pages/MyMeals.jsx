@@ -5,7 +5,6 @@ import axiosInstance from "../hooks/useAxios";
 import Swal from "sweetalert2";
 import { Edit2, Trash2, Clock, Star, Package } from "lucide-react";
 
-// Helper for consistent inputs
 const InputField = ({ label, error, ...rest }) => (
   <div>
     <label className="block text-sm font-bold text-gray-700 mb-1">
@@ -44,7 +43,7 @@ function MyMeals() {
     reset,
   } = useForm();
 
-  // Populate form when editing
+  // Populate form
   useEffect(() => {
     if (editingMeal) {
       reset({
@@ -80,7 +79,7 @@ function MyMeals() {
 
       toast.success("Meal updated successfully!");
       setEditingMeal(null);
-      fetchMeals(); // Refresh list
+      fetchMeals();
     } catch (err) {
       toast.error(err?.response?.data?.error || "Failed to update meal.");
     }
@@ -138,8 +137,11 @@ function MyMeals() {
                   &times;
                 </button>
               </div>
-              
-              <form onSubmit={handleSubmit(onEditSubmit)} className="p-6 space-y-4 max-h-[80vh] overflow-y-auto">
+
+              <form
+                onSubmit={handleSubmit(onEditSubmit)}
+                className="p-6 space-y-4 max-h-[80vh] overflow-y-auto"
+              >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <InputField
                     label="Food Name"
@@ -174,22 +176,28 @@ function MyMeals() {
                 </div>
 
                 <div>
-                   <label className="block text-sm font-bold text-gray-700 mb-1">
-                      Ingredients
-                    </label>
-                    <textarea
-                      rows="2"
-                      placeholder="Comma separated"
-                      {...register("ingredients", { required: "Required" })}
-                      className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#FFE52A] focus:outline-none"
-                    />
-                     {errors.ingredients && <p className="text-red-500 text-sm">{errors.ingredients.message}</p>}
+                  <label className="block text-sm font-bold text-gray-700 mb-1">
+                    Ingredients
+                  </label>
+                  <textarea
+                    rows="2"
+                    placeholder="Comma separated"
+                    {...register("ingredients", { required: "Required" })}
+                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#FFE52A] focus:outline-none"
+                  />
+                  {errors.ingredients && (
+                    <p className="text-red-500 text-sm">
+                      {errors.ingredients.message}
+                    </p>
+                  )}
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <InputField
                     label="Delivery Time"
-                    {...register("estimatedDeliveryTime", { required: "Required" })}
+                    {...register("estimatedDeliveryTime", {
+                      required: "Required",
+                    })}
                     error={errors.estimatedDeliveryTime}
                   />
                   <InputField
@@ -230,7 +238,10 @@ function MyMeals() {
               {/* Image Container */}
               <div className="relative h-48 overflow-hidden">
                 <img
-                  src={meal.foodImage || "https://via.placeholder.com/400x300?text=No+Image"}
+                  src={
+                    meal.foodImage ||
+                    "https://via.placeholder.com/400x300?text=No+Image"
+                  }
                   alt={meal.foodName}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
@@ -238,14 +249,17 @@ function MyMeals() {
                   {getCustomChefId(meal.chefName, meal.chefId || meal._id)}
                 </div>
                 <div className="absolute bottom-3 left-3 bg-[#FFE52A] text-gray-900 text-xs font-bold px-2 py-1 rounded shadow-sm">
-                   ${meal.price}
+                  ${meal.price}
                 </div>
               </div>
 
               {/* Content */}
               <div className="p-5 flex-1 flex flex-col">
                 <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-lg font-bold text-gray-800 line-clamp-1" title={meal.foodName}>
+                  <h3
+                    className="text-lg font-bold text-gray-800 line-clamp-1"
+                    title={meal.foodName}
+                  >
                     {meal.foodName}
                   </h3>
                   <div className="flex items-center text-[#FFA239] font-bold text-sm">
@@ -260,10 +274,12 @@ function MyMeals() {
                     <span>{meal.estimatedDeliveryTime}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                     <Package className="w-4 h-4 text-gray-400" />
-                     <span className="line-clamp-1">
-                        {Array.isArray(meal.ingredients) ? meal.ingredients.join(", ") : meal.ingredients}
-                     </span>
+                    <Package className="w-4 h-4 text-gray-400" />
+                    <span className="line-clamp-1">
+                      {Array.isArray(meal.ingredients)
+                        ? meal.ingredients.join(", ")
+                        : meal.ingredients}
+                    </span>
                   </div>
                 </div>
 
@@ -288,7 +304,9 @@ function MyMeals() {
 
           {!meals.length && (
             <div className="col-span-full text-center py-20 bg-white rounded-xl border-2 border-dashed border-gray-200">
-              <p className="text-gray-400 text-lg">No meals found. Start creating!</p>
+              <p className="text-gray-400 text-lg">
+                No meals found. Start creating!
+              </p>
             </div>
           )}
         </div>

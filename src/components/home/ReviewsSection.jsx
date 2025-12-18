@@ -11,25 +11,63 @@ export default function ReviewsSection() {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await axiosInstance.get("/reviews"); // Assuming this returns all reviews
+        const response = await axiosInstance.get("/reviews");
         if (Array.isArray(response.data)) {
-             setReviews(response.data.slice(0, 5)); // Take top 5
+          setReviews(response.data.slice(0, 5)); // Take top 5
         } else {
-             // Fallback dummy data if endpoint behaves differently
-             setReviews([
-                { _id: 1, reviewerName: "John Doe", comment: "The food was absolutely amazing! Delivered hot and fresh.", rating: 5, reviewerImage: "https://i.pravatar.cc/150?u=1" },
-                { _id: 2, reviewerName: "Jane Smith", comment: "Great service and delicious home-cooked flavor.", rating: 4, reviewerImage: "https://i.pravatar.cc/150?u=2" },
-                { _id: 3, reviewerName: "Mike Johnson", comment: "Loved the variety of meals available. Highly recommend!", rating: 5, reviewerImage: "https://i.pravatar.cc/150?u=3" }
-             ]);
+          setReviews([
+            {
+              _id: 1,
+              reviewerName: "John Doe",
+              comment:
+                "The food was absolutely amazing! Delivered hot and fresh.",
+              rating: 5,
+              reviewerImage: "https://i.pravatar.cc/150?u=1",
+            },
+            {
+              _id: 2,
+              reviewerName: "Jane Smith",
+              comment: "Great service and delicious home-cooked flavor.",
+              rating: 4,
+              reviewerImage: "https://i.pravatar.cc/150?u=2",
+            },
+            {
+              _id: 3,
+              reviewerName: "Mike Johnson",
+              comment:
+                "Loved the variety of meals available. Highly recommend!",
+              rating: 5,
+              reviewerImage: "https://i.pravatar.cc/150?u=3",
+            },
+          ]);
         }
       } catch (error) {
         console.error("Failed to fetch reviews", error);
-         // Fallback dummy data on error
-         setReviews([
-            { _id: 1, reviewerName: "John Doe", comment: "The food was absolutely amazing! Delivered hot and fresh.", rating: 5, reviewerImage: "https://i.pravatar.cc/150?u=1" },
-            { _id: 2, reviewerName: "Jane Smith", comment: "Great service and delicious home-cooked flavor.", rating: 4, reviewerImage: "https://i.pravatar.cc/150?u=2" },
-            { _id: 3, reviewerName: "Mike Johnson", comment: "Loved the variety of meals available. Highly recommend!", rating: 5, reviewerImage: "https://i.pravatar.cc/150?u=3" }
-         ]);
+        // Fallback
+        setReviews([
+          {
+            _id: 1,
+            reviewerName: "John Doe",
+            comment:
+              "The food was absolutely amazing! Delivered hot and fresh.",
+            rating: 5,
+            reviewerImage: "https://i.pravatar.cc/150?u=1",
+          },
+          {
+            _id: 2,
+            reviewerName: "Jane Smith",
+            comment: "Great service and delicious home-cooked flavor.",
+            rating: 4,
+            reviewerImage: "https://i.pravatar.cc/150?u=2",
+          },
+          {
+            _id: 3,
+            reviewerName: "Mike Johnson",
+            comment: "Loved the variety of meals available. Highly recommend!",
+            rating: 5,
+            reviewerImage: "https://i.pravatar.cc/150?u=3",
+          },
+        ]);
       } finally {
         setLoading(false);
       }
@@ -44,13 +82,12 @@ export default function ReviewsSection() {
   const prevSlide = () => {
     setCurrentIndex((prev) => (prev - 1 + reviews.length) % reviews.length);
   };
-  
-  // Auto-slide effect
+
   useEffect(() => {
-      if (reviews.length > 0) {
-          const interval = setInterval(nextSlide, 5000);
-          return () => clearInterval(interval);
-      }
+    if (reviews.length > 0) {
+      const interval = setInterval(nextSlide, 5000);
+      return () => clearInterval(interval);
+    }
   }, [reviews.length]);
 
   if (loading) return null;
@@ -74,11 +111,14 @@ export default function ReviewsSection() {
                 className="absolute inset-0 flex flex-col items-center justify-center bg-white p-8 rounded-3xl shadow-xl border border-orange-100"
               >
                 <img
-                  src={reviews[currentIndex].reviewerImage || "https://i.ibb.co/default-avatar.png"}
+                  src={
+                    reviews[currentIndex].reviewerImage ||
+                    "https://i.ibb.co/default-avatar.png"
+                  }
                   alt={reviews[currentIndex].reviewerName}
                   className="w-20 h-20 rounded-full object-cover border-4 border-[#FFE52A] mb-4 shadow-md"
                 />
-                
+
                 <div className="flex gap-1 mb-4 text-[#F79A19]">
                   {[...Array(5)].map((_, i) => (
                     <span key={i}>
@@ -112,18 +152,18 @@ export default function ReviewsSection() {
             ❯
           </button>
         </div>
-        
+
         {/* Indicators */}
         <div className="flex justify-center gap-2 mt-8">
-            {reviews.map((_, idx) => (
-                <button
-                    key={idx}
-                    onClick={() => setCurrentIndex(idx)}
-                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                        idx === currentIndex ? "bg-[#F79A19] w-6" : "bg-gray-300"
-                    }`}
-                />
-            ))}
+          {reviews.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setCurrentIndex(idx)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                idx === currentIndex ? "bg-[#F79A19] w-6" : "bg-gray-300"
+              }`}
+            />
+          ))}
         </div>
       </div>
     </section>

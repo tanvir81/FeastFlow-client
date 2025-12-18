@@ -15,7 +15,7 @@ const container = {
   },
 };
 
-// Modern Blur-Scale Entrance - SLOWED DOWN
+// Modern Blur-Scale Entrance
 const sectionVariant = {
   hidden: { opacity: 0, scale: 0.95, filter: "blur(10px)" },
   visible: {
@@ -50,7 +50,7 @@ export default function DailyMeals() {
   useEffect(() => {
     const fetchMeals = async () => {
       try {
-        // Fetch all meals and take the first 6
+        // Fetch all meals
         const response = await axiosInstance.get("/meals");
         setMeals(response.data.slice(0, 6));
       } catch (error) {
@@ -157,6 +157,12 @@ export default function DailyMeals() {
                 <div className="flex items-center justify-between mt-4 border-t pt-4 border-gray-100">
                   {/* Chef Info */}
                   <div className="flex flex-col items-start gap-1">
+                    <div className="pl-1 flex items-center gap-2">
+                      <span className="text-xs font-bold text-white bg-[#FFA239] px-2 py-0.5 rounded-full shadow-sm">
+                        ID:{" "}
+                        {getChefBadge(meal.chefName, meal.chefId || meal._id)}
+                      </span>
+                    </div>
                     <div className="rounded-full border border-[#FFE52A] px-3 py-1 bg-yellow-50/50">
                       <span className="text-xs font-bold text-gray-700">
                         Chef{" "}
@@ -166,12 +172,6 @@ export default function DailyMeals() {
                       </span>
                     </div>
                     {/* Custom Chef ID Badge */}
-                    <div className="pl-1 flex items-center gap-1">
-                      <span className="text-xs font-bold text-white bg-[#FFA239] px-2 py-0.5 rounded-full shadow-sm">
-                        ID:{" "}
-                        {getChefBadge(meal.chefName, meal.chefId || meal._id)}
-                      </span>
-                    </div>
                   </div>
                   <Link
                     to={`/meals/${meal._id}`}

@@ -121,7 +121,7 @@ export const router = createBrowserRouter([
       },
     ],
   },
-  // Catch-all route for 404
+  //Error Page
   {
     path: "*",
     element: <ErrorPage />,

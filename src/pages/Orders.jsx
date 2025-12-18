@@ -30,7 +30,7 @@ const Orders = () => {
     fetchOrders();
   }, []);
 
-  //  Show toast if redirected with ?canceled=true
+  //  Show toast
   useEffect(() => {
     if (location.search.includes("canceled=true")) {
       toast.error("❌ Payment was canceled or declined.");
@@ -60,7 +60,7 @@ const Orders = () => {
     }
   };
 
-  // Format Chef ID: first 3 letters of name + first 4 chars of UID
+  // first 3 letters of name + first 4 chars of UID
   const formatChefId = (chefName, chefUid) => {
     if (!chefName || chefName === "Unknown Chef" || !chefUid) {
       return "N/A";
@@ -96,13 +96,11 @@ const Orders = () => {
           transition={{ duration: 0.5 }}
           className="mb-8"
         >
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">
-            My Orders
-          </h1>
+          <h1 className="text-4xl font-bold text-gray-800 mb-2">My Orders</h1>
           <p className="text-gray-600">Track and manage your food orders</p>
         </motion.div>
 
-        {/*  Inline banner for canceled/declined payments */}
+        {/*   payments */}
         {location.search.includes("canceled=true") && (
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -126,7 +124,9 @@ const Orders = () => {
           >
             <div className="text-6xl mb-4">🍽️</div>
             <p className="text-gray-600 text-xl">No orders yet.</p>
-            <p className="text-gray-500 mt-2">Start ordering delicious meals!</p>
+            <p className="text-gray-500 mt-2">
+              Start ordering delicious meals!
+            </p>
           </motion.div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -153,7 +153,8 @@ const Orders = () => {
                         {order.orderStatus}
                       </span>
                       {/* Only show payment status if it's different from order status */}
-                      {order.paymentStatus?.toLowerCase() !== order.orderStatus?.toLowerCase() && (
+                      {order.paymentStatus?.toLowerCase() !==
+                        order.orderStatus?.toLowerCase() && (
                         <span
                           className={`${getPaymentStatusColor(
                             order.paymentStatus

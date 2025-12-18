@@ -26,9 +26,11 @@ export default function Navbar() {
     <nav className="sticky top-0 z-50 bg-white shadow-md font-sans">
       <div className="container mx-auto px-6">
         <div className="flex justify-between items-center h-20">
-          
-          {/* Brand / Logo - Compact & Closer */}
-          <NavLink to="/" className="flex items-center gap-2 group relative z-10">
+          {/* Brand / Logo */}
+          <NavLink
+            to="/"
+            className="flex items-center gap-2 group relative z-10"
+          >
             <motion.img
               whileHover={{ rotate: 10 }}
               src="/fest-flow.png"
@@ -59,7 +61,7 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Desktop Auth - Right Aligned */}
+          {/* Desktop Auth */}
           <div className="hidden md:flex items-center gap-3 relative z-10">
             {!user ? (
               <>
@@ -85,7 +87,7 @@ export default function Navbar() {
                   Logout
                 </button>
                 <div className="tooltip tooltip-bottom" data-tip={displayName}>
-                    <img
+                  <img
                     src={displayImage}
                     alt="Profile"
                     className="w-10 h-10 rounded-full border-2 border-[#FFE52A] object-cover"
@@ -110,7 +112,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu Dropdown - Animated */}
+      {/* Mobile Menu Dropdown */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -165,7 +167,9 @@ export default function Navbar() {
                       alt="Profile"
                       className="w-10 h-10 rounded-full border border-gray-200"
                     />
-                    <span className="font-semibold text-gray-800">{displayName}</span>
+                    <span className="font-semibold text-gray-800">
+                      {displayName}
+                    </span>
                   </div>
                   <button
                     onClick={() => {

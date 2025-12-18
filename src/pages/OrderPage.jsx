@@ -87,7 +87,7 @@ export default function OrderPage() {
 
   if (!meal) return <Loading message="Loading meal info..." />;
 
-  // Helper for Chef ID Badge
+  // Chef ID Badge
   const getChefBadge = (name, id) => {
     const n = (name || "Unknown").slice(0, 3).toUpperCase();
     const i = (id || "0000").slice(0, 4).toUpperCase();
@@ -108,7 +108,7 @@ export default function OrderPage() {
         </button>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-          {/* Left Column: Meal Summary */}
+          {/* Meal Summary */}
           <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100 sticky top-6">
             <div className="relative h-64 overflow-hidden">
               <img
@@ -157,7 +157,7 @@ export default function OrderPage() {
             </div>
           </div>
 
-          {/* Right Column: Checkout Form */}
+          {/* Checkout Form */}
           <div className="bg-white rounded-3xl shadow-xl p-8 border border-gray-100">
             <h1 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
               <span className="bg-[#FFE52A] w-2 h-8 rounded-full"></span>
@@ -165,7 +165,7 @@ export default function OrderPage() {
             </h1>
 
             <div className="space-y-6">
-              {/* User Info (Read Only) */}
+              {/* User Info  */}
               <div className="bg-yellow-50 p-5 rounded-xl border border-yellow-200">
                 <label className="block text-xs font-bold text-yellow-800 uppercase tracking-wide mb-1 opacity-80">
                   Ordering As

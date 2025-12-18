@@ -77,7 +77,6 @@ export function AuthProvider({ children }) {
       if (!res.ok) throw new Error("Backend register failed");
       const data = await res.json();
 
-      // 5. Ensure basic user record exists
       await registerUserInDB(updatedFirebaseUser, role);
 
       const finalUser = {
@@ -112,7 +111,7 @@ export function AuthProvider({ children }) {
       const tokenResult = await userCredential.user.getIdTokenResult();
       const role = tokenResult.claims.role || "user";
 
-      // 1. Login to backend (sets cookie)
+      //  Login to backend
       const res = await fetch("http://localhost:3000/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -138,15 +137,14 @@ export function AuthProvider({ children }) {
           ...meData.user,
           uid: userCredential.user.uid,
         };
-        // Use role from DB, fallback to token
-        // This fixes the issue where token is stale immediately after promotion
-        setUserRole(meData.user.role || role); 
+
+        setUserRole(meData.user.role || role);
       } else {
-         setUserRole(role);
+        setUserRole(role);
       }
 
       setUser(finalUser);
-      // setUserRole(role); // Removed duplicate assignment
+      // setUserRole(role);
 
       await registerUserInDB(userCredential.user, role);
 
@@ -178,10 +176,8 @@ export function AuthProvider({ children }) {
     }
   };
 
-  //  Track auth state
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (current) => {
-      //  Check if we should skip
       if (skipAuthCheck.current) {
         return;
       }
@@ -205,14 +201,13 @@ export function AuthProvider({ children }) {
               ...data.user,
               uid: current.uid,
             });
-            // Prioritize DB role
+            // DB role
             setUserRole(data.user.role || tokenRole);
           } else {
             console.warn("Backend sync failed, using Firebase state");
             setUser(current);
             setUserRole(tokenRole);
           }
-          
         } catch (err) {
           console.error("Auth hydration error:", err);
           setUser(current);

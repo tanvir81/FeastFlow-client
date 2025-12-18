@@ -10,7 +10,6 @@ export default function RootLayout() {
           </Link>
           <div className="flex gap-4">
             <Link to="/">Home</Link>
-            {/* add more links later */}
           </div>
         </nav>
       </header>
@@ -18,10 +17,6 @@ export default function RootLayout() {
       <main className="flex-1">
         <Outlet />
       </main>
-
-      <footer className="border-t py-6 text-center text-sm text-gray-500">
-        Order. Enjoy. Repeat.
-      </footer>
     </div>
   );
 }

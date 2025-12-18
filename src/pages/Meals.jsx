@@ -25,21 +25,17 @@ export default function Meals() {
   const [page, setPage] = useState(1);
   const itemsPerPage = 10;
 
-  const {
-    data,
-    isLoading,
-    isError,
-    error,
-  } = useQuery({
+  const { data, isLoading, isError, error } = useQuery({
     queryKey: ["meals", page],
     queryFn: async () => {
-      const res = await axiosInstance.get(`/meals?page=${page}&limit=${itemsPerPage}`);
+      const res = await axiosInstance.get(
+        `/meals?page=${page}&limit=${itemsPerPage}`
+      );
       return res.data;
     },
-    keepPreviousData: true, // Keep old data while fetching (smooth transition)
+    keepPreviousData: true,
   });
 
-  // Handle both paginated response and potential fallback
   const meals = data?.meals || (Array.isArray(data) ? data : []);
   const totalItems = data?.total || 0;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
@@ -90,14 +86,16 @@ export default function Meals() {
               Discover fresh, homemade meals from local chefs.
             </p>
           </div>
-          
+
           <div className="mt-4 md:mt-0">
             <select
               className="select select-bordered border-[#FFE52A] w-full max-w-xs focus:outline-none focus:border-[#F79A19]"
               value={sortOrder}
               onChange={(e) => setSortOrder(e.target.value)}
             >
-              <option value="" disabled>Sort by Price</option>
+              <option value="" disabled>
+                Sort by Price
+              </option>
               <option value="asc">Price: Low to High</option>
               <option value="desc">Price: High to Low</option>
             </select>
@@ -106,10 +104,10 @@ export default function Meals() {
 
         {/* Meals Grid */}
         <motion.div
-           variants={container}
-           initial="hidden"
-           animate="show"
-           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          variants={container}
+          initial="hidden"
+          animate="show"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {sortedMeals.map((meal) => (
             <motion.div
@@ -129,81 +127,87 @@ export default function Meals() {
                   ★ {meal.rating || "New"}
                 </div>
                 {meal.category && (
-                    <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-sm px-3 py-1 rounded-full text-xs text-white">
-                        {meal.category}
-                    </div>
+                  <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-sm px-3 py-1 rounded-full text-xs text-white">
+                    {meal.category}
+                  </div>
                 )}
                 {meal.estimatedDeliveryTime && (
-                   <div className="absolute bottom-4 right-4 bg-black/60 backdrop-blur-sm px-3 py-1 rounded-full text-xs text-white flex items-center gap-1">
-                      <span>⏱</span> {meal.estimatedDeliveryTime}
-                   </div>
+                  <div className="absolute bottom-4 right-4 bg-black/60 backdrop-blur-sm px-3 py-1 rounded-full text-xs text-white flex items-center gap-1">
+                    <span>⏱</span> {meal.estimatedDeliveryTime}
+                  </div>
                 )}
               </div>
 
               {/* Content Section */}
               <div className="p-6 flex-1 flex flex-col">
                 <div className="flex justify-between items-start mb-2">
-                    <h3 className="text-xl font-bold text-gray-800 line-clamp-1 flex-1 pr-2">
-                        {meal.foodName || meal.name}
-                    </h3>
-                    <p className="text-2xl font-bold text-[#F79A19]">
-                        ${meal.price}
-                    </p>
+                  <h3 className="text-xl font-bold text-gray-800 line-clamp-1 flex-1 pr-2">
+                    {meal.foodName || meal.name}
+                  </h3>
+                  <p className="text-2xl font-bold text-[#F79A19]">
+                    ${meal.price}
+                  </p>
                 </div>
 
                 {/* Additional Info: Area */}
                 <div className="flex items-center text-gray-500 text-sm mb-3">
-                    <span className="mr-1">📍</span>
-                    <span className="truncate">{meal.deliveryArea || "Citywide"}</span>
+                  <span className="mr-1">📍</span>
+                  <span className="truncate">
+                    {meal.deliveryArea || "Citywide"}
+                  </span>
                 </div>
 
                 {/* Ingredients */}
                 {meal.ingredients && meal.ingredients.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mb-4">
-                        {meal.ingredients.slice(0, 3).map((ing, i) => (
-                            <span key={i} className="text-[10px] uppercase tracking-wide bg-orange-50 text-orange-600 px-2 py-1 rounded-md font-semibold">
-                                {ing}
-                            </span>
-                        ))}
-                    </div>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {meal.ingredients.slice(0, 3).map((ing, i) => (
+                      <span
+                        key={i}
+                        className="text-[10px] uppercase tracking-wide bg-orange-50 text-orange-600 px-2 py-1 rounded-md font-semibold"
+                      >
+                        {ing}
+                      </span>
+                    ))}
+                  </div>
                 )}
 
-                 {/* Spacer to push footer down */}
                 <div className="mt-auto"></div>
 
                 <div className="flex items-center justify-between mt-4 border-t pt-4 border-gray-100">
-                    {/* Chef Info */}
-                    <div className="flex flex-col items-start gap-1">
-                        <div className="rounded-full border border-[#FFE52A] px-3 py-1 bg-yellow-50/50">
-                            <span className="text-xs font-bold text-gray-700">
-                                Chef <span className="text-[#F79A19]">{meal.chefName || "Unknown"}</span>
-                            </span>
-                        </div>
-                        {/* Custom Chef ID Badge */}
-                        <div className="pl-1 flex items-center gap-1">
-                            <span className="text-xs font-bold text-white bg-[#FFA239] px-2 py-0.5 rounded-full shadow-sm">
-                                ID: {getChefBadge(meal.chefName, meal.chefId || meal._id)}
-                            </span>
-                        </div>
+                  {/* Chef Info */}
+                  <div className="flex flex-col items-start gap-1">
+                    <div className="rounded-full border border-[#FFE52A] px-3 py-1 bg-yellow-50/50">
+                      <span className="text-xs font-bold text-gray-700">
+                        Chef{" "}
+                        <span className="text-[#F79A19]">
+                          {meal.chefName || "Unknown"}
+                        </span>
+                      </span>
                     </div>
+                    {/* Custom Chef ID Badge */}
+                    <div className="pl-1 flex items-center gap-1">
+                      <span className="text-xs font-bold text-white bg-[#FFA239] px-2 py-0.5 rounded-full shadow-sm">
+                        ID:{" "}
+                        {getChefBadge(meal.chefName, meal.chefId || meal._id)}
+                      </span>
+                    </div>
+                  </div>
 
-                    {/* Action Button */}
-                    <Link
-                      to={`/meals/${meal._id}`}
-                      className="text-[#F79A19] font-bold text-sm hover:underline"
-                    >
-                      View Details →
-                    </Link>
+                  {/* Action Button */}
+                  <Link
+                    to={`/meals/${meal._id}`}
+                    className="text-[#F79A19] font-bold text-sm hover:underline"
+                  >
+                    View Details →
+                  </Link>
                 </div>
               </div>
             </motion.div>
           ))}
         </motion.div>
-        
+
         {sortedMeals.length === 0 && !isLoading && (
-            <div className="text-center py-20 text-gray-500">
-                No meals found.
-            </div>
+          <div className="text-center py-20 text-gray-500">No meals found.</div>
         )}
 
         {/* Pagination Controls */}
@@ -216,7 +220,7 @@ export default function Meals() {
             >
               Previous
             </button>
-            
+
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
               <button
                 key={num}

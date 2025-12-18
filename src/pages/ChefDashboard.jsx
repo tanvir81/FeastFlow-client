@@ -35,7 +35,6 @@ export default function ChefDashboard() {
         Welcome, Chef! Here you can add new meals, update recipes, and view
         feedback.
       </motion.p>
-      {/* Add chef-specific controls here */}
     </motion.section>
   );
 }

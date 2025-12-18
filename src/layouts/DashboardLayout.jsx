@@ -18,7 +18,7 @@ import {
 export default function DashboardLayout() {
   const { user, userRole, logout } = useAuth();
 
-  // Dynamic classes for sidebar links
+  // classes for sidebar links
   const getLinkClasses = ({ isActive }) =>
     `flex items-center gap-3 px-3 py-2 rounded font-medium transition-colors ${
       isActive
@@ -26,7 +26,8 @@ export default function DashboardLayout() {
         : "text-gray-700 hover:bg-[#FFE52A] hover:text-gray-900"
     }`;
 
-  const logoutClasses = "flex items-center gap-3 px-3 py-2 rounded font-medium transition-colors text-gray-700 hover:bg-[#FFE52A] hover:text-gray-900";
+  const logoutClasses =
+    "flex items-center gap-3 px-3 py-2 rounded font-medium transition-colors text-gray-700 hover:bg-[#FFE52A] hover:text-gray-900";
 
   return (
     <div className="min-h-screen grid grid-cols-1 md:grid-cols-[240px_1fr]">
@@ -102,7 +103,10 @@ export default function DashboardLayout() {
                 <LuList className="text-xl" />
                 My Meals
               </NavLink>
-              <NavLink to="/dashboard/order-requests" className={getLinkClasses}>
+              <NavLink
+                to="/dashboard/order-requests"
+                className={getLinkClasses}
+              >
                 <LuClipboardList className="text-xl" />
                 Order Requests
               </NavLink>
@@ -115,7 +119,10 @@ export default function DashboardLayout() {
                 <LuUsers className="text-xl" />
                 Manage Users
               </NavLink>
-              <NavLink to="/dashboard/manage-requests" className={getLinkClasses}>
+              <NavLink
+                to="/dashboard/manage-requests"
+                className={getLinkClasses}
+              >
                 <LuListTodo className="text-xl" />
                 Manage Requests
               </NavLink>

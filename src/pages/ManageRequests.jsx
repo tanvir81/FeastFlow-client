@@ -34,7 +34,6 @@ export default function ManageRequests() {
     fetchRequests();
   }, []);
 
-  // approve or reject request
   const handleAction = async (id, status) => {
     try {
       const token = await auth.currentUser.getIdToken(true);
@@ -69,15 +68,12 @@ export default function ManageRequests() {
           <Loading message="Loading role requests..." />
         ) : requests.length === 0 ? (
           <div className="text-center py-20">
-            <ClipboardList
-              size={64}
-              className="mx-auto text-gray-300 mb-4"
-            />
+            <ClipboardList size={64} className="mx-auto text-gray-300 mb-4" />
             <p className="text-gray-500 text-lg">No requests found.</p>
           </div>
         ) : (
           <>
-            {/* Desktop View - Table */}
+            {/* Table */}
             <div className="hidden md:block bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
               <div className="overflow-x-auto">
                 <table className="w-full">
@@ -182,7 +178,7 @@ export default function ManageRequests() {
               </div>
             </div>
 
-            {/* Mobile View - Cards */}
+            {/*  Cards */}
             <div className="md:hidden space-y-4">
               {requests.map((req) => (
                 <div

@@ -3,7 +3,6 @@ import { toast } from "react-toastify";
 import axiosInstance from "../hooks/useAxios";
 import { useAuth } from "../context/AuthContext";
 
-// Defined outside to prevent remounting
 const InputField = ({ label, error, ...rest }) => (
   <div>
     <label className="block text-sm font-bold text-gray-700 mb-2">

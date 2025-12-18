@@ -170,7 +170,7 @@ export default function ManageUsers() {
                               Admin
                             </button>
 
-                            {/* Make Fraud Button */}
+                            {/* Button */}
                             {user.role !== "admin" &&
                               user.status !== "fraud" && (
                                 <button
@@ -194,7 +194,7 @@ export default function ManageUsers() {
               </div>
             </div>
 
-            {/* Mobile View - Cards */}
+            {/*Cards */}
             <div className="md:hidden space-y-4">
               {users.map((user) => (
                 <div
