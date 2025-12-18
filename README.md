@@ -4,7 +4,7 @@ Project Overview
 
 live-Link-
 
-This is a modern food ordering platform Name FeastFlow built with React and a suite of powerful libraries and tools. It features a responsive UI styled with Tailwind CSS, smooth animations with Framer Motion and GSAP, and robust state management and data fetching using React Query and Axios. The backend is powered by Firebase for authentication and MongoDB Atlas for data storage, with secure JWT-based authentication and Stripe integration for payments.
+This is a modern food ordering platform Name FeastFlow built with React and a suite of powerful libraries and tools. It features a responsive UI styled with Tailwind CSS, smooth animations with Framer Motion and GSAP, and robust state management and data fetching using React Query and Axios. The backend is powered by Firebase for authentication and MongoDB Atlas and Express.js for data storage and CRUD Operation, with secure JWT-based authentication and Stripe integration for payments.
 
 ##Key Features
 
@@ -38,6 +38,10 @@ Express.js
 
 Firebase 12.6.0
 
+Stripe
+
+DaisyUI
+
 Framer Motion 12.23.25
 
 GSAP 3.14.2
@@ -54,6 +58,7 @@ Recharts 3.5.1
 
 SweetAlert2 11.26.4
 
+IBB API
 ##Installation
 
 Clone the repository.
