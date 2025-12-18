@@ -22,7 +22,7 @@ This is a modern food ordering platform Name FeastFlow built with React and a su
 
 #Technologies & Dependencies
 
-##React 19.2.0
+React 19.2.0
 
 Tailwind CSS 4.1.17 with @tailwindcss/vite
 
