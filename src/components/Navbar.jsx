@@ -35,7 +35,7 @@ export default function Navbar() {
               whileHover={{ rotate: 10 }}
               src="/fest-flow.png"
               alt="FeastFlow Logo"
-              className="w-10 h-10 sm:w-12 sm:h-12 object-contain"
+              className="w-16 h-16 sm:w-20 sm:h-20 object-contain"
             />
             <span className="text-xl sm:text-2xl font-bold text-[#F79A19] tracking-tight group-hover:text-[#e08912] transition-colors">
               FeastFlow
