@@ -20,7 +20,7 @@ This is a modern food ordering platform Name FeastFlow built with React and a su
 
 #Responsive design with dark/light theme toggle and animations.
 
-#Technologies & Dependencies
+##Technologies & Dependencies 
 
 React 19.2.0
 
