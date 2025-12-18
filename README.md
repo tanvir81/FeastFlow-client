@@ -32,6 +32,10 @@ React Query (@tanstack/react-query) 5.90.12
 
 Axios 1.13.2
 
+MongoDB Atlas
+
+Express.js
+
 Firebase 12.6.0
 
 Framer Motion 12.23.25
