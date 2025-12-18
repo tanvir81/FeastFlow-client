@@ -19,7 +19,7 @@ live-Link-
 
 #Responsive design with dark/light theme toggle and animations.
 
-##Technologies & Dependencies 
+## Technologies & Dependencies 
 
 React 19.2.0
 
@@ -79,7 +79,7 @@ Chefs can create and manage meals and order requests.
 
 Admins can manage users, requests, and view platform statistics.
 
-##Folder Structure
+## Folder Structure
 
 /src - React source code.
 
@@ -98,7 +98,7 @@ Admins can manage users, requests, and view platform statistics.
 
 ## 📞 Contact
 
-[![Live Site](https://img.shields.io/badge/🌐_Live_Site-000?style=for-the-badge)](https://course-nest-6d3e1.web.app)
+[![Live Site](https://img.shields.io/badge/🌐_Live_Site-000?style=for-the-badge)](https://course-nest)
 [![Email](https://img.shields.io/badge/📧_Email-tkdarkshadow@gmail.com-000?style=for-the-badge)](mailto:tkdarkshadow@gmail.com)
 [![GitHub](https://img.shields.io/badge/💻_GitHub-tanvir81-000?style=for-the-badge)](https://github.com/tanvir81)
 
