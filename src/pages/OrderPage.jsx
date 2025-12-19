@@ -147,6 +147,18 @@ export default function OrderPage() {
                   <span>Quantity</span>
                   <span className="font-semibold">x {quantity}</span>
                 </div>
+                <div className="flex justify-between items-center text-sm text-gray-600 border-t pt-4">
+                  <span>Initial Status</span>
+                  <span className="font-bold text-orange-500 uppercase">
+                    Pending
+                  </span>
+                </div>
+                <div className="flex justify-between items-center text-sm text-gray-600">
+                  <span>Order Time</span>
+                  <span className="font-semibold">
+                    {new Date().toLocaleTimeString()}
+                  </span>
+                </div>
                 <div className="flex justify-between items-center text-xl font-bold text-gray-900 border-t pt-4">
                   <span>Total</span>
                   <span className="text-[#F79A19]">
@@ -165,13 +177,30 @@ export default function OrderPage() {
             </h1>
 
             <div className="space-y-6">
-              {/* User Info  */}
               <div className="bg-yellow-50 p-5 rounded-xl border border-yellow-200">
                 <label className="block text-xs font-bold text-yellow-800 uppercase tracking-wide mb-1 opacity-80">
                   Ordering As
                 </label>
                 <div className="font-bold text-gray-900 flex items-center gap-2">
                   <span className="text-xl"></span> {user.email}
+                </div>
+              </div>
+
+              {/* Added Status and Time Fields */}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-orange-50 p-4 rounded-xl border border-orange-100">
+                  <label className="block text-xs font-bold text-orange-800 uppercase tracking-wide mb-1 opacity-80">
+                    Order Status
+                  </label>
+                  <div className="font-bold text-orange-500">Pending</div>
+                </div>
+                <div className="bg-orange-50 p-4 rounded-xl border border-orange-100">
+                  <label className="block text-xs font-bold text-orange-800 uppercase tracking-wide mb-1 opacity-80">
+                    Order Time
+                  </label>
+                  <div className="font-bold text-gray-900">
+                    {new Date().toLocaleTimeString()}
+                  </div>
                 </div>
               </div>
 

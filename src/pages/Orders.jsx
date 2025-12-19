@@ -150,7 +150,7 @@ const Orders = () => {
                           order.orderStatus
                         )} text-white text-xs font-semibold px-3 py-1 rounded-full`}
                       >
-                        {order.orderStatus}
+                        Status: {order.orderStatus}
                       </span>
                       {/* Only show payment status if it's different from order status */}
                       {order.paymentStatus?.toLowerCase() !==
@@ -219,7 +219,7 @@ const Orders = () => {
                       />
                     </svg>
                     <div>
-                      <p className="text-gray-600 text-xs">Order Time</p>
+                      <p className="text-gray-600 text-xs">Ordered at:</p>
                       <p className="text-sm font-medium">
                         {new Date(order.orderTime).toLocaleString()}
                       </p>

@@ -10,6 +10,13 @@ function MealDetails() {
   const { id } = useParams();
   const queryClient = useQueryClient();
   const { user } = useAuth();
+  
+  // Helper for Chef ID Badge
+  const getChefBadge = (name, id) => {
+    const n = (name || "Unknown").slice(0, 3).toUpperCase();
+    const i = (id || "0000").slice(0, 4).toUpperCase();
+    return `${n}-${i}`;
+  };
 
   // Fetch single meal
   const {
@@ -119,8 +126,8 @@ function MealDetails() {
           <div className="space-y-8">
             <div>
               <div className="flex items-center gap-3 mb-3">
-                <span className="bg-[#FFE52A] text-gray-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                  {meal.category || "Homemade"}
+                <span className="bg-[#FFA239] text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                  ID: {getChefBadge(meal.chefName, meal.chefId || meal._id)}
                 </span>
                 <div className="flex items-center gap-1 text-[#F79A19] font-bold">
                   <span>★</span>
@@ -171,6 +178,14 @@ function MealDetails() {
                 </p>
                 <p className="font-semibold text-gray-800">
                   {meal.deliveryArea || "Local Area"}
+                </p>
+              </div>
+              <div className="bg-white p-4 rounded-xl border border-gray-100">
+                <p className="text-gray-400 text-xs font-bold uppercase mb-1">
+                  Chef Experience
+                </p>
+                <p className="font-semibold text-gray-800">
+                  {meal.chefExperience || "Expert Chef"}
                 </p>
               </div>
               <div className="bg-white p-4 rounded-xl border border-gray-100 col-span-2">

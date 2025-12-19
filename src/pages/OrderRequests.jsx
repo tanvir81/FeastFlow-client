@@ -98,7 +98,7 @@ const OrderRequests = () => {
                     order.orderStatus
                   )}`}
                 >
-                  {order.orderStatus}
+                  Status: {order.orderStatus}
                 </span>
               </div>
 
