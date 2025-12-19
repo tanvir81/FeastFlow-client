@@ -161,19 +161,23 @@ export default function Profile() {
             </div>
 
             {/* Role Request Buttons */}
-            {userRole === "user" && (
+            {userRole !== "admin" && (
               <div className="mt-8 pt-6 border-t border-gray-100">
                 <h4 className="text-lg font-semibold text-gray-800 mb-4">
-                  Want to become a Chef or Admin?
+                  {userRole === "chef"
+                    ? "Want to become an Admin?"
+                    : "Want to become a Chef or Admin?"}
                 </h4>
                 <div className="flex gap-4 flex-col sm:flex-row">
-                  <button
-                    onClick={() => sendRoleRequest("chef")}
-                    className="flex-1 bg-[#F79A19] hover:bg-[#e08914] text-white py-2.5 px-4 rounded-lg font-medium transition-colors flex items-center justify-center gap-2 shadow-sm"
-                  >
-                    <Star size={18} />
-                    Request to be Chef
-                  </button>
+                  {userRole === "user" && (
+                    <button
+                      onClick={() => sendRoleRequest("chef")}
+                      className="flex-1 bg-[#F79A19] hover:bg-[#e08914] text-white py-2.5 px-4 rounded-lg font-medium transition-colors flex items-center justify-center gap-2 shadow-sm"
+                    >
+                      <Star size={18} />
+                      Request to be Chef
+                    </button>
+                  )}
                   <button
                     onClick={() => sendRoleRequest("admin")}
                     className="flex-1 bg-gray-800 hover:bg-gray-900 text-white py-2.5 px-4 rounded-lg font-medium transition-colors flex items-center justify-center gap-2 shadow-sm"
