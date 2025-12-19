@@ -23,7 +23,7 @@ export default function Profile() {
       const token = await auth.currentUser?.getIdToken();
 
       const res = await axios.post(
-        "http://localhost:3000/requests",
+        `${import.meta.env.VITE_API_URL}/requests`,
         {
           email: user.email,
           requestedRole,

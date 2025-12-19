@@ -20,7 +20,7 @@ const PaymentSuccess = () => {
       try {
         if (sessionId) {
           const res = await axios.patch(
-            `http://localhost:3000/payment-success?session_id=${sessionId}`
+            `${import.meta.env.VITE_API_URL}/payment-success?session_id=${sessionId}`
           );
           if (res.data.success) {
             setSuccess(true);

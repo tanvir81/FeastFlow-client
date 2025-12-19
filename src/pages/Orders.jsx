@@ -15,7 +15,7 @@ const Orders = () => {
     const fetchOrders = async () => {
       try {
         const idToken = await getAuth().currentUser.getIdToken(true);
-        const res = await axios.get("http://localhost:3000/orders", {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/orders`, {
           headers: { Authorization: `Bearer ${idToken}` },
         });
         setOrders(res.data);
@@ -42,7 +42,7 @@ const Orders = () => {
       const idToken = await getAuth().currentUser.getIdToken(true);
 
       const res = await axios.post(
-        "http://localhost:3000/create-checkout-session",
+        `${import.meta.env.VITE_API_URL}/create-checkout-session`,
         {
           orderId: order._id,
           mealName: order.mealName,

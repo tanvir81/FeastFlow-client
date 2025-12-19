@@ -27,7 +27,7 @@ export function AuthProvider({ children }) {
         profileImage: firebaseUser.photoURL || "",
         role,
       };
-      await axios.post("http://localhost:3000/users", payload, {
+      await axios.post(`${import.meta.env.VITE_API_URL}/users`, payload, {
         withCredentials: true,
       });
     } catch (err) {
@@ -67,7 +67,7 @@ export function AuthProvider({ children }) {
 
       const token = await updatedFirebaseUser.getIdToken(true);
 
-      const res = await fetch("http://localhost:3000/register", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ idToken: token, name, address, profileImage }),
@@ -112,7 +112,7 @@ export function AuthProvider({ children }) {
       const role = tokenResult.claims.role || "user";
 
       //  Login to backend
-      const res = await fetch("http://localhost:3000/login", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -122,7 +122,7 @@ export function AuthProvider({ children }) {
       if (!res.ok) throw new Error("Backend login failed");
 
       // 2. Fetch full user profile from backend
-      const meRes = await fetch("http://localhost:3000/me", {
+      const meRes = await fetch(`${import.meta.env.VITE_API_URL}/me`, {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
         credentials: "include",
@@ -163,7 +163,7 @@ export function AuthProvider({ children }) {
       await signOut(auth);
       setUser(null);
       setUserRole(null);
-      await fetch("http://localhost:3000/logout", {
+      await fetch(`${import.meta.env.VITE_API_URL}/logout`, {
         method: "POST",
         credentials: "include",
       });
@@ -189,7 +189,7 @@ export function AuthProvider({ children }) {
           const tokenResult = await current.getIdTokenResult();
           const tokenRole = tokenResult.claims.role || "user";
 
-          const res = await fetch("http://localhost:3000/me", {
+          const res = await fetch(`${import.meta.env.VITE_API_URL}/me`, {
             method: "GET",
             headers: { Authorization: `Bearer ${await current.getIdToken()}` },
           });

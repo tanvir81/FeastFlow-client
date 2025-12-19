@@ -21,7 +21,7 @@ export default function Statistics() {
     const fetchStats = async () => {
       try {
         const token = await auth.currentUser.getIdToken(true);
-        const res = await axios.get("http://localhost:3000/statistics", {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/statistics`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

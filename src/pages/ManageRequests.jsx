@@ -16,7 +16,7 @@ export default function ManageRequests() {
         // get fresh ID token
         const token = await auth.currentUser.getIdToken(true);
 
-        const res = await axios.get("http://localhost:3000/requests", {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/requests`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -39,7 +39,7 @@ export default function ManageRequests() {
       const token = await auth.currentUser.getIdToken(true);
 
       await axios.patch(
-        `http://localhost:3000/requests/${id}`,
+        `${import.meta.env.VITE_API_URL}/requests/${id}`,
         { status },
         {
           headers: {

@@ -4,7 +4,8 @@ Project Overview
 
 This is a modern food ordering platform Name FeastFlow built with React and a suite of powerful libraries and tools. It features a responsive UI styled with Tailwind CSS, smooth animations with Framer Motion and GSAP, and robust state management and data fetching using React Query and Axios. The backend is powered by Firebase for authentication and MongoDB Atlas and Express.js for data storage and CRUD Operation, with secure JWT-based authentication and Stripe integration for payments.
 
-live-Link-
+## Project-live-Link- https://feast-flow.web.app/
+
 ## Key Features
 
 #Public and private pages with role-based access (User, Chef, Admin).
@@ -19,7 +20,7 @@ live-Link-
 
 #Responsive design with dark/light theme toggle and animations.
 
-## Technologies & Dependencies 
+## Technologies & Dependencies
 
 React 19.2.0
 
@@ -89,9 +90,8 @@ Admins can manage users, requests, and view platform statistics.
 
 /pages - Route-based page components.
 
-/services - API and Firebase service integrations.
-4. Contributions
-   
+/services - API and Firebase service integrations. 4. Contributions
+
 | Name                | Role                | Contributions                       |
 | ------------------- | ------------------- | ----------------------------------- |
 | Tanvir Hussain Khan | Fullstack Developer | Entire project design & development |
@@ -101,4 +101,3 @@ Admins can manage users, requests, and view platform statistics.
 [![Live Site](https://img.shields.io/badge/🌐_Live_Site-000?style=for-the-badge)](https://course-nest)
 [![Email](https://img.shields.io/badge/📧_Email-tkdarkshadow@gmail.com-000?style=for-the-badge)](mailto:tkdarkshadow@gmail.com)
 [![GitHub](https://img.shields.io/badge/💻_GitHub-tanvir81-000?style=for-the-badge)](https://github.com/tanvir81)
-

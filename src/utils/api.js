@@ -15,7 +15,7 @@ export async function apiFetch(url, options = {}) {
     headers.Authorization = `Bearer ${idToken}`;
   }
 
-  const res = await fetch(`http://localhost:3000${url}`, {
+  const res = await fetch(`${import.meta.env.VITE_API_URL}${url}`, {
     ...options,
     credentials: "include",
     headers,

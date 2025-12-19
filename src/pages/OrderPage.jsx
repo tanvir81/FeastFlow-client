@@ -17,7 +17,7 @@ export default function OrderPage() {
   // Fetch single meal
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/meals/${id}`)
+      .get(`${import.meta.env.VITE_API_URL}/meals/${id}`)
       .then((res) => setMeal(res.data))
       .catch((err) => {
         console.error("Failed to fetch meal:", err);
@@ -74,7 +74,7 @@ export default function OrderPage() {
     try {
       const idToken = await getAuth().currentUser.getIdToken();
 
-      await axios.post("http://localhost:3000/orders", orderData, {
+      await axios.post(`${import.meta.env.VITE_API_URL}/orders`, orderData, {
         headers: { Authorization: `Bearer ${idToken}` },
       });
 

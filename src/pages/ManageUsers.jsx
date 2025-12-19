@@ -16,7 +16,7 @@ export default function ManageUsers() {
         // get fresh ID token
         const token = await auth.currentUser.getIdToken(true);
 
-        const res = await axios.get("http://localhost:3000/users", {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/users`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -40,7 +40,7 @@ export default function ManageUsers() {
       const token = await auth.currentUser.getIdToken(true);
 
       await axios.patch(
-        `http://localhost:3000/users/${id}`,
+        `${import.meta.env.VITE_API_URL}/users/${id}`,
         { role },
         {
           headers: {
@@ -62,7 +62,7 @@ export default function ManageUsers() {
       const token = await auth.currentUser.getIdToken(true);
 
       await axios.patch(
-        `http://localhost:3000/users/${id}`,
+        `${import.meta.env.VITE_API_URL}/users/${id}`,
         { status: "fraud" },
         {
           headers: {
