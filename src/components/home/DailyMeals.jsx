@@ -52,7 +52,12 @@ export default function DailyMeals() {
       try {
         // Fetch all meals
         const response = await axiosInstance.get("/meals");
-        setMeals(response.data.slice(0, 6));
+        let allMeals = response.data;
+        // Ensure we have at least 8 items for the design
+        while (allMeals.length > 0 && allMeals.length < 8) {
+          allMeals = [...allMeals, ...allMeals];
+        }
+        setMeals(allMeals.slice(0, 8));
       } catch (error) {
         console.error("Failed to fetch meals", error);
       } finally {
@@ -67,17 +72,17 @@ export default function DailyMeals() {
   }
 
   return (
-    <section className="py-24 bg-white overflow-hidden">
+    <section className="py-24 bg-base-100 overflow-hidden">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Daily <span className="text-[#F79A19]">Delights</span>
+          <h2 className="text-4xl font-bold text-base-content mb-4">
+            Daily <span className="text-amber-glow-500">Delights</span>
           </h2>
           <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.8 }}
-            className="text-gray-600 max-w-xl mx-auto"
+            className="text-base-content/70 max-w-xl mx-auto"
           >
             Explore our top-rated meals cooked fresh daily by passionate chefs
             in your neighborhood.
@@ -89,14 +94,14 @@ export default function DailyMeals() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.1 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
         >
-          {meals.map((meal) => (
+          {meals.map((meal, index) => (
             <motion.div
-              key={meal._id}
+              key={`${meal._id}-${index}`}
               variants={item}
               whileHover={{ y: -10 }}
-              className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300"
+              className="bg-base-100 border border-base-200 rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300"
             >
               <div className="relative h-60 overflow-hidden">
                 <img
@@ -110,7 +115,7 @@ export default function DailyMeals() {
                   </div>
                 )}
                 <div className="pl-1 flex items-center gap-2">
-                  <span className="text-xs font-bold text-white bg-[#FFA239] px-2 py-0.5 rounded-full shadow-sm">
+                  <span className="text-xs font-bold text-white bg-amber-glow-400 px-2 py-0.5 rounded-full shadow-sm">
                     ID: {getChefBadge(meal.chefName, meal.chefId || meal._id)}
                   </span>
                 </div>
@@ -121,19 +126,19 @@ export default function DailyMeals() {
               <div className="p-6">
                 <div className="flex justify-between items-start mb-2">
                   <div>
-                    <h3 className="text-xl font-bold text-gray-800 line-clamp-1">
+                    <h3 className="text-xl font-bold text-base-content line-clamp-1">
                       {meal.foodName || meal.title}
                     </h3>
-                    <p className="text-2xl font-bold text-[#F79A19] mt-1">
+                    <p className="text-2xl font-bold text-amber-glow-500 mt-1">
                       ${meal.price}
                     </p>
                   </div>
                   <div className="flex flex-col items-end">
-                    <div className="flex items-center gap-1 text-lg font-bold text-gray-700">
+                    <div className="flex items-center gap-1 text-lg font-bold text-base-content">
                       <span className="text-yellow-400 text-xl">★</span>{" "}
                       {meal.rating || "4.5"}
                     </div>
-                    <div className="flex items-center text-gray-500 text-xs mt-1">
+                    <div className="flex items-center text-base-content/60 text-xs mt-1">
                       <span className="mr-1">📍</span>
                       <span className="truncate">
                         {meal.deliveryArea || "Citywide"}
@@ -142,7 +147,7 @@ export default function DailyMeals() {
                   </div>
                 </div>
 
-                <p className="text-gray-600 text-sm mb-3 line-clamp-2">
+                <p className="text-base-content/70 text-sm mb-3 line-clamp-2">
                   {meal.description}
                 </p>
 
@@ -159,19 +164,19 @@ export default function DailyMeals() {
                   </div>
                 )}
 
-                <div className="flex items-center justify-between mt-4 border-t pt-4 border-gray-100">
+                <div className="flex items-center justify-between mt-4 border-t pt-4 border-base-200">
                   {/* Chef Info */}
                   <div className="flex flex-col items-start gap-1">
                     <div className="pl-1 flex items-center gap-2">
-                      <span className="text-xs font-bold text-white bg-[#FFA239] px-2 py-0.5 rounded-full shadow-sm">
+                      <span className="text-xs font-bold text-white bg-amber-glow-400 px-2 py-0.5 rounded-full shadow-sm">
                         ID:{" "}
                         {getChefBadge(meal.chefName, meal.chefId || meal._id)}
                       </span>
                     </div>
-                    <div className="rounded-full border border-[#FFE52A] px-3 py-1 bg-yellow-50/50">
-                      <span className="text-xs font-bold text-gray-700">
+                    <div className="rounded-full border border-amber-glow-300 px-3 py-1 bg-yellow-50/50">
+                      <span className="text-xs font-bold text-base-content">
                         Chef{" "}
-                        <span className="text-[#F79A19]">
+                        <span className="text-amber-glow-500">
                           {meal.chefName || "Unknown"}
                         </span>
                       </span>
@@ -179,7 +184,7 @@ export default function DailyMeals() {
                   </div>
                   <Link
                     to={`/meals/${meal._id}`}
-                    className="text-[#F79A19] font-bold text-sm hover:underline"
+                    className="text-amber-glow-500 font-bold text-sm hover:underline"
                   >
                     View Details →
                   </Link>
@@ -192,7 +197,7 @@ export default function DailyMeals() {
         <div className="text-center mt-12">
           <Link
             to="/meals"
-            className="inline-block px-8 py-3 border-2 border-[#FFE52A] text-gray-800 font-bold rounded-full hover:bg-[#FFE52A] transition-colors"
+            className="inline-block px-8 py-3 border-2 border-amber-glow-300 text-base-content font-bold rounded-full hover:bg-amber-glow-300 hover:text-gray-900 transition-colors"
           >
             Browse All Meals
           </Link>

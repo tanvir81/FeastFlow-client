@@ -29,10 +29,10 @@ export default function UserDashboard() {
     >
       <motion.h1
         variants={itemVariants}
-        className="text-4xl font-bold text-[#F79A19] mb-4"
+        className="text-4xl font-bold text-amber-glow-500 mb-4"
       >
         Welcome Back,{" "}
-        <span className="text-[#F79A19]">
+        <span className="text-amber-glow-500">
           {user?.displayName || user?.name || "User"}
         </span>
         !

@@ -80,16 +80,16 @@ function MyReview() {
   };
 
   return (
-    <section className="min-h-screen bg-gray-50 py-10 px-4 md:px-8">
+    <section className="min-h-screen bg-base-100 py-10 px-4 md:px-8">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl font-bold mb-8 text-gray-800 text-center">
+        <h2 className="text-3xl font-bold mb-8 text-base-content text-center">
           My Reviews
         </h2>
 
         {loading ? (
           <Loading message="Loading your reviews..." />
         ) : reviews.length === 0 ? (
-            <div className="text-center text-gray-500 py-10">
+            <div className="text-center text-base-content/60 py-10">
                 <p>You haven't written any reviews yet.</p>
             </div>
         ) : (
@@ -97,11 +97,11 @@ function MyReview() {
             {reviews.map((review) => (
                 <div
                 key={review._id}
-                className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-gray-100 flex flex-col p-6"
+                className="bg-base-100 border border-base-200 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden flex flex-col p-6"
                 >
                 <div className="flex justify-between items-start mb-4">
                     <div>
-                         <h3 className="text-xl font-bold text-gray-800 mb-1 line-clamp-1" title={review.mealName}>
+                         <h3 className="text-xl font-bold text-base-content mb-1 line-clamp-1" title={review.mealName}>
                             {review.mealName || "Untitled Meal"}
                         </h3>
                         {/* Display fallback if mealName is missing to identify issue */}
@@ -109,18 +109,18 @@ function MyReview() {
                         
                          <div className="flex items-center gap-1">
                             {renderStars(review.rating)}
-                            <span className="text-xs text-gray-500 ml-2">({review.rating}/5)</span>
+                            <span className="text-xs text-base-content/60 ml-2">({review.rating}/5)</span>
                         </div>
                     </div>
                 </div>
 
                 <div className="flex-1 mb-4">
-                    <p className="text-gray-600 italic text-sm line-clamp-4 relative pl-3 border-l-2 border-gray-300">
+                    <p className="text-base-content/70 italic text-sm line-clamp-4 relative pl-3 border-l-2 border-base-300">
                     "{review.comment}"
                     </p>
                 </div>
 
-                <div className="flex items-center gap-2 text-xs text-gray-400 mb-6 mt-auto">
+                <div className="flex items-center gap-2 text-xs text-base-content/50 mb-6 mt-auto">
                     <Calendar size={14} />
                     <span>{new Date(review.date).toLocaleDateString()}</span>
                 </div>
@@ -131,7 +131,7 @@ function MyReview() {
                         setEditingReview(review);
                         reset({ rating: review.rating, comment: review.comment });
                         }}
-                        className="flex-1 flex items-center justify-center gap-2 bg-[#F79A19]/10 text-[#F79A19] hover:bg-[#F79A19]/20 py-2.5 rounded-lg text-sm font-bold transition-colors"
+                        className="flex-1 flex items-center justify-center gap-2 bg-amber-glow-500/10 text-amber-glow-500 hover:bg-amber-glow-500/20 py-2.5 rounded-lg text-sm font-bold transition-colors"
                     >
                         <Edit size={16} /> Update
                     </button>
@@ -151,16 +151,16 @@ function MyReview() {
       {/* Edit Modal / Form */}
       {editingReview && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4 backdrop-blur-sm">
-          <div className="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-md border border-gray-100 scale-100 animate-in fade-in zoom-in duration-200">
-            <h3 className="text-xl font-bold mb-4 text-gray-800 border-b pb-2">
-              Update Review for <span className="text-[#F79A19]">{editingReview.mealName}</span>
+          <div className="bg-base-100 border border-base-200 rounded-2xl shadow-2xl p-6 w-full max-w-md scale-100 animate-in fade-in zoom-in duration-200">
+            <h3 className="text-xl font-bold mb-4 text-base-content border-b pb-2">
+              Update Review for <span className="text-amber-glow-500">{editingReview.mealName}</span>
             </h3>
             <form onSubmit={handleSubmit(onEditSubmit)} className="space-y-5">
               <div>
-                 <label className="block text-sm font-medium text-gray-700 mb-1">Rating</label>
+                 <label className="block text-sm font-medium text-base-content mb-1">Rating</label>
                  <select
                     {...register("rating", { required: true })}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#F79A19] focus:outline-none"
+                    className="w-full border border-base-300 bg-base-100 text-base-content rounded-lg px-3 py-2 focus:ring-2 focus:ring-amber-glow-500 focus:outline-none"
                     defaultValue={editingReview.rating}
                  >
                     <option value="5">5 - Excellent</option>
@@ -172,11 +172,11 @@ function MyReview() {
               </div>
               
               <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Comment</label>
+                  <label className="block text-sm font-medium text-base-content mb-1">Comment</label>
                   <textarea
                     {...register("comment", { required: true })}
                     rows="4"
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#F79A19] focus:outline-none"
+                    className="w-full border border-base-300 bg-base-100 text-base-content rounded-lg px-3 py-2 focus:ring-2 focus:ring-amber-glow-500 focus:outline-none"
                   />
               </div>
 
@@ -190,7 +190,7 @@ function MyReview() {
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 bg-[#F79A19] hover:bg-[#e08914] text-white py-2.5 rounded-lg font-medium transition-colors shadow-sm"
+                  className="flex-1 bg-amber-glow-500 hover:bg-amber-glow-600 text-white py-2.5 rounded-lg font-medium transition-colors shadow-sm"
                 >
                   Save Changes
                 </button>

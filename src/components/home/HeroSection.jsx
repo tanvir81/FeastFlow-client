@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
+import { ChevronDown } from "lucide-react";
 
 const heroImages = ["/hero-1.jpg", "/hero-2.jpg", "/hero-3.jpg"];
 
@@ -15,7 +16,7 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-gray-900">
+    <section className="relative h-[70vh] flex items-center overflow-hidden bg-gray-900">
       {/* Background Slider */}
       <div className="absolute inset-0 z-0">
         <AnimatePresence mode="popLayout">
@@ -46,7 +47,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.5 }}
-            className="text-[#F79A19] font-bold tracking-wider uppercase mb-2 block"
+            className="text-amber-glow-500 font-bold tracking-wider uppercase mb-2 block"
           >
             Hungry? We got you.
           </motion.span>
@@ -56,7 +57,7 @@ export default function HeroSection() {
             transition={{ delay: 0.3, duration: 0.6 }}
             className="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-6"
           >
-            Taste the <span className="text-[#FFE52A]">Magic</span> <br />
+            Taste the <span className="text-amber-glow-300">Magic</span> <br />
             of Home Cooking
           </motion.h1>
           <motion.p
@@ -76,19 +77,41 @@ export default function HeroSection() {
           >
             <Link
               to="/meals"
-              className="px-8 py-3 bg-[#F79A19] text-white font-bold rounded-full shadow-lg hover:shadow-xl hover:bg-[#e08912] transition-all transform hover:-translate-y-1"
+              className="px-8 py-3 bg-amber-glow-500 text-white font-bold rounded-full shadow-lg hover:shadow-xl hover:bg-amber-glow-600 transition-all transform hover:-translate-y-1"
             >
               Order Now
             </Link>
             <Link
               to="/register"
-              className="px-8 py-3 bg-transparent text-white border-2 border-[#F79A19] font-bold rounded-full hover:bg-[#F79A19] hover:text-white transition-all"
+              className="px-8 py-3 bg-transparent text-white border-2 border-amber-glow-500 font-bold rounded-full hover:bg-amber-glow-500 hover:text-white transition-all"
             >
               SignUp Now
             </Link>
           </motion.div>
         </motion.div>
       </div>
+
+      {/* Scroll Down Indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1, duration: 0.6 }}
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex flex-col items-center gap-2"
+      >
+        <span className="text-white text-sm font-medium tracking-wider uppercase opacity-70">
+          Scroll Down
+        </span>
+        <motion.div
+          animate={{ y: [0, 10, 0] }}
+          transition={{
+            duration: 1.5,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        >
+          <ChevronDown size={32} className="text-amber-glow-500" />
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

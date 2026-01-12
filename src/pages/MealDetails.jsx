@@ -92,13 +92,13 @@ function MealDetails() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
+    <div className="min-h-screen bg-base-100 py-12">
       <div className="max-w-7xl mx-auto px-6">
         {/* Breadcrumb / Back */}
         <div className="mb-8">
           <Link
             to="/meals"
-            className="text-gray-500 hover:text-[#F79A19] transition-colors font-medium flex items-center gap-2"
+            className="text-base-content/60 hover:text-amber-glow-500 transition-colors font-medium flex items-center gap-2"
           >
             ← Back to Meals
           </Link>
@@ -115,8 +115,8 @@ function MealDetails() {
               />
             </div>
             {/* Floating Price Badge */}
-            <div className="absolute top-6 right-6 bg-white/95 backdrop-blur-sm px-6 py-3 rounded-full shadow-lg border border-gray-100">
-              <span className="text-2xl font-extrabold text-[#F79A19]">
+            <div className="absolute top-6 right-6 bg-base-100/95 backdrop-blur-sm px-6 py-3 rounded-full shadow-lg border border-base-200">
+              <span className="text-2xl font-extrabold text-amber-glow-500">
                 ${meal.price}
               </span>
             </div>
@@ -126,30 +126,30 @@ function MealDetails() {
           <div className="space-y-8">
             <div>
               <div className="flex items-center gap-3 mb-3">
-                <span className="bg-[#FFA239] text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                <span className="bg-amber-glow-400 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
                   ID: {getChefBadge(meal.chefName, meal.chefId || meal._id)}
                 </span>
-                <div className="flex items-center gap-1 text-[#F79A19] font-bold">
+                <div className="flex items-center gap-1 text-amber-glow-500 font-bold">
                   <span>★</span>
                   <span>{meal.rating || "New"}</span>
                 </div>
               </div>
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
+              <h1 className="text-4xl md:text-5xl font-bold text-base-content leading-tight">
                 {meal.foodName || meal.name}
               </h1>
             </div>
 
             {/* Chef Section */}
-            <div className="flex items-center gap-4 p-4 bg-white rounded-2xl shadow-sm border border-gray-100">
+            <div className="flex items-center gap-4 p-4 bg-base-100 rounded-2xl shadow-sm border border-base-200">
               <div className="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center text-xl">
                 👨‍🍳
               </div>
               <div>
-                <p className="text-xs text-gray-500 font-bold uppercase tracking-wide">
+                <p className="text-xs text-base-content/60 font-bold uppercase tracking-wide">
                   Crafted by
                 </p>
                 <div className="flex items-center gap-2">
-                  <h3 className="text-lg font-bold text-gray-900">
+                  <h3 className="text-lg font-bold text-base-content">
                     {meal.chefName}
                   </h3>
                   {/* Reuse simple text or badge if needed, sticking to text for now as per design */}
@@ -157,39 +157,39 @@ function MealDetails() {
               </div>
             </div>
 
-            <p className="text-gray-600 text-lg leading-relaxed">
+            <p className="text-base-content/70 text-lg leading-relaxed">
               {meal.description ||
                 "A delicious homemade meal prepared with fresh ingredients and love. perfect for a healthy and satisfying lunch or dinner."}
             </p>
 
             {/* Info Grid */}
             <div className="grid grid-cols-2 gap-4">
-              <div className="bg-white p-4 rounded-xl border border-gray-100">
-                <p className="text-gray-400 text-xs font-bold uppercase mb-1">
+              <div className="bg-base-100 p-4 rounded-xl border border-base-200">
+                <p className="text-base-content/50 text-xs font-bold uppercase mb-1">
                   Delivery Time
                 </p>
-                <p className="font-semibold text-gray-800">
+                <p className="font-semibold text-base-content">
                   {meal.deliveryTime || meal.estimatedDeliveryTime}
                 </p>
               </div>
-              <div className="bg-white p-4 rounded-xl border border-gray-100">
-                <p className="text-gray-400 text-xs font-bold uppercase mb-1">
+              <div className="bg-base-100 p-4 rounded-xl border border-base-200">
+                <p className="text-base-content/50 text-xs font-bold uppercase mb-1">
                   Delivery Area
                 </p>
-                <p className="font-semibold text-gray-800">
+                <p className="font-semibold text-base-content">
                   {meal.deliveryArea || "Local Area"}
                 </p>
               </div>
-              <div className="bg-white p-4 rounded-xl border border-gray-100">
-                <p className="text-gray-400 text-xs font-bold uppercase mb-1">
+              <div className="bg-base-100 p-4 rounded-xl border border-base-200">
+                <p className="text-base-content/50 text-xs font-bold uppercase mb-1">
                   Chef Experience
                 </p>
-                <p className="font-semibold text-gray-800">
+                <p className="font-semibold text-base-content">
                   {meal.chefExperience || "Expert Chef"}
                 </p>
               </div>
-              <div className="bg-white p-4 rounded-xl border border-gray-100 col-span-2">
-                <p className="text-gray-400 text-xs font-bold uppercase mb-1">
+              <div className="bg-base-100 p-4 rounded-xl border border-base-200 col-span-2">
+                <p className="text-base-content/50 text-xs font-bold uppercase mb-1">
                   Ingredients
                 </p>
                  <div className="flex flex-wrap gap-2 mt-1">
@@ -200,7 +200,7 @@ function MealDetails() {
                       </span>
                     ))
                   ) : (
-                    <span className="text-gray-800">{meal.ingredients}</span>
+                    <span className="text-base-content">{meal.ingredients}</span>
                   )}
                  </div>
               </div>
@@ -226,7 +226,7 @@ function MealDetails() {
                     addedTime: new Date().toISOString(),
                   })
                 }
-                className="flex-1 bg-[#FFE52A] hover:bg-[#FFA239] text-gray-900 text-center font-bold text-lg py-4 rounded-xl shadow-lg shadow-yellow-200 transition-all hover:-translate-y-1"
+                className="flex-1 bg-amber-glow-300 hover:bg-amber-glow-400 text-gray-900 text-center font-bold text-lg py-4 rounded-xl shadow-lg shadow-yellow-200 transition-all hover:-translate-y-1"
               >
                 Add to Favorites
               </button>
@@ -237,18 +237,18 @@ function MealDetails() {
         {/* Reviews Section */}
         <div className="mt-20 max-w-5xl mx-auto">
           <div className="flex items-center justify-between mb-8">
-            <h3 className="text-3xl font-bold text-gray-900">
+            <h3 className="text-3xl font-bold text-base-content">
               Customer Reviews
             </h3>
-            <span className="text-gray-500 font-medium">
+            <span className="text-base-content/60 font-medium">
               {reviews.length} Review{reviews.length !== 1 && "s"}
             </span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
             {reviews.length === 0 ? (
-              <div className="col-span-full text-center py-12 bg-white rounded-2xl border border-gray-100">
-                <p className="text-gray-400 text-lg">
+              <div className="col-span-full text-center py-12 bg-base-100 rounded-2xl border border-base-200">
+                <p className="text-base-content/50 text-lg">
                   No reviews yet. Be the first to try this meal!
                 </p>
               </div>
@@ -256,7 +256,7 @@ function MealDetails() {
               reviews.map((review) => (
                 <div
                   key={review._id}
-                  className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
+                  className="bg-base-100 p-6 rounded-2xl shadow-sm border border-base-200 hover:shadow-md transition-shadow"
                 >
                   <div className="flex items-center gap-4 mb-4">
                     <img
@@ -265,10 +265,10 @@ function MealDetails() {
                       className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm"
                     />
                     <div>
-                      <p className="font-bold text-gray-900">
+                      <p className="font-bold text-base-content">
                         {review.reviewerName}
                       </p>
-                      <p className="text-xs text-gray-500">
+                      <p className="text-xs text-base-content/60">
                         {new Date(review.date).toLocaleDateString()}
                       </p>
                     </div>
@@ -278,7 +278,7 @@ function MealDetails() {
                       ))}
                     </div>
                   </div>
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-base-content/70 leading-relaxed">
                     "{review.comment}"
                   </p>
                 </div>
@@ -287,8 +287,8 @@ function MealDetails() {
           </div>
 
           {/* Add Review Form */}
-          <div className="bg-white rounded-3xl shadow-xl p-8 md:p-10 border border-gray-100">
-            <h4 className="text-2xl font-bold text-gray-900 mb-6">
+          <div className="bg-base-100 rounded-3xl shadow-xl p-8 md:p-10 border border-base-200">
+            <h4 className="text-2xl font-bold text-base-content mb-6">
               Leave a Review
             </h4>
             <form
@@ -308,7 +308,7 @@ function MealDetails() {
               className="space-y-6"
             >
               <div className="space-y-2">
-                <label className="text-sm font-bold text-gray-700">Rating</label>
+                <label className="text-sm font-bold text-base-content">Rating</label>
                 <div className="flex gap-4">
                   {[1, 2, 3, 4, 5].map((r) => (
                     <button
@@ -317,8 +317,8 @@ function MealDetails() {
                       onClick={() => setRating(r)}
                       className={`w-12 h-12 rounded-xl flex items-center justify-center text-xl font-bold transition-all ${
                         rating === r
-                          ? "bg-[#FFE52A] text-gray-900 shadow-md scale-110"
-                          : "bg-gray-100 text-gray-400 hover:bg-gray-200"
+                          ? "bg-amber-glow-300 text-gray-900 shadow-md scale-110"
+                          : "bg-base-200 text-base-content/50 hover:bg-base-300"
                       }`}
                     >
                       {r}
@@ -328,12 +328,12 @@ function MealDetails() {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-bold text-gray-700">Your Feedback</label>
+                <label className="text-sm font-bold text-base-content">Your Feedback</label>
                 <textarea
                   placeholder="Tell us what you liked about this meal..."
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
-                  className="w-full border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#FFE52A] focus:border-transparent min-h-[120px]"
+                  className="w-full bg-base-100 text-base-content border-base-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-amber-glow-300 focus:border-transparent min-h-[120px]"
                   required
                 />
               </div>

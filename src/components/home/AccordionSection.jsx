@@ -34,19 +34,19 @@ const AccordionItem = ({ question, answer, isOpen, onClick }) => {
   return (
     <motion.div 
       initial={false}
-      className={`border border-gray-200 rounded-xl overflow-hidden bg-white ${isOpen ? 'shadow-md ring-1 ring-[#FFE52A]' : 'shadow-sm'}`}
+      className={`border border-base-200 rounded-xl overflow-hidden bg-base-100 ${isOpen ? 'shadow-md ring-1 ring-amber-glow-300' : 'shadow-sm'}`}
     >
       <button
         onClick={onClick}
-        className="w-full flex items-center justify-between px-6 py-4 text-left focus:outline-none bg-white hover:bg-gray-50 transition-colors"
+        className="w-full flex items-center justify-between px-6 py-4 text-left focus:outline-none bg-base-100 hover:bg-base-200 transition-colors"
       >
-        <span className={`text-lg font-semibold ${isOpen ? 'text-[#F79A19]' : 'text-gray-800'}`}>
+        <span className={`text-lg font-semibold ${isOpen ? 'text-amber-glow-500' : 'text-base-content'}`}>
           {question}
         </span>
         <motion.div
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.3 }}
-          className="text-[#F79A19]"
+          className="text-amber-glow-500"
         >
           <ChevronDown />
         </motion.div>
@@ -60,8 +60,8 @@ const AccordionItem = ({ question, answer, isOpen, onClick }) => {
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
           >
-            <div className="px-6 pb-6 text-gray-600 bg-white">
-              <div className="pt-2 border-t border-gray-100"></div>
+            <div className="px-6 pb-6 text-base-content/70 bg-base-100">
+              <div className="pt-2 border-t border-base-200"></div>
               <p className="pt-4 leading-relaxed">{answer}</p>
             </div>
           </motion.div>
@@ -75,37 +75,39 @@ export default function AccordionSection() {
   const [openIndex, setOpenIndex] = useState(0);
 
   return (
-    <section className="py-20 bg-gray-50">
-      <div className="container mx-auto px-6 max-w-4xl">
-        <div className="text-center mb-12">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-4xl font-bold text-gray-900 mb-4"
-          >
-            Frequently Asked <span className="text-[#F79A19]">Questions</span>
-          </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="text-gray-600"
-          >
-             Got questions? We've got answers. Here is everything you need to know.
-          </motion.p>
-        </div>
+    <section className="py-12 bg-base-100">
+      <div className="container mx-auto px-6">
+        <div className="bg-base-200 rounded-[3rem] p-8 md:p-12">
+            <div className="text-center mb-12">
+            <motion.h2 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="text-4xl font-bold text-base-content mb-4"
+            >
+                Frequently Asked <span className="text-amber-glow-500">Questions</span>
+            </motion.h2>
+            <motion.p 
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ delay: 0.2, duration: 0.6 }}
+                className="text-base-content/70"
+            >
+                Got questions? We've got answers. Here is everything you need to know.
+            </motion.p>
+            </div>
 
-        <div className="space-y-4">
-          {faqs.map((faq, index) => (
-            <AccordionItem
-              key={index}
-              question={faq.question}
-              answer={faq.answer}
-              isOpen={index === openIndex}
-              onClick={() => setOpenIndex(index === openIndex ? -1 : index)}
-            />
-          ))}
+            <div className="max-w-3xl mx-auto space-y-4">
+            {faqs.map((faq, index) => (
+                <AccordionItem
+                key={index}
+                question={faq.question}
+                answer={faq.answer}
+                isOpen={index === openIndex}
+                onClick={() => setOpenIndex(index === openIndex ? -1 : index)}
+                />
+            ))}
+            </div>
         </div>
       </div>
     </section>

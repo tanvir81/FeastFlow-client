@@ -93,77 +93,96 @@ export default function ReviewsSection() {
   if (loading) return null;
 
   return (
-    <section className="py-20 bg-orange-50 overflow-hidden">
-      <div className="container mx-auto px-6 text-center">
-        <h2 className="text-4xl font-bold text-gray-900 mb-12">
-          What Our <span className="text-[#F79A19]">Customers</span> Say
-        </h2>
+    <section className="py-12 bg-base-100 overflow-hidden">
+      <div className="container mx-auto px-6">
+        <div className="bg-base-200 rounded-[3rem] p-8 md:p-12 text-center relative overflow-hidden">
+          {/* Decorative background element */}
+          <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+             <div className="absolute top-[-50%] left-[-10%] w-[50%] h-[50%] bg-amber-glow-500 rounded-full blur-[100px]"></div>
+             <div className="absolute bottom-[-50%] right-[-10%] w-[50%] h-[50%] bg-amber-glow-500 rounded-full blur-[100px]"></div>
+          </div>
 
-        <div className="relative max-w-3xl mx-auto h-[300px] flex items-center justify-center">
-          <AnimatePresence mode="wait">
-            {reviews.length > 0 && (
-              <motion.div
-                key={currentIndex}
-                initial={{ opacity: 0, x: 100 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -100 }}
-                transition={{ duration: 0.5 }}
-                className="absolute inset-0 flex flex-col items-center justify-center bg-white p-8 rounded-3xl shadow-xl border border-orange-100"
-              >
-                <img
-                  src={
-                    reviews[currentIndex].reviewerImage ||
-                    "https://i.ibb.co/default-avatar.png"
-                  }
-                  alt={reviews[currentIndex].reviewerName}
-                  className="w-20 h-20 rounded-full object-cover border-4 border-[#FFE52A] mb-4 shadow-md"
-                />
+          <h2 className="text-4xl font-bold text-base-content mb-8 relative z-10">
+            What Our <span className="text-amber-glow-500">Customers</span> Say
+          </h2>
 
-                <div className="flex gap-1 mb-4 text-[#F79A19]">
-                  {[...Array(5)].map((_, i) => (
-                    <span key={i}>
-                      {i < reviews[currentIndex].rating ? "★" : "☆"}
-                    </span>
-                  ))}
-                </div>
+          <div className="relative w-full max-w-4xl mx-auto z-10">
+            <AnimatePresence mode="wait">
+              {reviews.length > 0 && (
+                <motion.div
+                  key={currentIndex}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.5 }}
+                  className="bg-base-100 border border-base-content/5 rounded-3xl shadow-xl overflow-hidden"
+                >
+                  <div className="flex flex-col md:flex-row h-auto md:h-[220px]">
+                    {/* Image Section (Left) */}
+                    <div className="w-full md:w-[25%] relative h-[200px] md:h-full overflow-hidden p-3">
+                      <img
+                        src={
+                          reviews[currentIndex].reviewerImage ||
+                          "https://i.ibb.co/default-avatar.png"
+                        }
+                        alt={reviews[currentIndex].reviewerName}
+                        className="w-full h-full object-cover rounded-2xl transition-transform duration-700 hover:scale-105"
+                      />
+                      <div className="absolute inset-0 flex items-end p-6 pointer-events-none">
+                         <div className="text-white z-10 drop-shadow-md">
+                            <p className="font-bold text-sm hidden xl:block">{reviews[currentIndex].reviewerName}</p>
+                         </div>
+                      </div>
+                       <div className="absolute bottom-3 left-3 right-3 h-1/2 bg-gradient-to-t from-black/70 to-transparent rounded-b-2xl pointer-events-none"></div>
+                    </div>
 
-                <p className="text-gray-600 text-lg italic mb-6">
-                  "{reviews[currentIndex].comment}"
-                </p>
+                    {/* Content Section (Right) */}
+                    <div className="w-full md:w-[75%] p-5 md:p-6 flex flex-col justify-center relative bg-base-100 text-left">
+                      <div className="absolute top-4 right-4 text-amber-glow-500/10">
+                         <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V11C14.017 11.5523 13.5693 12 13.017 12H12.017V5H22.017V15C22.017 18.3137 19.3307 21 16.017 21H14.017ZM5.01697 21L5.01697 18C5.01697 16.8954 5.9124 16 7.01697 16H10.017C10.5693 16 11.017 15.5523 11.017 15V9C11.017 8.44772 10.5693 8 10.017 8H6.01697C5.46468 8 5.01697 8.44772 5.01697 9V11C5.01697 11.5523 4.56926 12 4.01697 12H3.01697V5H13.017V15C13.017 18.3137 10.3307 21 7.01697 21H5.01697Z" />
+                         </svg>
+                      </div>
 
-                <h4 className="font-bold text-xl text-gray-900">
-                  {reviews[currentIndex].reviewerName}
-                </h4>
-              </motion.div>
-            )}
-          </AnimatePresence>
+                      <div className="flex gap-0.5 mb-2 text-amber-glow-500 text-sm">
+                        {[...Array(5)].map((_, i) => (
+                          <span key={i}>
+                            {i < reviews[currentIndex].rating ? "★" : "☆"}
+                          </span>
+                        ))}
+                      </div>
 
-          {/* Navigation Buttons */}
-          <button
-            onClick={prevSlide}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 md:-translate-x-12 btn btn-circle bg-white text-[#F79A19] border border-[#F79A19] hover:bg-[#F79A19] hover:text-white shadow-lg z-10"
-          >
-            ❮
-          </button>
-          <button
-            onClick={nextSlide}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 md:translate-x-12 btn btn-circle bg-white text-[#F79A19] border border-[#F79A19] hover:bg-[#F79A19] hover:text-white shadow-lg z-10"
-          >
-            ❯
-          </button>
-        </div>
+                      <h3 className="text-lg font-bold text-base-content leading-tight mb-2 line-clamp-2">
+                        "{reviews[currentIndex].comment}"
+                      </h3>
 
-        {/* Indicators */}
-        <div className="flex justify-center gap-2 mt-8">
-          {reviews.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => setCurrentIndex(idx)}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                idx === currentIndex ? "bg-[#F79A19] w-6" : "bg-gray-300"
-              }`}
-            />
-          ))}
+                      <div className="h-1 w-10 bg-amber-glow-500 rounded-full mb-2"></div>
+
+                      <p className="text-base-content/60 text-xs">
+                         Experience the taste of home with FeastFlow.
+                      </p>
+
+                      {/* Navigation Buttons */}
+                      <div className="flex gap-2 mt-4">
+                         <button
+                          onClick={prevSlide}
+                          className="btn btn-xs btn-circle btn-outline border-base-content/20 hover:bg-amber-glow-500 hover:border-amber-glow-500 hover:text-white"
+                        >
+                          ❮
+                        </button>
+                        <button
+                          onClick={nextSlide}
+                          className="btn btn-xs btn-circle btn-outline border-base-content/20 hover:bg-amber-glow-500 hover:border-amber-glow-500 hover:text-white"
+                        >
+                          ❯
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
       </div>
     </section>

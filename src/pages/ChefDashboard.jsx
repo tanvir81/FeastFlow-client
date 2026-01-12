@@ -27,7 +27,7 @@ export default function ChefDashboard() {
     >
       <motion.h1
         variants={itemVariants}
-        className="text-3xl font-bold text-[#F79A19] mb-4"
+        className="text-3xl font-bold text-amber-glow-500 mb-4"
       >
         Chef Dashboard
       </motion.h1>

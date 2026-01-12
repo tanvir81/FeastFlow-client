@@ -22,18 +22,18 @@ export default function DashboardLayout() {
   const getLinkClasses = ({ isActive }) =>
     `flex items-center gap-3 px-3 py-2 rounded font-medium transition-colors ${
       isActive
-        ? "bg-[#F79A19] text-white shadow-md"
-        : "text-gray-700 hover:bg-[#FFE52A] hover:text-gray-900"
+        ? "bg-amber-glow-500 text-white shadow-md"
+        : "text-base-content hover:bg-amber-glow-300 hover:text-gray-900 dark:hover:text-gray-900"
     }`;
 
   const logoutClasses =
-    "flex items-center gap-3 px-3 py-2 rounded font-medium transition-colors text-gray-700 hover:bg-[#FFE52A] hover:text-gray-900";
+    "flex items-center gap-3 px-3 py-2 rounded font-medium transition-colors text-base-content hover:bg-red-100 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400";
 
   return (
-    <div className="min-h-screen grid grid-cols-1 md:grid-cols-[240px_1fr]">
-      {/* Sidebar - White BG, Black Text */}
-      <aside className="border-r bg-white text-black">
-        <div className="p-4 border-b">
+    <div className="min-h-screen grid grid-cols-1 md:grid-cols-[240px_1fr] bg-base-100">
+      {/* Sidebar */}
+      <aside className="border-r border-base-200 bg-base-100 text-base-content">
+        <div className="p-4 border-b border-base-200">
           <div className="flex items-center gap-3">
             <img
               src={
@@ -42,13 +42,13 @@ export default function DashboardLayout() {
                 "https://i.ibb.co/default-avatar.png"
               }
               alt="avatar"
-              className="w-10 h-10 rounded-full object-cover border border-gray-200"
+              className="w-10 h-10 rounded-full object-cover border border-base-300"
             />
             <div className="overflow-hidden">
               <p className="font-semibold truncate">
                 {user?.name || user?.displayName || "Guest"}
               </p>
-              <p className="text-xs text-gray-500 capitalize">
+              <p className="text-xs text-base-content/70 capitalize">
                 {userRole || "user"}
               </p>
               <div className="flex items-center gap-1.5 mt-1">
@@ -68,7 +68,7 @@ export default function DashboardLayout() {
             Home
           </NavLink>
 
-          <hr className="border-gray-200 my-2" />
+          <hr className="border-base-200 my-2" />
 
           {/* Profile */}
           <NavLink to="/dashboard/profile" className={getLinkClasses}>
@@ -136,7 +136,7 @@ export default function DashboardLayout() {
           <div className="pt-4 mt-auto">
             <button
               onClick={logout}
-              className={`w-full ${logoutClasses} justify-start bg-gray-50`}
+              className={`w-full ${logoutClasses} justify-start`}
             >
               <LuLogOut className="text-xl" />
               Logout
@@ -146,10 +146,10 @@ export default function DashboardLayout() {
       </aside>
 
       {/* Main content */}
-      <main className="bg-gray-50">
-        <div className="flex items-center justify-between p-4 border-b bg-white">
+      <main className="bg-base-200">
+        <div className="flex items-center justify-between p-4 border-b border-base-200 bg-base-100">
           <h1 className="text-xl font-semibold">Dashboard</h1>
-          <span className="text-sm text-gray-600">{user?.email}</span>
+          <span className="text-sm text-base-content/70">{user?.email}</span>
         </div>
         <div className="p-4">
           <Outlet />

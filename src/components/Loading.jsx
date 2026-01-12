@@ -10,7 +10,7 @@ const Loading = ({ message = "Loading...", size = "large" }) => {
   return (
     <div className="flex flex-col items-center justify-center min-h-[400px]">
       <div
-        className={`animate-spin rounded-full ${sizeClasses[size]} border-[#FFE52A]`}
+        className={`animate-spin rounded-full ${sizeClasses[size]} border-amber-glow-300`}
       ></div>
       {message && (
         <motion.p

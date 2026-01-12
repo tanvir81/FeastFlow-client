@@ -69,16 +69,16 @@ export default function Profile() {
   const chefId = generateChefId();
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-800 flex justify-center py-10 px-4">
+    <div className="min-h-screen bg-base-200 text-base-content flex justify-center py-10 px-4">
       <div className="w-full max-w-2xl">
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200">
+        <div className="bg-base-100 rounded-2xl shadow-xl overflow-hidden border border-base-200">
           {/* Header / Banner */}
-          <div className="bg-gradient-to-r from-[#F79A19] to-[#FF6B6B] h-32 relative">
+          <div className="bg-gradient-to-r from-amber-glow-500 to-[#FF6B6B] h-32 relative">
             <div className="absolute -bottom-12 left-8">
               <img
                 src={displayImage}
                 alt={displayName}
-                className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg bg-white"
+                className="w-24 h-24 rounded-full object-cover border-4 border-base-100 shadow-lg bg-base-100"
                 onError={(e) => {
                   e.target.src = "https://i.ibb.co/default-avatar.png";
                 }}
@@ -90,10 +90,10 @@ export default function Profile() {
             {/* Name & Email */}
             <div className="flex justify-between items-start mb-6">
               <div>
-                <h2 className="text-3xl font-bold text-gray-800">
+                <h2 className="text-3xl font-bold text-base-content">
                   {displayName}
                 </h2>
-                <div className="flex items-center gap-2 text-gray-500 mt-1">
+                <div className="flex items-center gap-2 text-base-content/60 mt-1">
                   <Mail size={16} />
                   <span>{user?.email}</span>
                 </div>
@@ -113,8 +113,8 @@ export default function Profile() {
 
             <div className="grid gap-6 md:grid-cols-2">
               {/* Status Card */}
-              <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
-                <div className="flex items-center gap-2 mb-2 text-gray-500 text-sm uppercase tracking-wider font-semibold">
+              <div className="bg-base-200 p-4 rounded-xl border border-base-300">
+                <div className="flex items-center gap-2 mb-2 text-base-content/60 text-sm uppercase tracking-wider font-semibold">
                   <Shield size={16} />
                   <span>Account Status</span>
                 </div>
@@ -139,12 +139,12 @@ export default function Profile() {
 
               {/* Chef ID (Only for Chefs) */}
               {userRole === "chef" && (
-                <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
-                  <div className="flex items-center gap-2 mb-2 text-gray-500 text-sm uppercase tracking-wider font-semibold">
+                <div className="bg-base-200 p-4 rounded-xl border border-base-300">
+                  <div className="flex items-center gap-2 mb-2 text-base-content/60 text-sm uppercase tracking-wider font-semibold">
                     <Hash size={16} />
                     <span>Chef ID</span>
                   </div>
-                  <div className="font-mono text-xl text-[#F79A19] tracking-widest">
+                  <div className="font-mono text-xl text-amber-glow-500 tracking-widest">
                     {chefId}
                   </div>
                 </div>
@@ -152,18 +152,18 @@ export default function Profile() {
             </div>
 
             {/* Address Section */}
-            <div className="mt-6 bg-gray-50 p-4 rounded-xl border border-gray-200">
-              <div className="flex items-center gap-2 mb-2 text-gray-500 text-sm uppercase tracking-wider font-semibold">
+            <div className="mt-6 bg-base-200 p-4 rounded-xl border border-base-300">
+              <div className="flex items-center gap-2 mb-2 text-base-content/60 text-sm uppercase tracking-wider font-semibold">
                 <MapPin size={16} />
                 <span>User Address</span>
               </div>
-              <p className="text-gray-700 font-medium">{address}</p>
+              <p className="text-base-content font-medium">{address}</p>
             </div>
 
             {/* Role Request Buttons */}
             {userRole !== "admin" && (
-              <div className="mt-8 pt-6 border-t border-gray-100">
-                <h4 className="text-lg font-semibold text-gray-800 mb-4">
+              <div className="mt-8 pt-6 border-t border-base-200">
+                <h4 className="text-lg font-semibold text-base-content mb-4">
                   {userRole === "chef"
                     ? "Want to become an Admin?"
                     : "Want to become a Chef or Admin?"}
@@ -172,7 +172,7 @@ export default function Profile() {
                   {userRole === "user" && (
                     <button
                       onClick={() => sendRoleRequest("chef")}
-                      className="flex-1 bg-[#F79A19] hover:bg-[#e08914] text-white py-2.5 px-4 rounded-lg font-medium transition-colors flex items-center justify-center gap-2 shadow-sm"
+                      className="flex-1 bg-amber-glow-500 hover:bg-amber-glow-600 text-white py-2.5 px-4 rounded-lg font-medium transition-colors flex items-center justify-center gap-2 shadow-sm"
                     >
                       <Star size={18} />
                       Request to be Chef

@@ -74,22 +74,22 @@ export default function Meals() {
   }
 
   return (
-    <div className="py-12 bg-gray-50 min-h-screen">
+    <div className="py-12 bg-base-100 min-h-screen">
       <div className="container mx-auto px-6">
         {/* Header & Controls */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-10">
           <div>
-            <h1 className="text-4xl font-bold text-gray-900">
-              All <span className="text-[#F79A19]">Meals</span>
+            <h1 className="text-4xl font-bold text-base-content">
+              All <span className="text-amber-glow-500">Meals</span>
             </h1>
-            <p className="text-gray-600 mt-2">
+            <p className="text-base-content/70 mt-2">
               Discover fresh, homemade meals from local chefs.
             </p>
           </div>
 
           <div className="mt-4 md:mt-0">
             <select
-              className="select select-bordered border-[#FFE52A] w-full max-w-xs focus:outline-none focus:border-[#F79A19]"
+              className="select select-bordered bg-base-100 text-base-content border-amber-glow-300 w-full max-w-xs focus:outline-none focus:border-amber-glow-500"
               value={sortOrder}
               onChange={(e) => setSortOrder(e.target.value)}
             >
@@ -107,14 +107,14 @@ export default function Meals() {
           variants={container}
           initial="hidden"
           animate="show"
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
         >
           {sortedMeals.map((meal) => (
             <motion.div
               key={meal._id}
               variants={item}
               whileHover={{ y: -5 }}
-              className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 border border-gray-100 flex flex-col"
+              className="bg-base-100 border border-base-200 rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col"
             >
               {/* Image Section */}
               <div className="relative h-60 overflow-hidden group">
@@ -123,7 +123,7 @@ export default function Meals() {
                   alt={meal.foodName || meal.name}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-bold text-[#F79A19] shadow-sm">
+                <div className="absolute top-4 right-4 bg-base-100/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-bold text-amber-glow-500 shadow-sm">
                   ★ {meal.rating || "New"}
                 </div>
                 {meal.category && (
@@ -141,16 +141,16 @@ export default function Meals() {
               {/* Content Section */}
               <div className="p-6 flex-1 flex flex-col">
                 <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-xl font-bold text-gray-800 line-clamp-1 flex-1 pr-2">
+                  <h3 className="text-xl font-bold text-base-content line-clamp-1 flex-1 pr-2">
                     {meal.foodName || meal.name}
                   </h3>
-                  <p className="text-2xl font-bold text-[#F79A19]">
+                  <p className="text-2xl font-bold text-amber-glow-500">
                     ${meal.price}
                   </p>
                 </div>
 
                 {/* Additional Info: Area */}
-                <div className="flex items-center text-gray-500 text-sm mb-3">
+                <div className="flex items-center text-base-content/60 text-sm mb-3">
                   <span className="mr-1">📍</span>
                   <span className="truncate">
                     {meal.deliveryArea || "Citywide"}
@@ -173,20 +173,20 @@ export default function Meals() {
 
                 <div className="mt-auto"></div>
 
-                <div className="flex items-center justify-between mt-4 border-t pt-4 border-gray-100">
+                <div className="flex items-center justify-between mt-4 border-t pt-4 border-base-200">
                   {/* Chef Info */}
                   <div className="flex flex-col items-start gap-1">
-                    <div className="rounded-full border border-[#FFE52A] px-3 py-1 bg-yellow-50/50">
-                      <span className="text-xs font-bold text-gray-700">
+                    <div className="rounded-full border border-amber-glow-300 px-3 py-1 bg-yellow-50/50">
+                      <span className="text-xs font-bold text-base-content">
                         Chef{" "}
-                        <span className="text-[#F79A19]">
+                        <span className="text-amber-glow-500">
                           {meal.chefName || "Unknown"}
                         </span>
                       </span>
                     </div>
                     {/* Custom Chef ID Badge */}
                     <div className="pl-1 flex items-center gap-1">
-                      <span className="text-xs font-bold text-white bg-[#FFA239] px-2 py-0.5 rounded-full shadow-sm">
+                      <span className="text-xs font-bold text-white bg-amber-glow-400 px-2 py-0.5 rounded-full shadow-sm">
                         ID:{" "}
                         {getChefBadge(meal.chefName, meal.chefId || meal._id)}
                       </span>
@@ -196,7 +196,7 @@ export default function Meals() {
                   {/* Action Button */}
                   <Link
                     to={`/meals/${meal._id}`}
-                    className="text-[#F79A19] font-bold text-sm hover:underline"
+                    className="text-amber-glow-500 font-bold text-sm hover:underline"
                   >
                     View Details →
                   </Link>
@@ -207,7 +207,7 @@ export default function Meals() {
         </motion.div>
 
         {sortedMeals.length === 0 && !isLoading && (
-          <div className="text-center py-20 text-gray-500">No meals found.</div>
+          <div className="text-center py-20 text-base-content/60">No meals found.</div>
         )}
 
         {/* Pagination Controls */}
@@ -216,7 +216,7 @@ export default function Meals() {
             <button
               onClick={() => handlePageChange(page - 1)}
               disabled={page === 1}
-              className="px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 disabled:opacity-50 hover:bg-[#FFE52A] hover:border-[#FFE52A] transition-colors"
+              className="px-4 py-2 rounded-lg bg-base-100 border border-base-300 text-base-content disabled:opacity-50 hover:bg-amber-glow-300 hover:border-amber-glow-300 hover:text-gray-900 transition-colors"
             >
               Previous
             </button>
@@ -227,8 +227,8 @@ export default function Meals() {
                 onClick={() => handlePageChange(num)}
                 className={`w-10 h-10 rounded-lg border font-bold transition-all ${
                   page === num
-                    ? "bg-[#FFE52A] border-[#FFE52A] text-gray-900"
-                    : "bg-white border-gray-300 text-gray-700 hover:border-[#FFE52A]"
+                    ? "bg-amber-glow-300 border-amber-glow-300 text-gray-900"
+                    : "bg-base-100 border-base-300 text-base-content hover:border-amber-glow-300"
                 }`}
               >
                 {num}
@@ -238,7 +238,7 @@ export default function Meals() {
             <button
               onClick={() => handlePageChange(page + 1)}
               disabled={page === totalPages}
-              className="px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 disabled:opacity-50 hover:bg-[#FFE52A] hover:border-[#FFE52A] transition-colors"
+              className="px-4 py-2 rounded-lg bg-base-100 border border-base-300 text-base-content disabled:opacity-50 hover:bg-amber-glow-300 hover:border-amber-glow-300 hover:text-gray-900 transition-colors"
             >
               Next
             </button>

@@ -7,12 +7,12 @@ import { Edit2, Trash2, Clock, Star, Package } from "lucide-react";
 
 const InputField = ({ label, error, ...rest }) => (
   <div>
-    <label className="block text-sm font-bold text-gray-700 mb-1">
+    <label className="block text-sm font-bold text-base-content mb-1">
       {label}
     </label>
     <input
       {...rest}
-      className={`w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#FFE52A] focus:border-transparent transition-all ${
+      className={`w-full px-4 py-2 rounded-lg border border-base-300 focus:outline-none focus:ring-2 focus:ring-amber-glow-300 focus:border-transparent transition-all ${
         rest.className || ""
       }`}
     />
@@ -115,11 +115,11 @@ function MyMeals() {
   };
 
   return (
-    <section className="min-h-screen bg-gray-50 py-10 px-4">
+    <section className="min-h-screen bg-base-100 py-10 px-4">
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-800">My Meals</h2>
-          <span className="bg-white px-4 py-1 rounded-full text-sm font-medium text-gray-500 shadow-sm border">
+          <h2 className="text-3xl font-bold text-base-content">My Meals</h2>
+          <span className="bg-base-100 px-4 py-1 rounded-full text-sm font-medium text-base-content/60 shadow-sm border">
             Total Items: {meals.length}
           </span>
         </div>
@@ -127,12 +127,12 @@ function MyMeals() {
         {/* Edit Modal / Form Overlay */}
         {editingMeal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm transition-all">
-            <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
-              <div className="bg-[#FFE52A] px-6 py-4 flex justify-between items-center">
-                <h3 className="text-xl font-bold text-gray-900">Update Meal</h3>
+            <div className="bg-base-100 rounded-2xl shadow-2xl w-full max-w-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
+              <div className="bg-amber-glow-300 px-6 py-4 flex justify-between items-center">
+                <h3 className="text-xl font-bold text-base-content">Update Meal</h3>
                 <button
                   onClick={() => setEditingMeal(null)}
-                  className="text-gray-800 hover:text-black font-bold text-xl"
+                  className="text-base-content hover:text-black font-bold text-xl"
                 >
                   &times;
                 </button>
@@ -176,14 +176,14 @@ function MyMeals() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-1">
+                  <label className="block text-sm font-bold text-base-content mb-1">
                     Ingredients
                   </label>
                   <textarea
                     rows="2"
                     placeholder="Comma separated"
                     {...register("ingredients", { required: "Required" })}
-                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#FFE52A] focus:outline-none"
+                    className="w-full px-4 py-2 rounded-lg border border-base-300 focus:ring-2 focus:ring-amber-glow-300 focus:outline-none"
                   />
                   {errors.ingredients && (
                     <p className="text-red-500 text-sm">
@@ -211,14 +211,14 @@ function MyMeals() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="flex-1 bg-[#FFE52A] hover:bg-[#FFA239] text-gray-900 font-bold py-3 rounded-lg transition-colors"
+                    className="flex-1 bg-amber-glow-300 hover:bg-amber-glow-400 text-base-content font-bold py-3 rounded-lg transition-colors"
                   >
                     {isSubmitting ? "Saving..." : "Save Changes"}
                   </button>
                   <button
                     type="button"
                     onClick={() => setEditingMeal(null)}
-                    className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-3 rounded-lg transition-colors"
+                    className="flex-1 bg-gray-100 hover:bg-gray-200 text-base-content font-bold py-3 rounded-lg transition-colors"
                   >
                     Cancel
                   </button>
@@ -233,7 +233,7 @@ function MyMeals() {
           {meals.map((meal) => (
             <div
               key={meal._id}
-              className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 group flex flex-col"
+              className="bg-base-100 rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 group flex flex-col"
             >
               {/* Image Container */}
               <div className="relative h-48 overflow-hidden">
@@ -245,10 +245,10 @@ function MyMeals() {
                   alt={meal.foodName}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold shadow-sm text-gray-800 border border-gray-100">
+                <div className="absolute top-3 right-3 bg-base-100/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold shadow-sm text-base-content border border-gray-100">
                   {getCustomChefId(meal.chefName, meal.chefId || meal._id)}
                 </div>
-                <div className="absolute bottom-3 left-3 bg-[#FFE52A] text-gray-900 text-xs font-bold px-2 py-1 rounded shadow-sm">
+                <div className="absolute bottom-3 left-3 bg-amber-glow-300 text-base-content text-xs font-bold px-2 py-1 rounded shadow-sm">
                   ${meal.price}
                 </div>
               </div>
@@ -257,18 +257,18 @@ function MyMeals() {
               <div className="p-5 flex-1 flex flex-col">
                 <div className="flex justify-between items-start mb-2">
                   <h3
-                    className="text-lg font-bold text-gray-800 line-clamp-1"
+                    className="text-lg font-bold text-base-content line-clamp-1"
                     title={meal.foodName}
                   >
                     {meal.foodName}
                   </h3>
-                  <div className="flex items-center text-[#FFA239] font-bold text-sm">
+                  <div className="flex items-center text-amber-glow-400 font-bold text-sm">
                     <Star className="w-4 h-4 mr-1 fill-current" />
                     {meal.rating}
                   </div>
                 </div>
 
-                <div className="space-y-2 text-sm text-gray-600 mb-4 flex-1">
+                <div className="space-y-2 text-sm text-base-content/70 mb-4 flex-1">
                   <div className="flex items-center gap-2">
                     <Clock className="w-4 h-4 text-gray-400" />
                     <span>{meal.estimatedDeliveryTime}</span>
@@ -287,7 +287,7 @@ function MyMeals() {
                 <div className="flex gap-2 pt-4 border-t border-gray-100 mt-auto">
                   <button
                     onClick={() => setEditingMeal(meal)}
-                    className="flex-1 bg-[#FFE52A]/10 hover:bg-[#FFE52A]/20 text-yellow-700 flex items-center justify-center gap-2 py-2 rounded-lg font-semibold transition-colors text-sm"
+                    className="flex-1 bg-amber-glow-300/10 hover:bg-amber-glow-300/20 text-yellow-700 flex items-center justify-center gap-2 py-2 rounded-lg font-semibold transition-colors text-sm"
                   >
                     <Edit2 className="w-4 h-4" /> Edit
                   </button>
@@ -303,7 +303,7 @@ function MyMeals() {
           ))}
 
           {!meals.length && (
-            <div className="col-span-full text-center py-20 bg-white rounded-xl border-2 border-dashed border-gray-200">
+            <div className="col-span-full text-center py-20 bg-base-100 rounded-xl border-2 border-dashed border-base-200">
               <p className="text-gray-400 text-lg">
                 No meals found. Start creating!
               </p>

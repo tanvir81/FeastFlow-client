@@ -75,20 +75,20 @@ const Orders = () => {
     const statusLower = status?.toLowerCase();
     if (statusLower === "delivered") return "bg-green-500";
     if (statusLower === "accepted") return "bg-blue-500";
-    if (statusLower === "preparing") return "bg-[#F79A19]";
-    if (statusLower === "pending") return "bg-[#F79A19] text-white";
+    if (statusLower === "preparing") return "bg-amber-glow-500";
+    if (statusLower === "pending") return "bg-amber-glow-500 text-white";
     return "bg-gray-500";
   };
 
   const getPaymentStatusColor = (status) => {
     const statusLower = status?.toLowerCase();
     if (statusLower === "paid") return "bg-green-500";
-    if (statusLower === "pending") return "bg-[#F79A19] text-white";
+    if (statusLower === "pending") return "bg-amber-glow-500 text-white";
     return "bg-gray-500";
   };
 
   return (
-    <section className="min-h-screen bg-white p-6">
+    <section className="min-h-screen bg-base-100 p-6">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -96,8 +96,8 @@ const Orders = () => {
           transition={{ duration: 0.5 }}
           className="mb-8"
         >
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">My Orders</h1>
-          <p className="text-gray-600">Track and manage your food orders</p>
+          <h1 className="text-4xl font-bold text-base-content mb-2">My Orders</h1>
+          <p className="text-base-content/70">Track and manage your food orders</p>
         </motion.div>
 
         {/*   payments */}
@@ -105,9 +105,9 @@ const Orders = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-red-50 border border-red-300 rounded-lg p-4 mb-6"
+            className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 mb-6"
           >
-            <p className="text-red-700 flex items-center gap-2">
+            <p className="text-red-600 dark:text-red-300 flex items-center gap-2 font-medium">
               <span className="text-2xl">❌</span>
               Payment was canceled or declined.
             </p>
@@ -123,8 +123,8 @@ const Orders = () => {
             className="text-center py-20"
           >
             <div className="text-6xl mb-4">🍽️</div>
-            <p className="text-gray-600 text-xl">No orders yet.</p>
-            <p className="text-gray-500 mt-2">
+            <p className="text-base-content/60 text-xl">No orders yet.</p>
+            <p className="text-base-content/50 mt-2">
               Start ordering delicious meals!
             </p>
           </motion.div>
@@ -136,12 +136,12 @@ const Orders = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300"
+                className="bg-base-100 border border-base-200 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300"
               >
                 <div className="p-6">
                   {/* Header with Meal Name */}
                   <div className="flex items-start justify-between mb-4">
-                    <h3 className="text-2xl font-bold text-gray-800 flex-1">
+                    <h3 className="text-2xl font-bold text-base-content flex-1">
                       {order.mealName}
                     </h3>
                     <div className="flex flex-col gap-2 items-end">
@@ -168,45 +168,45 @@ const Orders = () => {
 
                   {/* Order Details Grid */}
                   <div className="grid grid-cols-2 gap-4 mb-4">
-                    <div className="bg-gray-50 rounded-lg p-3">
-                      <p className="text-gray-600 text-sm mb-1">Price</p>
-                      <p className="text-gray-800 font-semibold text-lg">
+                    <div className="bg-base-200 rounded-lg p-3">
+                      <p className="text-base-content/70 text-sm mb-1">Price</p>
+                      <p className="text-base-content font-semibold text-lg">
                         ${order.price}
                       </p>
                     </div>
-                    <div className="bg-gray-50 rounded-lg p-3">
-                      <p className="text-gray-600 text-sm mb-1">Quantity</p>
-                      <p className="text-gray-800 font-semibold text-lg">
+                    <div className="bg-base-200 rounded-lg p-3">
+                      <p className="text-base-content/70 text-sm mb-1">Quantity</p>
+                      <p className="text-base-content font-semibold text-lg">
                         {order.quantity}
                       </p>
                     </div>
                   </div>
 
                   {/* Chef Information */}
-                  <div className="bg-[#FFE52A] rounded-lg p-4 mb-4">
+                  <div className="bg-amber-glow-50 dark:bg-amber-glow-900/20 border border-amber-glow-200 dark:border-amber-glow-800 rounded-lg p-4 mb-4">
                     <div className="flex items-center gap-3 mb-2">
-                      <div className="w-10 h-10 bg-[#F79A19] rounded-full flex items-center justify-center text-2xl">
+                       <div className="w-10 h-10 bg-amber-glow-100 dark:bg-amber-glow-800 text-amber-glow-600 dark:text-amber-glow-300 rounded-full flex items-center justify-center text-2xl">
                         👨‍🍳
                       </div>
                       <div className="flex-1">
-                        <p className="text-gray-700 text-xs">Chef</p>
-                        <p className="text-gray-900 font-semibold">
+                        <p className="text-base-content/70 text-xs">Chef</p>
+                        <p className="text-base-content font-semibold">
                           {order.chefName || "Unknown Chef"}
                         </p>
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <p className="text-gray-700 text-sm">Chef ID:</p>
-                      <p className="text-gray-900 font-mono font-semibold bg-white px-2 py-1 rounded">
+                      <p className="text-base-content/70 text-sm">Chef ID:</p>
+                      <p className="font-mono font-semibold bg-base-100 px-2 py-1 rounded text-base-content text-sm border border-base-200">
                         {formatChefId(order.chefName, order.chefUid)}
                       </p>
                     </div>
                   </div>
 
                   {/* Delivery Time */}
-                  <div className="flex items-center gap-2 text-gray-700 mb-4 bg-gray-50 rounded-lg p-3">
+                  <div className="flex items-center gap-2 text-base-content mb-4 bg-base-200 rounded-lg p-3">
                     <svg
-                      className="w-5 h-5 text-[#F79A19]"
+                      className="w-5 h-5 text-amber-glow-500"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -219,7 +219,7 @@ const Orders = () => {
                       />
                     </svg>
                     <div>
-                      <p className="text-gray-600 text-xs">Ordered at:</p>
+                      <p className="text-base-content/70 text-xs">Ordered at:</p>
                       <p className="text-sm font-medium">
                         {new Date(order.orderTime).toLocaleString()}
                       </p>
@@ -233,7 +233,7 @@ const Orders = () => {
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         onClick={() => handlePay(order)}
-                        className="w-full bg-[#F79A19] text-white font-semibold px-6 py-3 rounded-lg hover:bg-[#e68a0f] transition-all duration-300 shadow-lg hover:shadow-xl"
+                        className="w-full bg-amber-glow-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-amber-glow-600 transition-all duration-300 shadow-lg hover:shadow-xl"
                       >
                         💳 Pay Now - ${order.price * order.quantity}
                       </motion.button>

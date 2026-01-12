@@ -1,96 +1,140 @@
 import React from "react";
 import { Link } from "react-router";
+import { Facebook, Twitter, Instagram, Mail, Phone, MapPin } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-white pt-10 pb-6">
-      <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
-        <div className="flex flex-col items-start">
-          <div className="flex flex-col items-center mb-4">
+    <footer className="bg-gray-900 dark:bg-gray-950 text-white pt-16 pb-8 border-t border-gray-800">
+      <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+        {/* Brand Section */}
+        <div className="flex flex-col items-start space-y-4">
+          <div className="flex items-center gap-3">
             <img
               src="/fest-flow.png"
               alt="FeastFlow Logo"
-              className="w-24 h-24 object-contain"
+              className="w-12 h-12 object-contain"
             />
-            <span className="text-xl font-bold text-[#F79A19]">FeastFlow</span>
+            <span className="text-2xl font-bold bg-gradient-to-r from-amber-glow-400 to-amber-glow-600 bg-clip-text text-transparent">
+              FeastFlow
+            </span>
           </div>
-          <p className="text-gray-400 text-sm mb-4">
-            Delivering happiness to your doorstep, one meal at a time.
+          <p className="text-gray-400 text-sm leading-relaxed max-w-xs">
+            Connecting home chefs with food lovers. Experience the magic of authentic home cooking delivered to your doorstep.
           </p>
-        </div>
-
-        {/* Contact Details */}
-        <div>
-          <h3 className="text-[#FFE52A] font-bold mb-4">Contact Us</h3>
-          <ul className="text-gray-400 text-sm space-y-2">
-            <li>123 Food Street, Flavor Town</li>
-            <li>Dhaka, Bangladesh</li>
-            <li>Email: support@feastflow.com</li>
-            <li>Phone: +880 123 456 7890</li>
-          </ul>
-        </div>
-
-        {/* Working Hours */}
-        <div>
-          <h3 className="text-[#FFE52A] font-bold mb-4">Working Hours</h3>
-          <ul className="text-gray-400 text-sm space-y-2">
-            <li className="flex justify-between">
-              <span>Mon - Fri:</span> <span>10:00 AM - 10:00 PM</span>
-            </li>
-            <li className="flex justify-between">
-              <span>Saturday:</span> <span>10:00 AM - 11:00 PM</span>
-            </li>
-            <li className="flex justify-between">
-              <span>Sunday:</span> <span>Closed</span>
-            </li>
-          </ul>
-        </div>
-
-        {/* Social Media */}
-        <div>
-          <h3 className="text-[#FFE52A] font-bold mb-4">Follow Us</h3>
-          <div className="flex gap-4">
-            {/* Facebook */}
+          <div className="flex gap-4 pt-2">
             <Link
-              to="https://www.facebook.com"
+              to="https://facebook.com"
               target="_blank"
-              rel="noopener noreferrer"
-              className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-[#F79A19] hover:bg-[#F79A19] hover:text-white transition-colors"
+              className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-amber-glow-500 hover:text-white transition-all duration-300 hover:-translate-y-1"
             >
-              <svg fill="currentColor" viewBox="0 0 24 24" className="w-5 h-5">
-                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.791-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-              </svg>
+              <Facebook size={20} />
             </Link>
-
-            {/* X  */}
             <Link
-              to="https://x.com/feastflow"
+              to="https://twitter.com"
               target="_blank"
-              rel="noopener noreferrer"
-              className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-[#F79A19] hover:bg-[#F79A19] hover:text-white transition-colors"
+              className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-amber-glow-500 hover:text-white transition-all duration-300 hover:-translate-y-1"
             >
-              <svg fill="currentColor" viewBox="0 0 24 24" className="w-5 h-5">
-                <path d="M18.244 2H21.5l-7.5 8.5L22 22h-6.756l-5.244-6.5L5.756 22H2l7.5-8.5L2 2h6.756l5.244 6.5L18.244 2z" />
-              </svg>
+              <Twitter size={20} />
             </Link>
-
-            {/* Instagram */}
             <Link
-              to="https://www.instagram.com/feastflow"
+              to="https://instagram.com"
               target="_blank"
-              rel="noopener noreferrer"
-              className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-[#F79A19] hover:bg-[#F79A19] hover:text-white transition-colors"
+              className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-amber-glow-500 hover:text-white transition-all duration-300 hover:-translate-y-1"
             >
-              <svg fill="currentColor" viewBox="0 0 24 24" className="w-5 h-5">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-              </svg>
+              <Instagram size={20} />
             </Link>
           </div>
+        </div>
+
+        {/* Quick Links */}
+        <div>
+          <h3 className="text-lg font-bold text-white mb-6 relative inline-block">
+            Quick Links
+            <span className="absolute -bottom-2 left-0 w-12 h-1 bg-amber-glow-500 rounded-full"></span>
+          </h3>
+          <ul className="space-y-3">
+            {[
+              { name: "Home", path: "/" },
+              { name: "About Us", path: "/about" },
+              { name: "Our Meals", path: "/meals" },
+              { name: "Featured Chefs", path: "/meals" }, // Redirects to meals for now as chefs are featured there
+              { name: "Blog", path: "/blog" },
+            ].map((link) => (
+              <li key={link.name}>
+                <Link
+                  to={link.path}
+                  className="text-gray-400 hover:text-amber-glow-400 transition-colors flex items-center gap-2 group"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-glow-500 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                  {link.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Support & Legal */}
+        <div>
+          <h3 className="text-lg font-bold text-white mb-6 relative inline-block">
+            Support
+            <span className="absolute -bottom-2 left-0 w-12 h-1 bg-amber-glow-500 rounded-full"></span>
+          </h3>
+          <ul className="space-y-3">
+            {[
+              { name: "Help Center", path: "/help" },
+              { name: "Terms of Service", path: "/terms" },
+              { name: "Privacy Policy", path: "/privacy" },
+   
+              { name: "Become a Chef", path: "/register" },
+            ].map((link) => (
+              <li key={link.name}>
+                <Link
+                  to={link.path}
+                  className="text-gray-400 hover:text-amber-glow-400 transition-colors flex items-center gap-2 group"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-glow-500 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                  {link.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Contact Info */}
+        <div>
+          <h3 className="text-lg font-bold text-white mb-6 relative inline-block">
+            Contact Us
+            <span className="absolute -bottom-2 left-0 w-12 h-1 bg-amber-glow-500 rounded-full"></span>
+          </h3>
+          <ul className="space-y-4">
+            <li className="flex items-start gap-3 text-gray-400">
+              <MapPin className="text-amber-glow-500 shrink-0 mt-1" size={18} />
+              <span>123 Foodie Lane, Culinary District, Dhaka, Bangladesh</span>
+            </li>
+            <li className="flex items-center gap-3 text-gray-400">
+              <Phone className="text-amber-glow-500 shrink-0" size={18} />
+              <span>+880 123 456 7890</span>
+            </li>
+            <li className="flex items-center gap-3 text-gray-400">
+              <Mail className="text-amber-glow-500 shrink-0" size={18} />
+              <span>support@feastflow.com</span>
+            </li>
+          </ul>
         </div>
       </div>
 
-      <div className="border-t border-gray-800 mt-8 pt-6 text-center text-gray-500 text-sm">
-        <p>&copy; {new Date().getFullYear()} FeastFlow. All rights reserved.</p>
+      {/* Bottom Bar */}
+      <div className="border-t border-gray-800 pt-8 mt-8">
+        <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-gray-500 text-sm">
+            &copy; {new Date().getFullYear()} FeastFlow. All rights reserved.
+          </p>
+          <div className="flex gap-6 text-sm text-gray-500">
+            <Link to="/privacy" className="hover:text-amber-glow-400 transition-colors">Privacy</Link>
+            <Link to="/terms" className="hover:text-amber-glow-400 transition-colors">Terms</Link>
+            <Link to="#" className="hover:text-amber-glow-400 transition-colors">Sitemap</Link>
+          </div>
+        </div>
       </div>
     </footer>
   );

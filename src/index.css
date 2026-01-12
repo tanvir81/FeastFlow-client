@@ -1,6 +1,37 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
-html {
+@theme {
+  --color-amber-glow-50: #fef4e6;
+  --color-amber-glow-100: #fde9ce;
+  --color-amber-glow-200: #fbd49d;
+  --color-amber-glow-300: #fabe6b;
+  --color-amber-glow-400: #f8a93a;
+  --color-amber-glow-500: #f69309;
+  --color-amber-glow-600: #c57607;
+  --color-amber-glow-700: #945805;
+  --color-amber-glow-800: #623b04;
+  --color-amber-glow-900: #311d02;
+  --color-amber-glow-950: #221501;
+  
+  --font-sans: "Outfit", sans-serif;
+  --font-serif: "Playfair Display", serif;
+}
+
+html, body {
   scroll-behavior: smooth;
+  font-family: "Outfit", sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Outfit", sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.font-serif {
+  font-family: "Playfair Display", serif !important;
+}
+
+.font-sans {
+  font-family: "Outfit", sans-serif !important;
 }

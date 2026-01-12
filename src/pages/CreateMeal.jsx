@@ -5,12 +5,12 @@ import { useAuth } from "../context/AuthContext";
 
 const InputField = ({ label, error, ...rest }) => (
   <div>
-    <label className="block text-sm font-bold text-gray-700 mb-2">
+    <label className="block text-sm font-bold text-base-content mb-2">
       {label}
     </label>
     <input
       {...rest}
-      className={`w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#FFE52A] focus:border-transparent transition-all ${
+      className={`w-full px-4 py-3 rounded-lg border border-base-300 focus:outline-none focus:ring-2 focus:ring-amber-glow-300 focus:border-transparent transition-all ${
         rest.className || ""
       }`}
     />
@@ -85,14 +85,14 @@ function CreateMeal() {
   };
 
   return (
-    <section className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <section className="min-h-screen bg-base-100 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-          <div className="bg-[#FFE52A] px-8 py-6">
-            <h2 className="text-3xl font-extrabold text-gray-900">
+        <div className="bg-base-100 rounded-2xl shadow-xl overflow-hidden">
+          <div className="bg-amber-glow-300 px-8 py-6">
+            <h2 className="text-3xl font-extrabold text-base-content">
               Create New Meal
             </h2>
-            <p className="text-gray-800 mt-2 font-medium">
+            <p className="text-base-content mt-2 font-medium">
               Share your culinary masterpiece with the world
             </p>
           </div>
@@ -152,7 +152,7 @@ function CreateMeal() {
             </div>
 
             <div>
-              <label className="block text-sm font-bold text-gray-700 mb-2">
+              <label className="block text-sm font-bold text-base-content mb-2">
                 Ingredients
               </label>
               <textarea
@@ -161,7 +161,7 @@ function CreateMeal() {
                 {...register("ingredients", {
                   required: "Ingredients are required",
                 })}
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#FFE52A] focus:border-transparent transition-all"
+                className="w-full px-4 py-3 rounded-lg border border-base-300 focus:outline-none focus:ring-2 focus:ring-amber-glow-300 focus:border-transparent transition-all"
               />
               {errors.ingredients && (
                 <p className="text-red-500 text-sm mt-1">
@@ -191,14 +191,14 @@ function CreateMeal() {
             </div>
 
             <div>
-              <label className="block text-sm font-bold text-gray-700 mb-2">
+              <label className="block text-sm font-bold text-base-content mb-2">
                 Chef Email (Read-only)
               </label>
               <input
                 type="email"
                 value={user?.email || ""}
                 readOnly
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-gray-100 text-gray-500 cursor-not-allowed"
+                className="w-full px-4 py-3 rounded-lg border border-base-300 bg-base-200 text-base-content/60 cursor-not-allowed font-medium"
               />
             </div>
 
@@ -206,7 +206,7 @@ function CreateMeal() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={`w-full flex justify-center py-4 px-4 border border-transparent rounded-lg shadow-sm text-lg font-bold text-gray-900 bg-[#FFE52A] hover:bg-[#FFA239] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FFE52A] transition-colors ${
+                className={`w-full flex justify-center py-4 px-4 border border-transparent rounded-lg shadow-sm text-lg font-bold text-base-content bg-amber-glow-300 hover:bg-amber-glow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-glow-300 transition-colors ${
                   isSubmitting ? "opacity-75 cursor-wait" : ""
                 }`}
               >

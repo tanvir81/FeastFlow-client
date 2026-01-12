@@ -8,6 +8,11 @@ import MyReview from "../pages/MyReview";
 import Home from "../pages/Home";
 import Meals from "../pages/Meals";
 import MealDetails from "../pages/MealDetails";
+import About from "../pages/About";
+import Blog from "../pages/Blog";
+import Contact from "../pages/Contact";
+import HelpSupport from "../pages/HelpSupport";
+import Legal from "../pages/Legal";
 // import Reviews from "../pages/Reviews";
 import Favorites from "../pages/Favorites";
 import Login from "../pages/Login";
@@ -35,6 +40,12 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "meals", element: <Meals /> },
+      { path: "about", element: <About /> },
+      { path: "blog", element: <Blog /> },
+      { path: "contact", element: <Contact /> },
+      { path: "help", element: <HelpSupport /> },
+      { path: "privacy", element: <Legal /> },
+      { path: "terms", element: <Legal /> },
       {
         path: "meals/:id",
         element: (

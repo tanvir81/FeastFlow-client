@@ -83,7 +83,7 @@ const PaymentSuccess = () => {
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Link
                 to="/dashboard/orders"
-                className="inline-block w-full bg-[#F79A19] text-white font-bold py-3 px-6 rounded-xl hover:bg-[#e08914] transition-colors shadow-lg shadow-orange-200"
+                className="inline-block w-full bg-amber-glow-500 text-white font-bold py-3 px-6 rounded-xl hover:bg-amber-glow-600 transition-colors shadow-lg shadow-orange-200"
               >
                 View My Orders
               </Link>

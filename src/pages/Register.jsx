@@ -64,52 +64,77 @@ function Register() {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <section className="min-h-screen flex items-center justify-center bg-base-200 relative overflow-hidden py-12 px-4 sm:px-6 lg:px-8">
+      {/* Animated Background Shapes */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+        <motion.div 
+          animate={{ 
+            scale: [1, 1.2, 1],
+            rotate: [0, -45, 0],
+            x: [0, -30, 0],
+            y: [0, 50, 0]
+          }}
+          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+          className="absolute -top-32 right-0 w-96 h-96 bg-amber-glow-400/20 rounded-full blur-3xl"
+        />
+        <motion.div 
+          animate={{ 
+            scale: [1, 1.4, 1],
+            rotate: [0, 60, 0],
+            x: [0, 40, 0],
+            y: [0, -30, 0]
+          }}
+          transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
+          className="absolute bottom-0 -left-20 w-80 h-80 bg-orange-500/10 rounded-full blur-3xl"
+        />
+      </div>
+
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="max-w-md w-full space-y-8 bg-white p-10 rounded-2xl shadow-xl border border-gray-100"
+        initial={{ opacity: 0, y: 30, scale: 0.95 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.6 }}
+        className="max-w-md w-full space-y-8 bg-base-100/80 backdrop-blur-lg border border-white/20 p-10 rounded-3xl shadow-2xl relative z-10"
       >
-        <div>
-          <h2 className="mt-2 text-center text-3xl font-extrabold text-gray-900">
+        <div className="text-center">
+          <img src="/fest-flow.png" alt="FeastFlow Logo" className="w-20 h-20 mx-auto mb-4 object-contain" />
+          <h2 className="text-3xl font-extrabold text-base-content">
             Create Account
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            Join FeastFlow today
+          <p className="mt-2 text-sm text-base-content/70">
+            Join FeastFlow and start your culinary adventure
           </p>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="mt-8 space-y-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="mt-8 space-y-5">
           {/* Name */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-base-content ml-1 mb-1">
               Full Name
             </label>
             <input
               type="text"
               placeholder="Your Name"
               {...register("name", { required: "Name is required" })}
-              className="appearance-none block w-full px-3 py-3 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-[#FFE52A] focus:border-[#FFE52A] transition-colors duration-200"
+              className="appearance-none block w-full px-4 py-3 border border-base-300 bg-base-100/50 text-base-content rounded-xl placeholder-base-content/40 focus:outline-none focus:ring-2 focus:ring-amber-glow-400/50 focus:border-amber-glow-400 transition-all duration-200"
             />
             {errors.name && (
-              <p className="mt-1 text-sm text-red-500">{errors.name.message}</p>
+              <p className="mt-1 text-sm text-red-500 ml-1">{errors.name.message}</p>
             )}
           </div>
 
           {/* Email */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-base-content ml-1 mb-1">
               Email Address
             </label>
             <input
               type="email"
               placeholder="name@example.com"
               {...register("email", { required: "Email is required" })}
-              className="appearance-none block w-full px-3 py-3 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-[#FFE52A] focus:border-[#FFE52A] transition-colors duration-200"
+              className="appearance-none block w-full px-4 py-3 border border-base-300 bg-base-100/50 text-base-content rounded-xl placeholder-base-content/40 focus:outline-none focus:ring-2 focus:ring-amber-glow-400/50 focus:border-amber-glow-400 transition-all duration-200"
             />
             {errors.email && (
-              <p className="mt-1 text-sm text-red-500">
+              <p className="mt-1 text-sm text-red-500 ml-1">
                 {errors.email.message}
               </p>
             )}
@@ -117,7 +142,7 @@ function Register() {
 
           {/* Profile Image File */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-base-content ml-1 mb-1">
               Profile Picture
             </label>
             <input
@@ -126,10 +151,10 @@ function Register() {
               {...register("photoFile", {
                 required: "Profile image is required",
               })}
-              className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#FFE52A] file:text-gray-800 hover:file:bg-[#e6ce25] transition-colors"
+              className="block w-full text-sm text-base-content file:mr-4 file:py-2.5 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-amber-glow-100 file:text-amber-glow-700 hover:file:bg-amber-glow-200 transition-all"
             />
             {errors.photoFile && (
-              <p className="mt-1 text-sm text-red-500">
+              <p className="mt-1 text-sm text-red-500 ml-1">
                 {errors.photoFile.message}
               </p>
             )}
@@ -137,17 +162,17 @@ function Register() {
 
           {/* Address */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-base-content ml-1 mb-1">
               Delivery Address
             </label>
             <textarea
               rows={2}
               placeholder="123 Main St, City, Country"
               {...register("address", { required: "Address is required" })}
-              className="appearance-none block w-full px-3 py-3 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-[#FFE52A] focus:border-[#FFE52A] transition-colors duration-200 resize-none"
+              className="appearance-none block w-full px-4 py-3 border border-base-300 bg-base-100/50 text-base-content rounded-xl placeholder-base-content/40 focus:outline-none focus:ring-2 focus:ring-amber-glow-400/50 focus:border-amber-glow-400 transition-all duration-200 resize-none"
             />
             {errors.address && (
-              <p className="mt-1 text-sm text-red-500">
+              <p className="mt-1 text-sm text-red-500 ml-1">
                 {errors.address.message}
               </p>
             )}
@@ -156,7 +181,7 @@ function Register() {
           {/* Password Group */}
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-base-content ml-1 mb-1">
                 Password
               </label>
               <input
@@ -169,17 +194,17 @@ function Register() {
                     message: "Min 6 chars",
                   },
                 })}
-                className="appearance-none block w-full px-3 py-3 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-[#FFE52A] focus:border-[#FFE52A] transition-colors duration-200"
+                className="appearance-none block w-full px-4 py-3 border border-base-300 bg-base-100/50 text-base-content rounded-xl placeholder-base-content/40 focus:outline-none focus:ring-2 focus:ring-amber-glow-400/50 focus:border-amber-glow-400 transition-all duration-200"
               />
               {errors.password && (
-                <p className="mt-1 text-sm text-red-500">
+                <p className="mt-1 text-sm text-red-500 ml-1">
                   {errors.password.message}
                 </p>
               )}
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-base-content ml-1 mb-1">
                 Confirm
               </label>
               <input
@@ -188,10 +213,10 @@ function Register() {
                 {...register("confirmPassword", {
                   required: "Required",
                 })}
-                className="appearance-none block w-full px-3 py-3 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-[#FFE52A] focus:border-[#FFE52A] transition-colors duration-200"
+                className="appearance-none block w-full px-4 py-3 border border-base-300 bg-base-100/50 text-base-content rounded-xl placeholder-base-content/40 focus:outline-none focus:ring-2 focus:ring-amber-glow-400/50 focus:border-amber-glow-400 transition-all duration-200"
               />
               {errors.confirmPassword && (
-                <p className="mt-1 text-sm text-red-500">
+                <p className="mt-1 text-sm text-red-500 ml-1">
                   {errors.confirmPassword.message}
                 </p>
               )}
@@ -201,12 +226,12 @@ function Register() {
           <motion.div
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="pt-4"
+            className="pt-2"
           >
             <button
               type="submit"
               disabled={isSubmitting}
-              className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-bold rounded-lg text-white bg-[#F79A19] hover:bg-[#e08914] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#F79A19] transition-all duration-200 shadow-md"
+              className="group relative w-full flex justify-center py-3.5 px-4 border border-transparent text-sm font-bold rounded-xl text-white bg-gradient-to-r from-amber-glow-500 to-orange-500 hover:from-amber-glow-600 hover:to-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-glow-500 transition-all duration-200 shadow-lg shadow-orange-500/30"
             >
               {isSubmitting ? (
                 <span className="flex items-center">
@@ -239,11 +264,11 @@ function Register() {
           </motion.div>
         </form>
 
-        <div className="text-center mt-4">
-          <p className="text-sm text-gray-600">
+        <div className="text-center mt-6">
+          <p className="text-sm text-base-content/70">
             Already have an account?{" "}
             <a
-              className="font-medium text-[#F79A19] hover:text-[#e08914] transition-colors"
+              className="font-bold text-amber-glow-600 hover:text-amber-glow-500 transition-colors"
               href="/login"
             >
               Sign in

@@ -59,9 +59,9 @@ export default function ManageRequests() {
   };
 
   return (
-    <section className="min-h-screen bg-gray-50 py-10 px-4 md:px-8">
+    <section className="min-h-screen bg-base-100 py-10 px-4 md:px-8">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold mb-8 text-gray-800 text-center">
+        <h2 className="text-3xl font-bold mb-8 text-base-content text-center">
           Manage Role Requests
         </h2>
         {loading ? (
@@ -69,32 +69,32 @@ export default function ManageRequests() {
         ) : requests.length === 0 ? (
           <div className="text-center py-20">
             <ClipboardList size={64} className="mx-auto text-gray-300 mb-4" />
-            <p className="text-gray-500 text-lg">No requests found.</p>
+            <p className="text-base-content/60 text-lg">No requests found.</p>
           </div>
         ) : (
           <>
             {/* Table */}
-            <div className="hidden md:block bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
+            <div className="hidden md:block bg-base-100 rounded-xl shadow-md overflow-hidden border border-base-200">
               <div className="overflow-x-auto">
                 <table className="w-full">
-                  <thead className="bg-[#FFE52A] border-b border-gray-200">
+                  <thead className="bg-amber-glow-300 border-b border-base-200">
                     <tr>
-                      <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">
+                      <th className="px-6 py-4 text-left text-sm font-semibold text-base-content">
                         User
                       </th>
-                      <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">
+                      <th className="px-6 py-4 text-left text-sm font-semibold text-base-content">
                         Email
                       </th>
-                      <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">
+                      <th className="px-6 py-4 text-left text-sm font-semibold text-base-content">
                         Requested Role
                       </th>
-                      <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">
+                      <th className="px-6 py-4 text-left text-sm font-semibold text-base-content">
                         Request Time
                       </th>
-                      <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">
+                      <th className="px-6 py-4 text-left text-sm font-semibold text-base-content">
                         Status
                       </th>
-                      <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">
+                      <th className="px-6 py-4 text-left text-sm font-semibold text-base-content">
                         Actions
                       </th>
                     </tr>
@@ -103,7 +103,7 @@ export default function ManageRequests() {
                     {requests.map((req) => (
                       <tr
                         key={req._id}
-                        className="hover:bg-[#FFA239] transition-colors"
+                        className="hover:bg-amber-glow-400 transition-colors"
                       >
                         <td className="px-6 py-4">
                           <div className="flex items-center gap-3">
@@ -111,35 +111,35 @@ export default function ManageRequests() {
                               <img
                                 src={req.userImage}
                                 alt={req.userName}
-                                className="w-10 h-10 rounded-full object-cover border border-gray-200"
+                                className="w-10 h-10 rounded-full object-cover border border-base-200"
                               />
                             ) : (
-                              <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-xs font-bold">
+                              <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-base-content/60 text-xs font-bold">
                                 N/A
                               </div>
                             )}
-                            <span className="font-medium text-gray-800">
+                            <span className="font-medium text-base-content">
                               {req.userName || "Unknown User"}
                             </span>
                           </div>
                         </td>
-                        <td className="px-6 py-4 text-gray-600">{req.email}</td>
-                        <td className="px-6 py-4 capitalize text-gray-700 font-medium">
+                        <td className="px-6 py-4 text-base-content/70">{req.email}</td>
+                        <td className="px-6 py-4 capitalize text-base-content font-medium">
                           {req.requestedRole}
                         </td>
-                        <td className="px-6 py-4 text-gray-600 text-sm">
+                        <td className="px-6 py-4 text-base-content/70 text-sm">
                           {req.createdAt
                             ? new Date(req.createdAt).toLocaleString()
                             : "N/A"}
                         </td>
                         <td className="px-6 py-4 capitalize">
                           <span
-                            className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                            className={`px-3 py-1 rounded-full text-xs font-semibold border ${
                               req.status === "approved"
-                                ? "bg-green-100 text-green-600"
+                                ? "bg-green-100 text-green-600 border-green-200 dark:bg-green-900/30 dark:text-green-300 dark:border-green-800"
                                 : req.status === "rejected"
-                                ? "bg-red-100 text-red-600"
-                                : "bg-yellow-100 text-yellow-600"
+                                ? "bg-red-100 text-red-600 border-red-200 dark:bg-red-900/30 dark:text-red-300 dark:border-red-800"
+                                : "bg-amber-100 text-amber-600 border-amber-200 dark:bg-amber-900/30 dark:text-amber-300 dark:border-amber-800"
                             }`}
                           >
                             {req.status}
@@ -150,10 +150,10 @@ export default function ManageRequests() {
                             <button
                               onClick={() => handleAction(req._id, "approved")}
                               disabled={req.status !== "pending"}
-                              className={`px-3 py-1 rounded text-sm font-medium transition ${
+                              className={`px-3 py-1 rounded text-sm font-medium transition border ${
                                 req.status !== "pending"
-                                  ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-                                  : "bg-green-600 text-white hover:bg-green-700"
+                                  ? "bg-base-200 text-base-content/40 cursor-not-allowed border-base-300"
+                                  : "bg-green-50 text-green-600 border-green-200 hover:bg-green-100 dark:bg-green-900/30 dark:text-green-300 dark:border-green-800 dark:hover:bg-green-900/50"
                               }`}
                             >
                               Approve
@@ -161,10 +161,10 @@ export default function ManageRequests() {
                             <button
                               onClick={() => handleAction(req._id, "rejected")}
                               disabled={req.status !== "pending"}
-                              className={`px-3 py-1 rounded text-sm font-medium transition ${
+                              className={`px-3 py-1 rounded text-sm font-medium transition border ${
                                 req.status !== "pending"
-                                  ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-                                  : "bg-red-600 text-white hover:bg-red-700"
+                                  ? "bg-base-200 text-base-content/40 cursor-not-allowed border-base-300"
+                                  : "bg-red-50 text-red-600 border-red-200 hover:bg-red-100 dark:bg-red-900/30 dark:text-red-300 dark:border-red-800 dark:hover:bg-red-900/50"
                               }`}
                             >
                               Reject
@@ -183,7 +183,7 @@ export default function ManageRequests() {
               {requests.map((req) => (
                 <div
                   key={req._id}
-                  className="bg-white rounded-xl shadow-sm border border-gray-200 p-4"
+                  className="bg-base-100 rounded-xl shadow-sm border border-base-200 p-4"
                 >
                   <div className="flex justify-between items-start mb-4">
                     <div className="flex items-center gap-3">
@@ -191,18 +191,18 @@ export default function ManageRequests() {
                         <img
                           src={req.userImage}
                           alt={req.userName}
-                          className="w-12 h-12 rounded-full object-cover border border-gray-200"
+                          className="w-12 h-12 rounded-full object-cover border border-base-200"
                         />
                       ) : (
-                        <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-xs font-bold">
+                        <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center text-base-content/60 text-xs font-bold">
                           N/A
                         </div>
                       )}
                       <div>
-                        <h3 className="font-semibold text-gray-800 text-lg leading-tight">
+                        <h3 className="font-semibold text-base-content text-lg leading-tight">
                           {req.userName || "Unknown User"}
                         </h3>
-                        <p className="text-gray-500 text-sm break-all">
+                        <p className="text-base-content/60 text-sm break-all">
                           {req.email}
                         </p>
                       </div>
@@ -220,16 +220,16 @@ export default function ManageRequests() {
                     </span>
                   </div>
 
-                  <div className="mb-4 bg-gray-50 p-3 rounded-lg space-y-2">
-                    <p className="text-sm text-gray-600">
+                  <div className="mb-4 bg-base-100 p-3 rounded-lg space-y-2">
+                    <p className="text-sm text-base-content/70">
                       Requested Role:{" "}
-                      <span className="font-bold text-gray-800 capitalize">
+                      <span className="font-bold text-base-content capitalize">
                         {req.requestedRole}
                       </span>
                     </p>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-base-content/70">
                       Time:{" "}
-                      <span className="font-medium text-gray-800">
+                      <span className="font-medium text-base-content">
                         {req.createdAt
                           ? new Date(req.createdAt).toLocaleString()
                           : "N/A"}

@@ -51,9 +51,9 @@ const ErrorPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-[#FFE52A]/10 via-white to-[#F79A19]/10 flex items-center justify-center px-4 overflow-hidden relative">
+    <div className="min-h-screen bg-linear-to-br from-amber-glow-300/10 via-white to-amber-glow-500/10 flex items-center justify-center px-4 overflow-hidden relative">
       <motion.div
-        className="absolute top-20 left-10 text-[#FFE52A] opacity-20"
+        className="absolute top-20 left-10 text-amber-glow-300 opacity-20"
         animate={{
           y: [0, -30, 0],
           x: [0, 20, 0],
@@ -68,7 +68,7 @@ const ErrorPage = () => {
       </motion.div>
 
       <motion.div
-        className="absolute bottom-20 right-10 text-[#F79A19] opacity-20"
+        className="absolute bottom-20 right-10 text-amber-glow-500 opacity-20"
         animate={{
           y: [0, 30, 0],
           x: [0, -20, 0],
@@ -83,7 +83,7 @@ const ErrorPage = () => {
       </motion.div>
 
       <motion.div
-        className="absolute top-1/2 left-5 text-[#FFE52A] opacity-15"
+        className="absolute top-1/2 left-5 text-amber-glow-300 opacity-15"
         variants={plateVariants}
         animate="animate"
       >
@@ -91,7 +91,7 @@ const ErrorPage = () => {
       </motion.div>
 
       <motion.div
-        className="absolute bottom-1/3 right-20 text-[#F79A19] opacity-15"
+        className="absolute bottom-1/3 right-20 text-amber-glow-500 opacity-15"
         variants={plateVariants}
         animate="animate"
       >
@@ -107,7 +107,7 @@ const ErrorPage = () => {
         <motion.div className="relative mb-8" variants={itemVariants}>
           <div className="flex items-center justify-center leading-none">
             <motion.span
-              className="text-[150px] md:text-[200px] font-bold text-transparent bg-clip-text bg-linear-to-r from-[#FFE52A] to-[#F79A19]"
+              className="text-[150px] md:text-[200px] font-bold text-transparent bg-clip-text bg-linear-to-r from-amber-glow-300 to-amber-glow-500"
               variants={floatingVariants}
               animate="animate"
             >
@@ -126,13 +126,13 @@ const ErrorPage = () => {
               }}
             >
               <UtensilsCrossed
-                className="text-[#F79A19]"
+                className="text-amber-glow-500"
                 size={100}
                 strokeWidth={2.5}
               />
             </motion.span>
             <motion.span
-              className="text-[150px] md:text-[200px] font-bold text-transparent bg-clip-text bg-linear-to-r from-[#FFE52A] to-[#F79A19]"
+              className="text-[150px] md:text-[200px] font-bold text-transparent bg-clip-text bg-linear-to-r from-amber-glow-300 to-amber-glow-500"
               variants={floatingVariants}
               animate="animate"
             >
@@ -144,11 +144,11 @@ const ErrorPage = () => {
         {/* Error message */}
         <motion.div variants={itemVariants} className="mb-6">
           <motion.div
-            className="inline-flex items-center gap-2 bg-[#FFE52A]/20 px-6 py-3 rounded-full mb-4"
+            className="inline-flex items-center gap-2 bg-amber-glow-300/20 px-6 py-3 rounded-full mb-4"
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
-            <AlertCircle className="text-[#F79A19]" size={24} />
+            <AlertCircle className="text-amber-glow-500" size={24} />
             <span className="text-gray-800 font-semibold">
               Oops! Page Not Found
             </span>
@@ -178,7 +178,7 @@ const ErrorPage = () => {
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Link
               to="/"
-              className="inline-flex items-center gap-2 bg-linear-to-r from-[#FFE52A] to-[#F79A19] text-gray-900 font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-shadow"
+              className="inline-flex items-center gap-2 bg-linear-to-r from-amber-glow-300 to-amber-glow-500 text-gray-900 font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-shadow"
             >
               <Home size={20} />
               Back to Home
@@ -188,7 +188,7 @@ const ErrorPage = () => {
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Link
               to="/meals"
-              className="inline-flex items-center gap-2 bg-white text-gray-800 font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-shadow border-2 border-[#FFE52A]"
+              className="inline-flex items-center gap-2 bg-white text-gray-800 font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-shadow border-2 border-amber-glow-300"
             >
               <UtensilsCrossed size={20} />
               Browse Meals
@@ -203,7 +203,7 @@ const ErrorPage = () => {
           {[...Array(5)].map((_, i) => (
             <motion.div
               key={i}
-              className="w-3 h-3 rounded-full bg-linear-to-r from-[#FFE52A] to-[#F79A19]"
+              className="w-3 h-3 rounded-full bg-linear-to-r from-amber-glow-300 to-amber-glow-500"
               animate={{
                 scale: [1, 1.5, 1],
                 opacity: [0.5, 1, 0.5],

@@ -40,9 +40,9 @@ const Favorites = () => {
   };
 
   return (
-    <section className="min-h-screen bg-gray-50 py-10 px-4 md:px-8">
+    <section className="min-h-screen bg-base-100 py-10 px-4 md:px-8">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold mb-8 text-gray-800 text-center">
+        <h2 className="text-3xl font-bold mb-8 text-base-content text-center">
           My Favorite Meals
         </h2>
 
@@ -51,54 +51,54 @@ const Favorites = () => {
         ) : favorites.length === 0 ? (
           <div className="text-center py-20">
             <UtensilsCrossed size={64} className="mx-auto text-gray-300 mb-4" />
-            <p className="text-gray-500 text-lg">No favorites yet.</p>
-            <p className="text-gray-400 text-sm mt-2">
+            <p className="text-base-content/60 text-lg">No favorites yet.</p>
+            <p className="text-base-content/50 text-sm mt-2">
               Start adding meals to your favorites!
             </p>
           </div>
         ) : (
-          <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
+          <div className="bg-base-100 border border-base-200 rounded-xl shadow-md overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gray-100 border-b border-gray-200">
+                <thead className="bg-base-200 border-b border-base-300">
                   <tr>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">
+                    <th className="px-6 py-4 text-left text-sm font-semibold text-base-content">
                       Meal Name
                     </th>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">
+                    <th className="px-6 py-4 text-left text-sm font-semibold text-base-content">
                       Chef Name
                     </th>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">
+                    <th className="px-6 py-4 text-left text-sm font-semibold text-base-content">
                       Price
                     </th>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">
+                    <th className="px-6 py-4 text-left text-sm font-semibold text-base-content">
                       Date Added
                     </th>
-                    <th className="px-6 py-4 text-center text-sm font-semibold text-gray-700">
+                    <th className="px-6 py-4 text-center text-sm font-semibold text-base-content">
                       Action
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-100">
+                <tbody className="divide-y divide-base-200">
                   {favorites.map((fav) => (
                     <tr
                       key={fav._id}
-                      className="hover:bg-gray-50 transition-colors"
+                      className="hover:bg-base-200 transition-colors"
                     >
                       <td className="px-6 py-4">
-                        <span className="font-medium text-gray-800">
+                        <span className="font-medium text-base-content">
                           {fav.mealName}
                         </span>
                       </td>
-                      <td className="px-6 py-4 text-gray-600">
+                      <td className="px-6 py-4 text-base-content/70">
                         {fav.chefName}
                       </td>
                       <td className="px-6 py-4">
-                        <span className="text-[#F79A19] font-semibold">
+                        <span className="text-amber-glow-500 font-semibold">
                           ${fav.price}
                         </span>
                       </td>
-                      <td className="px-6 py-4 text-gray-500 text-sm">
+                      <td className="px-6 py-4 text-base-content/60 text-sm">
                         {new Date(fav.addedTime).toLocaleDateString()}
                       </td>
                       <td className="px-6 py-4 text-center">
