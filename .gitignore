@@ -11,11 +11,11 @@ node_modules
 dist
 dist-ssr
 *.local
-# .env
-# .env.local
-# .env.development.local
-# .env.test.local
-# .env.production.local
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # Editor directories and files
 .vscode/*
@@ -27,6 +27,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-# Firebase / other service configs
+Firebase / other service configs
 firebase.json
 *.secret.json

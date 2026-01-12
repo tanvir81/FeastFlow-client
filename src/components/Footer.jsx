@@ -127,7 +127,7 @@ export default function Footer() {
       <div className="border-t border-gray-800 pt-8 mt-8">
         <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-gray-500 text-sm">
-            &copy; {new Date().getFullYear()} FeastFlow. All rights reserved.
+            &copy; {new Date().getFullYear()} FeastFlow. All rights reserved. | Build: 2026-01-12 14:47
           </p>
           <div className="flex gap-6 text-sm text-gray-500">
             <Link to="/privacy" className="hover:text-amber-glow-400 transition-colors">Privacy</Link>
